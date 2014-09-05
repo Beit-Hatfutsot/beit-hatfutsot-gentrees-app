@@ -1,0 +1,8 @@
+<form name="registrationForm">
+    <span class="form-group">
+        <label>Email</label>
+        <input type="email" required ng-model="model.email" name="email">
+        <p>{{registrationForm.$error}}</p>
+    </span>
+    <button class="btn btn-default" ng-click="register()" ng-disabled="!registrationForm.$valid">Register</button>
+</form>

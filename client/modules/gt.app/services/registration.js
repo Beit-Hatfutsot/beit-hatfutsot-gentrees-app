@@ -6,30 +6,51 @@ angular.module('gt.app').factory('gtRegistrationSvc',
 
         function ($http, rfc4122) {
 
-            localStorage.deviceId = localStorage.deviceId || rfc4122.v4();
 
-            var exports =  {
+            var exports = {
 
-                get confirmed (){
-                    return Boolean(localStorage.confirmed);
+                get status() {
+                    if (localStorage.confirimationCode) {
+                        return 'confirmed';
+                    }
+                    if (localStorage.deviceId) {
+                        return 'pending';
+                    }
+                    return 'init';
                 },
 
-                confirm : function(code){
-                    return $http('api/v1/registration/confirm', {
-                        json: true,
-                        body: JSON.stringify({code: code, deviceId: localStorage.deviceId})
-                    }).then(function(result){
-                        localStorage.confirmed = Boolean(result.confirmed);
-                    });
+                confirm: function (code) {
+                    return $http.post('api/v1/registration/confirm', {code: code, deviceId: localStorage.deviceId})
+                        .then(function (result) {
+                            if (Boolean(result)) {
+                                localStorage.confirimationCode = code;
+                                return true;
+                            }
+                            return false;
+                        });
                 },
 
-                sendMail : function(email){
-                    return $http('api/v1/registration/mail', {
-                        json: true,
-                        body: JSON.stringify({deviceId: localStorage.deviceId, email: email})
-                    });
+                sendMail: function (email) {
+                    var deviceId = localStorage.deviceId || rfc4122.v4();
+                    return $http.post('api/v1/registration/mail', {deviceId: deviceId, email: email})
+                        .then(function () {
+                            localStorage.deviceId = deviceId;
+                        });
+                },
+
+                saveModel : function(model){
+                    return $http.post('api/v1/save', {
+                            deviceId: localStorage.deviceId,
+                            code: localStorage.confirimationCode,
+                            model: model
+                        })
+                        .then(function () {
+                            localStorage.deviceId = deviceId;
+                        });
                 }
             }
+
+            return exports;
 
         }
     ]

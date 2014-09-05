@@ -5,13 +5,20 @@ angular.module('gt.app').config(['$stateProvider', '$urlRouterProvider', '$locat
 
         $locationProvider.hashPrefix('!');
 
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/welcome');
 
-        $stateProvider.
-            state('home', {
-                url: '/',
-                templateUrl: 'modules/gt.app/views/home.html',
-                controller: 'gtHomeCtrl'
-            });
+        var states = {'welcome':['init'], 'register':['init', 'pending'], 'confirm':['pending'], 'home':['confirmed']};
+
+        _.each(states, function(statuses, stateName){
+            $stateProvider.
+                state(stateName, {
+                    url: '/' + stateName,
+                    templateUrl: 'modules/gt.app/views/'+ stateName +'.html',
+                    controller: 'gt' + stateName.substr(0,1).toUpperCase() + stateName.substr(1) + 'Ctrl',
+                    data: {
+                        allowedStatuses: statuses
+                    }
+                });
+        })
     }
 ]);

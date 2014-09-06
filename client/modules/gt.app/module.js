@@ -1,35 +1,57 @@
-'use strict';
+(function () {
 
-angular.module('gt.app', ['uuid', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils']);
+    'use strict';
 
-angular.element(document).ready(function () {
-    angular.bootstrap(document, ['gt.app']);
-});
+    function createModel(){
 
-angular.module('gt.app').run(['$templateCache', '$state', '$rootScope', 'gtRegistrationSvc',
-    function ($templateCache, $state, $rootScope, regSvc) {
-        $templateCache.put('shell.html', '<div ng-include="\'/modules/gt.app/views/shell.html\'"></div>');
+        var mom = {isWife: true, isMale: false, isMaleNotEditable: true, isAlive: true},
+            dad = {isMale: false, isMaleNotEditable: true, isAlive: true};
+
+        return {
+            me : {isAliveNotEditable: true, isAlive: true},
+            dad: _.clone(dad),
+            mom: _.clone(mom),
+            momsDad : _.clone(dad),
+            momsMom : _.clone(mom),
+            dadsDad : _.clone(dad),
+            dadsMom : _.clone(mom),
+            numBrothers: undefined,
+            brothers: []
+        }
+    }
+
+    angular.module('gt.app', ['uuid', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils', 'pascalprecht.translate']);
+
+    angular.element(document).ready(function () {
+        angular.bootstrap(document, ['gt.app']);
+    });
+
+    angular.module('gt.app').run(['$templateCache', '$state', '$rootScope', 'gtRegistrationSvc',
+        function ($templateCache, $state, $rootScope, regSvc) {
+            $templateCache.put('shell.html', '<div ng-include="\'/modules/gt.app/views/shell.html\'"></div>');
 
 
-        $rootScope.model = JSON.parse(localStorage.model || '{}');
+            $rootScope.model = localStorage.model ? JSON.parse(localStorage.model) : createModel();
 
-        $rootScope.$watch('model', function () {
-            localStorage.model = JSON.stringify($rootScope.model);
-        }, true);
+            $rootScope.$watch('model', function () {
+                localStorage.model = JSON.stringify($rootScope.model);
+            }, true);
 
 
-        $rootScope.$on('$stateChangeStart', function (event, toState) {
+            $rootScope.$on('$stateChangeStart', function (event, toState) {
 
-            var status = regSvc.status,
-                allowedStatuses = toState.data.allowedStatuses;
+                var status = regSvc.status,
+                    allowedStatuses = toState.data.allowedStatuses;
 
-            if (!_.contains(allowedStatuses, status)) {
-                event.preventDefault();
-                var newState = _.findLast($state.get(), function (s) {
-                    return s.data &&  _.contains(s.data.allowedStatuses, status);
-                });
-                $state.go(newState);
-            }
-        });
+                if (!_.contains(allowedStatuses, status)) {
+                    event.preventDefault();
+                    var newState = _.findLast($state.get(), function (s) {
+                        return s.data && _.contains(s.data.allowedStatuses, status);
+                    });
+                    $state.go(newState);
+                }
+            });
 
-    }]);
+        }]);
+
+})();

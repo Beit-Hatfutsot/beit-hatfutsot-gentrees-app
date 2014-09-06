@@ -1,6 +1,20 @@
 <div>
-    home 1
+    <gt-person model="model.me" tittle="{{'My Details' | translate}}"></gt-person>
+</div>
 
-    <button ng-click="resendRegistrationMail()">Resend Mail</button>
-    <button ng-click="confirmRegistration()">Confirm</button>
+<div>
+    <gt-person model="model.mom" tittle="{{'Mom' | translate}}"></gt-person>
+    <gt-person model="model.momsDad" tittle="{{'Mom\'s Dad' | translate}}"></gt-person>
+    <gt-person model="model.momsMom" tittle="{{'Mom\'s Mom' | translate}}"/>
+</div>
+
+<div>
+    <gt-person model="model.mom" tittle="{{'Dad' | translate}}"></gt-person>
+    <gt-person model="model.momsDad" tittle="{{'Dad\'s Dad' | translate}}"></gt-person>
+    <gt-person model="model.momsMom" tittle="{{'Dad\'s Mom' | translate}}"/>
+</div>
+
+
+<div ng-repeat="brother in model.brothers">
+    <gt-person model="brother" tittle="{{'Brother' | translate}} $index()"></gt-person>
 </div>

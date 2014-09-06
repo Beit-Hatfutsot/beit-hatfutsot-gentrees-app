@@ -1,1 +1,29 @@
-@import "../../../lib/bootstrap/less/bootstrap";
+body {
+  direction: rtl;
+}
+.gt-gender {
+
+  span.icon-gender {
+    display: block;
+    float: left;
+    width: 30px;
+    height: 30px;
+    background-size: 20px 30px;
+  }
+
+  .icon-female {
+
+    background: transparent url(asstes/icon.female.off.png) no-repeat;
+    &.selected{
+      background-image: url(asstes/icon.female.on.png);
+    }
+  }
+
+  .icon-male {
+    background: transparent url(asstes/icon.male.off.png) no-repeat;
+    &.selected{
+      background-image: url(asstes/icon.male.on.png);
+    }
+  }
+}
+

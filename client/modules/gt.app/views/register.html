@@ -1,8 +1,13 @@
-<form name="registrationForm">
+<form name="form">
     <span class="form-group">
         <label>Email</label>
         <input type="email" required ng-model="model.email" name="email">
-        <p>{{registrationForm.$error}}</p>
+        <p>{{form.$error}}</p>
     </span>
-    <button class="btn btn-default" ng-click="register()" ng-disabled="!registrationForm.$valid">Register</button>
+        <span class="form-group">
+        <label>I agree</label>
+        <input type="checkbox" required ng-model="agree" name="agree">
+    </span>
+
+    <button class="btn btn-default" ng-click="register()" ng-disabled="!form.$valid || !agree">Register</button>
 </form>

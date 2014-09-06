@@ -1,0 +1,36 @@
+<div class="gt-person">
+
+    <h3 ng-show="tittle">{{tittle}}</h3>
+
+    <form name="form">
+
+        <div class="form-group">
+            <input type="text" placeholder="{{'First Name' | translate}}" ng-model="model.firstName">
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="{{model.isWife ? 'Maiden Name' : 'Last Name' | translate}}" ng-model="model.lastName">
+        </div>
+        <div class="form-group gt-gender" ng-show="!model.isMaleNotEditable">
+            <label translate="Gender"></label>
+            <label><span class="icon-gender icon-male" ng-model="model.isMale" btn-radio="true" uncheckable ng-class="{selected: model.isMale}"/></label>
+            <label><span class="icon-gender icon-female" ng-model="model.isMale" btn-radio="false" uncheckable ng-class="{selected: !model.isMale}"/></label>
+        </div>
+        <div class="form-group">
+            <label>{{'Date of Birth' | translate}}</label>
+            <gt-date model="model.dateOfBirth"/>
+        </div>
+        <div class="form-group" ng-show="!model.isAlive">
+            <label>{{'Date of Death' | translate}}</label>
+            <gt-date model="model.dateOfDeath"/>
+        </div>
+        <div class="form-group">
+            <label>{{'Place of Birth' | translate}}</label>
+            <input type="text" ng-model="model.placeOfBirth">
+        </div>
+        <div class="form-group" ng-show="!model.isAliveNotEditable">
+            <span ng-model="model.isAlive" class="icon-checkbox" ng-class="{on: model.isAlive}" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false"></span>
+        </div>
+
+    </form>
+
+</div>

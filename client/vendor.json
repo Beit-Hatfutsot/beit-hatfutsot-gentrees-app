@@ -17,15 +17,16 @@
 
         "lib/moment/moment.js",
 
-        "locallib/mobiscroll/js/mobiscroll-core.js",
-        "locallib/mobiscroll/js/mobiscroll-scroller.js",
-        "locallib/mobiscroll/js/mobiscroll-datetime.js"
+        "locallib/mobiscroll/js/mobiscroll-core-dbg.js",
+        "locallib/mobiscroll/js/mobiscroll-scroller-dbg.js",
+        "locallib/mobiscroll/js/mobiscroll-datetime-dbg.js"
     ],
     
     "css" : [
-        "locallib/mobiscroll/css/mobiscroll-core.css",
         "lib/bootstrap-rtl/dist/css/bootstrap.css",
         "lib/bootstrap-rtl/dist/css/bootstrap-rtl.css",
-        "lib/font-awesome/css/font-awesome.css"
+        "lib/font-awesome/css/font-awesome.css",
+        "locallib/fonts/aharoni/stylesheet.css",
+        "locallib/mobiscroll/css/mobiscroll-core.css"
     ]
 }

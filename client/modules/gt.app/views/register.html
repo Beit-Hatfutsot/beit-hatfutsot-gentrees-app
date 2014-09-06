@@ -1,13 +1,14 @@
+<header>header <button ng-click="clear()">Clear</button></header>
 <form name="form">
     <span class="form-group">
-        <label>Email</label>
+        <label translate="Email"></label>
         <input type="email" required ng-model="model.email" name="email">
         <p>{{form.$error}}</p>
     </span>
         <span class="form-group">
-        <label>I agree</label>
+        <label translate="I agree"></label>
         <input type="checkbox" required ng-model="agree" name="agree">
     </span>
 
-    <button class="btn btn-default" ng-click="register()" ng-disabled="!form.$valid || !agree">Register</button>
+    <button class="btn btn-default" ng-click="register()" ng-disabled="!form.$valid || !agree" translate="Register"></button>
 </form>

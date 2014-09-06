@@ -7,6 +7,6 @@ angular.module('gt.app').controller('gtRegisterCtrl',
             regSvc.sendMail($scope.model.email).then(function(){
                 $state.go('confirm');
             });
-        }
+        };
 
     }]);

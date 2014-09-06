@@ -1,0 +1,25 @@
+.gt-gender {
+
+  span.icon-gender {
+    display: block;
+    float: left;
+    width: 30px;
+    height: 30px;
+    background-size: 20px 30px;
+  }
+
+  .icon-female {
+
+    background: transparent url("@{assets}/icon.female.off.png") no-repeat;
+    &.selected{
+      background-image: url("@{assets}/icon.female.on.png");
+    }
+  }
+
+  .icon-male {
+    background: transparent url("@{assets}/icon.male.off.png") no-repeat;
+    &.selected{
+      background-image: url("@{assets}/icon.male.on.png");
+    }
+  }
+}

@@ -43,12 +43,9 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                             deviceId: localStorage.deviceId,
                             code: localStorage.confirimationCode,
                             model: model
-                        })
-                        .then(function () {
-                            localStorage.deviceId = deviceId;
                         });
                 }
-            }
+            };
 
             return exports;
 

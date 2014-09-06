@@ -17,7 +17,7 @@
             dadsMom : _.clone(mom),
             numBrothers: undefined,
             brothers: []
-        }
+        };
     }
 
     angular.module('gt.app', ['uuid', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils', 'pascalprecht.translate']);
@@ -37,6 +37,13 @@
                 localStorage.model = JSON.stringify($rootScope.model);
             }, true);
 
+
+            $rootScope.clear = function(){
+              for(var k in localStorage){
+                  delete localStorage[k];
+              }
+              $state.go('welcome');
+            };
 
             $rootScope.$on('$stateChangeStart', function (event, toState) {
 

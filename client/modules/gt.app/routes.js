@@ -19,6 +19,6 @@ angular.module('gt.app').config(['$stateProvider', '$urlRouterProvider', '$locat
                         allowedStatuses: statuses
                     }
                 });
-        })
+        });
     }
 ]);

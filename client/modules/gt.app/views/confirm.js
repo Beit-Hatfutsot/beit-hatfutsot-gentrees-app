@@ -11,6 +11,6 @@ angular.module('gt.app').controller('gtConfirmCtrl',
                 function (err) {
 
                 });
-        }
+        };
 
     }]);

@@ -15,6 +15,6 @@ angular.module('gt.app').controller('gtHomeCtrl',
 
         $scope.confirmRegistration = function () {
             regSvc.confirm($scope.registrationCode);
-        }
+        };
 
     }]);

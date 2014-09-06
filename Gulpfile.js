@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     bundle = require('gulp-bundle-file'),
+    base64 = require('gulp-base64'),
     gutil = require('gulp-util'),
     watch = require('gulp-watch'),
     jshint = require('gulp-jshint'),
@@ -19,7 +20,7 @@ var gulp = require('gulp'),
     fs = require('fs'),
     _ = require('lodash');
 
-var concatFiles = process.env.NODE_ENV === 'production'; //todo: determine/change based on target of compilation, and maybe add some more params, such as compression, maps etc.
+var concatFiles =  process.env.NODE_ENV === 'production'; //todo: determine/change based on target of compilation, and maybe add some more params, such as compression, maps etc.
 
 var paths = {
     dist : 'server/public/',
@@ -75,7 +76,9 @@ gulp.task('server.js', ['server.js.lint'], function (cb) {
 });
 
 gulp.task('statics', function(){
+    gutil.log(sources['statics']);
     return gulp.src(sources['statics'])
+        .pipe(print())
         .pipe(changed(paths.dist))
         .pipe(gulp.dest(paths.dist));
 });
@@ -85,7 +88,8 @@ gulp.task('bundle.css', function(){
     if(concatFiles) {
         return gulp.src(sources['bundle.css'])
             .pipe(sourcemaps.init())
-            .pipe(less())
+            .pipe(less()) //{globalVars: {'@assets': '/assets'}}
+            .pipe(base64({debug: true, maxSize: 140 * 1024}))
             .pipe(sourcemaps.write())
             //.pipe(print())
             .pipe(sourcemaps.init({loadMaps: true}))
@@ -147,18 +151,19 @@ gulp.task('watch', function(){
 
     _.each(sources, function(v,k){
         if(/\.watched$/.test(k)){
+            gutil.log('skipping ' + k);
             return;
         }
         v = sources[k+'.watched'] || v;
+        //gutil.log('watching ' + (sources[k+'.watched'] ? k+'.watched' : k) + ' for ' + k);
+        //gutil.log(v);
         watch({glob: v, emitOnGlob: false}, [k]);
     });
-
-    //watch({glob: [paths.src.client + 'vendor.json']}, ['vendor.js']); todo: need to also reload the json!
 
     livereload.listen();
 
     watch({glob: 'server/public/**/*.*', emitOnGlob: false}, function(files){
-        files.pipe(livereload());
+        files.pipe(print()).pipe(livereload());
     });
 
 

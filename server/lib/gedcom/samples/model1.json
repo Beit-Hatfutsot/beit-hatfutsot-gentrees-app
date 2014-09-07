@@ -1,0 +1,81 @@
+{
+    "me": {
+        "isAliveNotEditable": true,
+        "isAlive": true,
+        "isMale": true,
+        "firstName": "דני",
+        "lastName": "קינן",
+        "dateOfBirth": "11/01/1971",
+        "placeOfBirth": "תל אביב, ישראל",
+        "email": "danikenan@gmail.com"
+    },
+    "dad": {
+        "isMale": false,
+        "isMaleNotEditable": true,
+        "isAlive": true,
+        "firstName": "דני",
+        "lastName": "קינן",
+        "dateOfBirth": "11/01/1971",
+        "placeOfBirth": "תל אביב, ישראל"
+    },
+    "mom": {
+        "isWife": true,
+        "isMale": false,
+        "isMaleNotEditable": true,
+        "isAlive": false,
+        "firstName": "טלי",
+        "lastName": "צוויג",
+        "dateOfBirth": "02/28/1948"
+    },
+    "momsDad": {
+        "isMale": false,
+        "isMaleNotEditable": true,
+        "isAlive": true,
+        "firstName": "dddd",
+        "lastName": "dddddd",
+        "dateOfBirth": "11/01/1871",
+        "placeOfBirth": "תל אביב, tttt"
+    },
+    "momsMom": {
+        "isWife": true,
+        "isMale": false,
+        "isMaleNotEditable": true,
+        "isAlive": true,
+        "firstName": "xxx",
+        "lastName": "xx",
+        "dateOfBirth": "10/01/1871",
+        "placeOfBirth": "vvvvvvv אביב, tttt"
+    },
+    "dadsDad": {
+        "isMale": false,
+        "isMaleNotEditable": true,
+        "isAlive": true,
+        "firstName": "xxx",
+        "lastName": "xx",
+        "dateOfBirth": "10/01/1871",
+        "placeOfBirth": "vvvvvvv אביב, tttt"
+    },
+    "dadsMom": {
+        "isWife": true,
+        "isMale": false,
+        "isMaleNotEditable": true,
+        "isAlive": true,
+        "firstName": "xxx",
+        "lastName": "xx",
+        "dateOfBirth": "10/01/1871",
+        "placeOfBirth": "vvvvvvv אביב, tttt"
+    },
+    "brothers": [
+        {
+
+            "isWife": false,
+            "isMale": true,
+            "isMaleNotEditable": true,
+            "isAlive": true,
+            "firstName": "b1",
+            "lastName": "b1",
+            "dateOfBirth": "10/01/1224",
+            "placeOfBirth": "b1 אביב, tttt"
+        }
+    ]
+}

@@ -41,8 +41,6 @@
         label {
           width: 30%;
           color: @color6;
-//          line-height: 6em;
-//          vertical-align: middle;
 
           a {
             color: @color6;
@@ -53,11 +51,14 @@
             width: 100%
           }
         }
+
+
         input {
           width: 66%;
+          color: darken(@color2, 30%);
           border-color: transparent;
           &:focus{
-            border-bottom: solid 1px #ccc;
+            border-bottom: solid 1px @color2;
           }
           //border: none;
           //border-bottom: solid 1px #000000;

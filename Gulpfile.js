@@ -89,6 +89,7 @@ gulp.task('bundle.css', function(){
         return gulp.src(sources['bundle.css'])
             .pipe(sourcemaps.init())
             .pipe(less()) //{globalVars: {'@assets': '/assets'}}
+            .on('error', function(err){gutil.log(err); this.emit('end');})
             .pipe(base64({debug: true, maxSize: 140 * 1024}))
             .pipe(sourcemaps.write())
             //.pipe(print())
@@ -100,8 +101,8 @@ gulp.task('bundle.css', function(){
 
     return gulp.src(sources['bundle.css'])
         .pipe(less())
+        .on('error', function(err){gutil.log(err); this.emit('end');})
         .pipe(bundle('bundle.css', {type: 'css', base: paths.src.client}))
-        //.pipe(changed(paths.dist))
         .pipe(gulp.dest(paths.dist));
 });
 

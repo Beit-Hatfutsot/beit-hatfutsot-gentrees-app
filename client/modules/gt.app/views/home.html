@@ -1,21 +1,25 @@
-<header>header <button ng-click="clear()">Clear</button></header>
-<div>
-    <gt-person model="model.me" tittle="{{'My Details' | translate}}"></gt-person>
-</div>
+<div class="gt-view gt-form-view gt-view-home">
+    <header>header
+        <button ng-click="clear()">Clear</button>
+    </header>
+    <div>
+        <gt-person model="model.me" tittle="{{'My Details' | translate}}"></gt-person>
+    </div>
 
-<div>
-    <gt-person model="model.mom" tittle="{{'Mom' | translate}}"></gt-person>
-    <gt-person model="model.momsDad" tittle="{{'Mom\'s Dad' | translate}}"></gt-person>
-    <gt-person model="model.momsMom" tittle="{{'Mom\'s Mom' | translate}}"/>
-</div>
+    <div>
+        <gt-person model="model.mom" tittle="{{'Mom' | translate}}"></gt-person>
+        <gt-person model="model.momsDad" tittle="{{'Mom\'s Dad' | translate}}"></gt-person>
+        <gt-person model="model.momsMom" tittle="{{'Mom\'s Mom' | translate}}"/>
+    </div>
 
-<div>
-    <gt-person model="model.mom" tittle="{{'Dad' | translate}}"></gt-person>
-    <gt-person model="model.momsDad" tittle="{{'Dad\'s Dad' | translate}}"></gt-person>
-    <gt-person model="model.momsMom" tittle="{{'Dad\'s Mom' | translate}}"/>
-</div>
+    <div>
+        <gt-person model="model.mom" tittle="{{'Dad' | translate}}"></gt-person>
+        <gt-person model="model.momsDad" tittle="{{'Dad\'s Dad' | translate}}"></gt-person>
+        <gt-person model="model.momsMom" tittle="{{'Dad\'s Mom' | translate}}"/>
+    </div>
 
 
-<div ng-repeat="brother in model.brothers">
-    <gt-person model="brother" tittle="{{'Brother' | translate}} $index()"></gt-person>
+    <div ng-repeat="brother in model.brothers">
+        <gt-person model="brother" tittle="{{'Brother' | translate}} $index()"></gt-person>
+    </div>
 </div>

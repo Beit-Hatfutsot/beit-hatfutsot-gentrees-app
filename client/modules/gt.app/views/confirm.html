@@ -1,9 +1,13 @@
-<header>header <button ng-click="clear()">Clear</button></header>
-<form name="form">
+<div class="gt-view gt-form-view gt-view-confirm">
+    <header>header
+        <button ng-click="clear()">Clear</button>
+    </header>
+    <form name="form">
     <span class="form-group">
         <label>Confirmation Code</label>
         <input type="text" required ng-minlength="6" ng-maxlength="6" ng-model="code" name="code">
         <p>{{form.$error}}</p>
     </span>
-    <button class="btn btn-default" ng-click="confirm()" ng-disabled="!form.$valid">Confirm</button>
-</form>
+        <button class="btn btn-default" ng-click="confirm()" ng-disabled="!form.$valid">Confirm</button>
+    </form>
+</div>

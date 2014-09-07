@@ -1,0 +1,83 @@
+
+.gt-form-view {
+
+  color: @color1;
+  background: @color2;
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  header {
+    height: 3em;
+    padding: .5em 1em;
+    text-align: center;
+    border-bottom: solid 1px @color3;
+  }
+
+  .content {
+
+    h4 {
+      color: @color4;
+      font-weight: normal;
+      border-bottom: solid 2px @color1;
+      padding: 1em .5em 0 .5em;
+      margin-bottom: 0;
+    }
+
+    form {
+      padding: 0;
+
+      .btn-field{
+        padding: .5em;
+      }
+
+      .field {
+        padding: 1em .5em;
+
+        background: @color5;
+        border-bottom: solid 1px @color2;
+
+        label {
+          width: 30%;
+          color: @color6;
+//          line-height: 6em;
+//          vertical-align: middle;
+
+          a {
+            color: @color6;
+            text-decoration: underline;
+          }
+
+          &.full {
+            width: 100%
+          }
+        }
+        input {
+          width: 66%;
+          border-color: transparent;
+          &:focus{
+            border-bottom: solid 1px #ccc;
+          }
+          //border: none;
+          //border-bottom: solid 1px #000000;
+        }
+      }
+    }
+  }
+
+}
+
+.icon-checkbox {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 5px;
+  display: inline-block;
+  background: transparent url("@{assets}/icon.checkbox.off.png") center center no-repeat;
+  &.on {
+    background-image: url("@{assets}/icon.checkbox.on.png");
+  }
+  background-size: 20px 20px;
+}
+

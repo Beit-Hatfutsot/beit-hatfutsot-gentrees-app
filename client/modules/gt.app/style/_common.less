@@ -3,5 +3,46 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
+
+  font-family: OpenSans;
 }
+
+html {
+  font-family: OpenSans;
+}
+
+
+label, h1,h2,h3,h4 {
+  font-weight: normal;
+}
+
+
+
+.gt-view {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+
+  .btn{
+    //margin-top: 1em;
+    width: 100%;
+    padding: .5em;
+    margin-top: 1.5em;
+    border: none;
+    color: @color1;
+    background: @color2;
+    font-size: 1.4em;
+
+    &.btn-inverse {
+      color: @color2;
+      background: @color1;
+    }
+
+    &[disabled] {
+      opacity: .2;
+    }
+  }
+}
+
 

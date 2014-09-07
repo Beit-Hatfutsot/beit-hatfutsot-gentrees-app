@@ -1,14 +1,44 @@
-<header>header <button ng-click="clear()">Clear</button></header>
-<form name="form">
-    <span class="form-group">
-        <label translate="Email"></label>
-        <input type="email" required ng-model="model.email" name="email">
-        <p>{{form.$error}}</p>
-    </span>
-        <span class="form-group">
-        <label translate="I agree"></label>
-        <input type="checkbox" required ng-model="agree" name="agree">
-    </span>
+<div class="gt-view gt-form-view gt-view-register">
+    <header>header
+        <button ng-click="clear()">Clear</button>
+    </header>
+    <div class="content">
+        <h4 translate="Registration Details"></h4>
 
-    <button class="btn btn-default" ng-click="register()" ng-disabled="!form.$valid || !agree" translate="Register"></button>
-</form>
+        <form name="form">
+            <div class="field">
+                <label translate="Email"></label>
+                <input type="email" required ng-model="model.email" name="email">
+            </div>
+            <div class="field">
+                <label class="full">
+                    <span class="icon-checkbox"
+                            ng-model="agree"
+                            btn-checkbox
+                            ng-class="{on: agree}">
+                    </span>
+
+                    <span ng-model="agree"
+                            btn-checkbox
+                            btn-checkbox-true="true"
+                            btn-checkbox-false="false"
+                            class="full" ng-bind-html="'AGREE_TO_USAGE_TERMS'|translate">
+
+                    </span>
+                </label>
+            </div>
+
+            <div class="btn-field">
+
+                <button class="btn btn-inverse"
+                        ng-click="register()"
+                        ng-disabled="!form.$valid || !agree"
+                        translate="Register"></button>
+            </div>
+
+
+        </form>
+    </div>
+
+</div>
+

@@ -58,7 +58,7 @@ var gedcomFromModel = function(model){
             })
         );
 
-    var gedcom = familyTpl(model) + individualsGedcoms.join('\n');
+    var gedcom = familyTpl(model) + individualsGedcoms.join('\n') + '0 TRLR\n';
 
     return clearBlankLines(gedcom);
 };

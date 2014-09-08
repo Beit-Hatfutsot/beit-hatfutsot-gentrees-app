@@ -1,6 +1,5 @@
 0 @${id}@ INDI
-1 GIVN ${ind.firstName}
-1 SURN ${ind.lastName}
+1 NAME ${ind.firstName} /${ind.lastName}/
 <% if(ind.email){ %>
 1 EMAIL ${ind.email}
 <%  } %>
@@ -12,9 +11,9 @@
 1 DEAT
 2 DATE ${ind.dateOfDeath}
 <%  } %>
-<% if(fam.famcId){ %>
-1 FAMC @{fam.famcId}@
+<% if(fam.famc){ %>
+1 FAMC @${fam.famc}@
 <%  } %>
-<% if(fam.famsId){ %>
-1 FAMC @{fam.famsId}@
+<% if(fam.fams){ %>
+1 FAMS @${fam.fams}@
 <%  } %>

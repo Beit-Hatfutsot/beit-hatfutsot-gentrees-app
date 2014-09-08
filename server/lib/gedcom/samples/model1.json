@@ -10,10 +10,10 @@
         "email": "danikenan@gmail.com"
     },
     "dad": {
-        "isMale": false,
+        "isMale": true,
         "isMaleNotEditable": true,
         "isAlive": true,
-        "firstName": "דני",
+        "firstName": "dad",
         "lastName": "קינן",
         "dateOfBirth": "11/01/1971",
         "placeOfBirth": "תל אביב, ישראל"
@@ -23,15 +23,15 @@
         "isMale": false,
         "isMaleNotEditable": true,
         "isAlive": false,
-        "firstName": "טלי",
+        "firstName": "mom",
         "lastName": "צוויג",
         "dateOfBirth": "02/28/1948"
     },
     "momsDad": {
-        "isMale": false,
+        "isMale": true,
         "isMaleNotEditable": true,
         "isAlive": true,
-        "firstName": "dddd",
+        "firstName": "momsDad",
         "lastName": "dddddd",
         "dateOfBirth": "11/01/1871",
         "placeOfBirth": "תל אביב, tttt"
@@ -41,16 +41,16 @@
         "isMale": false,
         "isMaleNotEditable": true,
         "isAlive": true,
-        "firstName": "xxx",
+        "firstName": "momsMom",
         "lastName": "xx",
         "dateOfBirth": "10/01/1871",
         "placeOfBirth": "vvvvvvv אביב, tttt"
     },
     "dadsDad": {
-        "isMale": false,
+        "isMale": true,
         "isMaleNotEditable": true,
         "isAlive": true,
-        "firstName": "xxx",
+        "firstName": "dadsDad",
         "lastName": "xx",
         "dateOfBirth": "10/01/1871",
         "placeOfBirth": "vvvvvvv אביב, tttt"
@@ -60,7 +60,7 @@
         "isMale": false,
         "isMaleNotEditable": true,
         "isAlive": true,
-        "firstName": "xxx",
+        "firstName": "dadsMom",
         "lastName": "xx",
         "dateOfBirth": "10/01/1871",
         "placeOfBirth": "vvvvvvv אביב, tttt"

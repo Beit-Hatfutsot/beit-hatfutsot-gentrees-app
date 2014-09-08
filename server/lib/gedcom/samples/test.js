@@ -10,5 +10,5 @@ var result = gedcom(model);
 console.log(result);
 
 
-fs.writeFileSync('./result.gedcom', result);
+fs.writeFileSync('./result.ged', result);
 

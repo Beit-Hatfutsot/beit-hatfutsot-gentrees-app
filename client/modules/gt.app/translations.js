@@ -4,6 +4,7 @@ angular.module('gt.app').config(['$translateProvider',
     function ($translateProvider) {
 
         $translateProvider.translations('he', {
+            'My Details': 'פרטים אישיים',
             'Mom' : 'אמא',
             'Dad' : 'אבא',
             'Mom\'s Dad' : 'אבא של אמא',

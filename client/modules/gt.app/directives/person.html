@@ -6,33 +6,47 @@
 
         <div class="form-group">
             <label>{{'First Name' | translate}}</label>
-            <input type="text" placeholder="{{'Enter Value' | translate}}" ng-model="model.firstName">
+            <div class="form-input-container">
+                <input type="text" placeholder="{{'Enter Value' | translate}}" ng-model="model.firstName">
+            </div>
         </div>
         <div class="form-group">
             <label>{{model.isWife ? 'Maiden Name' : 'Last Name' | translate}}</label>
-            <input type="text" placeholder="{{'Enter Value' | translate}}" ng-model="model.lastName">
+            <div class="form-input-container">
+                <input type="text" placeholder="{{'Enter Value' | translate}}" ng-model="model.lastName">
+            </div>
         </div>
         <div class="form-group gt-gender" ng-show="!model.isMaleNotEditable">
             <label translate="Gender"></label>
-            <label><span class="icon-gender icon-male" ng-model="model.isMale" btn-radio="true" uncheckable ng-class="{on: model.isMale}"/></label>
-            <label><span class="icon-gender icon-female" ng-model="model.isMale" btn-radio="false" uncheckable ng-class="{on: !model.isMale}"/></label>
+            <div class="form-input-container">
+                <span class="icon-gender icon-male" ng-model="model.isMale" btn-radio="true" uncheckable ng-class="{on: model.isMale}"/>
+                <span class="icon-gender icon-female" ng-model="model.isMale" btn-radio="false" uncheckable ng-class="{on: !model.isMale}"/>
+            </div>
         </div>
         <div class="form-group">
             <label>{{'Date of Birth' | translate}}</label>
-            <gt-date model="model.dateOfBirth"/>
-        </div>
-        <div class="form-group" ng-show="!model.isAlive">
-            <label>{{'Date of Death' | translate}}</label>
-            <gt-date model="model.dateOfDeath"/>
+            <div class="form-input-container">
+                <gt-date model="model.dateOfBirth"/>
+            </div>
         </div>
         <div class="form-group">
             <label>{{'Place of Birth' | translate}}</label>
-            <input type="text" ng-model="model.placeOfBirth">
+            <div class="form-input-container">
+                <input type="text" ng-model="model.placeOfBirth" placeholder="{{'Enter Value' | translate}}">
+            </div>
         </div>
         <div class="form-group" ng-show="!model.isAliveNotEditable">
-            <span ng-model="model.isAlive" class="icon-checkbox" ng-class="{on: model.isAlive}" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false"></span>
+            <label>{{'Is Alive' | translate}}</label>
+            <div class="form-input-container">
+                <span ng-model="model.isAlive" class="icon-checkbox" ng-class="{on: model.isAlive}" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false"></span>
+            </div>
         </div>
-
+        <div class="form-group" ng-show="!model.isAlive">
+            <label>{{'Date of Death' | translate}}</label>
+            <div class="form-input-container">
+                <gt-date model="model.dateOfDeath"/>
+            </div>
+        </div>
     </form>
 
 </div>

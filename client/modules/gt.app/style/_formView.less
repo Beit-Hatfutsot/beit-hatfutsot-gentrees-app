@@ -14,57 +14,6 @@
     border-bottom: solid 1px @color3;
   }
 
-//  .content {
-//    h4 {
-//      color: @color4;
-//      font-weight: normal;
-//      border-bottom: solid 2px @color1;
-//      padding: 1em .5em 0 .5em;
-//      margin-bottom: 0;
-//    }
-//
-//    form {
-//      padding: 0;
-//
-//      .btn-field{
-//        padding: .5em;
-//      }
-//
-//      .field {
-//        padding: 1em .5em;
-//
-//        background: @color5;
-//        border-bottom: solid 1px @color2;
-//
-//        label {
-//          width: 30%;
-//          color: @color6;
-//
-//          a {
-//            color: @color6;
-//            text-decoration: underline;
-//          }
-//
-//          &.full {
-//            width: 100%
-//          }
-//        }
-//
-//
-//        input {
-//          width: 66%;
-//          color: darken(@color2, 30%);
-//          border-color: transparent;
-//          &:focus{
-//            border-bottom: solid 1px @color2;
-//          }
-//          //border: none;
-//          //border-bottom: solid 1px #000000;
-//        }
-//      }
-//    }
-//  }
-
   h3 {
     margin: 0;
     padding: 20px 20px 10px 10px;
@@ -108,11 +57,25 @@
       text-align: left;
       color: darken(@color2, 30%);
       border: solid 1px transparent;
-//      border-color: transparent;
 
       &:focus{
         border-bottom: solid 1px @color2;
       }
+    }
+
+    .ng-invalid-required {
+      border: solid 1px @form-error-color;
+      color: @form-error-color;
+    }
+
+    .ng-invalid {
+      border: solid 1px @form-error-color;
+      color: @form-error-color;
+    }
+
+    .alert {
+      margin: 10px 0 0 0;
+      font-size: 12px;
     }
   }
 

@@ -2,43 +2,43 @@
     <header>header
         <button ng-click="clear()">Clear</button>
     </header>
-    <div class="content">
-        <h4 translate="Registration Details"></h4>
 
-        <form name="form">
-            <div class="field">
-                <label translate="Email"></label>
+    <h3>{{'Registration Details' | translate}}</h3>
+
+    <form name="form">
+
+        <div class="form-group">
+            <label>{{'Email' | translate}}</label>
+            <div class="form-input-container">
                 <input type="email" required ng-model="model.me.email" placeholder="{{'Enter Value' | translate}}" name="email">
             </div>
-            <div class="field">
+        </div>
+        <div class="form-group">
+            <div>
                 <label class="full">
                     <span class="icon-checkbox"
-                            ng-model="agree"
-                            btn-checkbox
-                            ng-class="{on: agree}">
+                          ng-model="agree"
+                          btn-checkbox
+                          ng-class="{on: agree}">
                     </span>
-
                     <span ng-model="agree"
-                            btn-checkbox
-                            btn-checkbox-true="true"
-                            btn-checkbox-false="false"
-                            class="full" ng-bind-html="'AGREE_TO_USAGE_TERMS'|translate">
-
+                          btn-checkbox
+                          btn-checkbox-true="true"
+                          btn-checkbox-false="false"
+                          class="full" ng-bind-html="'AGREE_TO_USAGE_TERMS' | translate">
                     </span>
                 </label>
             </div>
+        </div>
+        <div class="btn-field">
+            <button class="btn btn-inverse"
+                    ng-click="register()"
+                    ng-disabled="!form.$valid || !agree"
+                    translate="Register">
+            </button>
+        </div>
 
-            <div class="btn-field">
-
-                <button class="btn btn-inverse"
-                        ng-click="register()"
-                        ng-disabled="!form.$valid || !agree"
-                        translate="Register"></button>
-            </div>
-
-
-        </form>
-    </div>
+    </form>
 
 </div>
 

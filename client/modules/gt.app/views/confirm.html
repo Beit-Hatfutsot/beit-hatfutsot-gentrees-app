@@ -6,13 +6,22 @@
     <h3>{{'Confirm Email' | translate}}</h3>
 
     <form name="form">
+
         <div class="form-group">
             <label>{{'Confirmation Code' | translate}}</label>
             <div class="form-input-container">
                 <input type="text" placeholder="{{'Enter Value' | translate}}" required ng-minlength="6" ng-maxlength="6" ng-model="code" name="code">
             </div>
         </div>
-        <p>{{form.$error}}</p>
-        <button class="btn btn-default" ng-click="confirm()" ng-disabled="!form.$valid">{{'Confirm' | translate}}</button>
+
+        <div class="btn-field">
+            <button class="btn btn-inverse"
+                    ng-click="confirm()"
+                    ng-disabled="!form.$valid">{{'Confirm' | translate}}
+            </button>
+        </div>
+        <!--<p>{{form.$error}}</p>-->
+
     </form>
+
 </div>

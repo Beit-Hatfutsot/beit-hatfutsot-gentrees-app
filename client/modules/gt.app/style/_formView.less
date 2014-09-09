@@ -57,20 +57,27 @@
       text-align: left;
       color: darken(@color2, 30%);
       border: solid 1px transparent;
+//      border-color: transparent;
 
       &:focus{
         border-bottom: solid 1px @color2;
       }
     }
 
-    .ng-invalid-required {
-      border: solid 1px @form-error-color;
-      color: @form-error-color;
+    input {
+      &.ng-invalid, &.ng-invalid-required{
+        border: solid 1px @form-error-color;
+        color: @form-error-color;
+      }
     }
 
-    .ng-invalid {
-      border: solid 1px @form-error-color;
-      color: @form-error-color;
+    div {
+      &.ng-invalid, &.ng-invalid-required{
+        input {
+          border: solid 1px @form-error-color;
+          color: @form-error-color;
+        }
+      }
     }
 
     .alert {

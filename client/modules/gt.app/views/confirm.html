@@ -2,12 +2,17 @@
     <header>header
         <button ng-click="clear()">Clear</button>
     </header>
+
+    <h3>{{'Confirm Email' | translate}}</h3>
+
     <form name="form">
-    <span class="form-group">
-        <label>Confirmation Code</label>
-        <input type="text" required ng-minlength="6" ng-maxlength="6" ng-model="code" name="code">
+        <div class="form-group">
+            <label>{{'Confirmation Code' | translate}}</label>
+            <div class="form-input-container">
+                <input type="text" placeholder="{{'Enter Value' | translate}}" required ng-minlength="6" ng-maxlength="6" ng-model="code" name="code">
+            </div>
+        </div>
         <p>{{form.$error}}</p>
-    </span>
-        <button class="btn btn-default" ng-click="confirm()" ng-disabled="!form.$valid">Confirm</button>
+        <button class="btn btn-default" ng-click="confirm()" ng-disabled="!form.$valid">{{'Confirm' | translate}}</button>
     </form>
 </div>

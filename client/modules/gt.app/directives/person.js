@@ -8,7 +8,7 @@ angular.module('gt.app').directive('gtPerson',
             replace: true,
             scope: {
               model: '=',
-              tittle: '@'
+              title: '@'
             },
             templateUrl: 'modules/gt.app/directives/person.html',
             controller: ['$scope', function ($scope) {

@@ -6,7 +6,6 @@ angular.module('gt.app').directive('restrict', ['$parse', function ($parse) {
         restrict: 'A',
         require: 'ngModel',
         link: function (scope, element, attr, controller) {
-
             scope.$watch(attr.ngModel, function (value) {
                 if (!value) {
                     return;
@@ -28,6 +27,6 @@ angular.module('gt.app').directive('restrict', ['$parse', function ($parse) {
                 $parse(attr.ngModel).assign(scope, value);
             });
         }
-    }
+    };
 
 }]);

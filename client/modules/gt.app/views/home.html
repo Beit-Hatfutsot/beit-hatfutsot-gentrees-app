@@ -1,50 +1,74 @@
 <div class="gt-view gt-form-view gt-view-home">
-    <header>header
-        <button ng-click="clear()">Clear</button>
-    </header>
 
-    <form name="form">
+    <form name="form" novalidate>
 
-        <div>
-            <gt-person model="model.me" title="{{'My Details' | translate}}"></gt-person>
-        </div>
-
-        <div>
-            <gt-person model="model.mom" title="{{'Mom' | translate}}"></gt-person>
-            <gt-person model="model.momsDad" title="{{'Mom\'s Dad' | translate}}"></gt-person>
-            <gt-person model="model.momsMom" title="{{'Mom\'s Mom' | translate}}"/>
-        </div>
-
-        <div>
-            <gt-person model="model.dad" title="{{'Dad' | translate}}"></gt-person>
-            <gt-person model="model.dadsDad" title="{{'Dad\'s Dad' | translate}}"></gt-person>
-            <gt-person model="model.dadsMom" title="{{'Dad\'s Mom' | translate}}"/>
-        </div>
-
-        <div>
-            <h3>{{'Brothers' | translate}}</h3>
-
+        <header>
             <div>
-                <div class="form-group">
-                    <label>{{'How many brothers you have ?' | translate}}</label>
-                    <div class="form-input-container">
-                        <input type="number" placeholder="{{'Enter Value' | translate}}" ng-model="model.numBrothers" min="0" max="50">
+                <button ng-click="back()" ng-show="step > 1">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+            <span translate="Steps" translate-values="{step: step, stepCount: stepCount}"></span>
+            <div>
+                <button ng-click="next()" ng-show="step < stepCount">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+            </div>
+        </header>
+
+        <section>
+
+            <div class="msg alert alert-danger" ng-show="error">{{error}}</div>
+
+            <div class="msg alert alert-info" ng-show="info">{{info | translate}}</div>
+
+            <div ng-show="step == 1">
+                <gt-person model="model.me" title="{{'My Details' | translate}}"></gt-person>
+            </div>
+
+            <div ng-show="step == 2">
+                <gt-person model="model.mom" title="{{'Mom' | translate}}"></gt-person>
+                <gt-person model="model.momsDad" title="{{'Mom\'s Dad' | translate}}"></gt-person>
+                <gt-person model="model.momsMom" title="{{'Mom\'s Mom' | translate}}"/>
+            </div>
+
+            <div ng-show="step == 3">
+                <gt-person model="model.dad" title="{{'Dad' | translate}}"></gt-person>
+                <gt-person model="model.dadsDad" title="{{'Dad\'s Dad' | translate}}"></gt-person>
+                <gt-person model="model.dadsMom" title="{{'Dad\'s Mom' | translate}}"/>
+            </div>
+
+            <div ng-show="step == 4">
+                <h3>{{'Brothers' | translate}}</h3>
+
+                <div>
+                    <div class="form-group">
+                        <label>{{'How many brothers you have ?' | translate}}</label>
+                        <div class="form-input-container">
+                            <input type="number" ng-model="model.numBrothers" min="0" max="50">
+                        </div>
                     </div>
+                </div>
+
+                <div ng-repeat="brother in model.brothers">
+                    <gt-person model="brother" title="{{'Brother' | translate}} {{ $index + 1 }}/{{ model.brothers.length }}"></gt-person>
                 </div>
             </div>
 
-            <div ng-repeat="brother in model.brothers">
-                <gt-person model="brother" title="{{'Brother' | translate}} {{ $index + 1 }}/{{ model.brothers.length }}"></gt-person>
+            <div ng-show="step == stepCount">
+                <label class="text">{{'Please check all info entered by you is OK.' | translate}}</label>
+                <div class="btn-field">
+                    <button class="btn btn-inverse"
+                            ng-disabled="form.$valid"
+                            ng-click="save()">{{'Save' | translate}}
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <div class="btn-field">
-            <button class="btn btn-inverse"
-                    ng-disabled="!form.$valid"
-                    ng-click="save()">{{'Save' | translate}}
-            </button>
-        </div>
+        </section>
 
     </form>
+
+    <gt-spinner model="loading"></gt-spinner>
 
 </div>

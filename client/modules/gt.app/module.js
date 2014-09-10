@@ -15,7 +15,7 @@
             momsMom : _.clone(mom),
             dadsDad : _.clone(dad),
             dadsMom : _.clone(mom),
-            numBrothers: undefined,
+            numBrothers: 0,
             brothers: []
         };
     }

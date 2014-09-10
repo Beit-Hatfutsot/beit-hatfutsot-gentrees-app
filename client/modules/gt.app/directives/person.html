@@ -7,13 +7,13 @@
         <div class="form-group">
             <label>{{'First Name' | translate}}</label>
             <div class="form-input-container">
-                <input type="text" placeholder="{{'Enter Value' | translate}}" ng-model="model.firstName" required restrict="hebrew">
+                <input type="text" placeholder="{{'Enter Value' | translate}}" ng-model="model.firstName" required>
             </div>
         </div>
         <div class="form-group">
             <label>{{model.isWife ? 'Maiden Name' : 'Last Name' | translate}}</label>
             <div class="form-input-container">
-                <input type="text" placeholder="{{'Enter Value' | translate}}" ng-model="model.lastName" required restrict="hebrew">
+                <input type="text" placeholder="{{'Enter Value' | translate}}" ng-model="model.lastName" required>
             </div>
         </div>
         <div class="form-group gt-gender" ng-show="!model.isMaleNotEditable">
@@ -32,14 +32,17 @@
         <div class="form-group">
             <label>{{'Place of Birth' | translate}}</label>
             <div class="form-input-container">
-                <input type="text" ng-model="model.placeOfBirth" placeholder="{{'Enter Value' | translate}}" required restrict="hebrew">
+                <input type="text" ng-model="model.placeOfBirth" placeholder="{{'Enter Value' | translate}}" required>
             </div>
         </div>
         <div class="form-group" ng-show="!model.isAliveNotEditable">
-            <label>{{'Is Alive' | translate}}</label>
-            <div class="form-input-container">
-                <span ng-model="model.isAlive" class="icon-checkbox" ng-class="{on: model.isAlive}" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false"></span>
-            </div>
+            <label ng-model="model.isAlive"  btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+                <span class="icon-checkbox" ng-class="{on: model.isAlive}" ></span>
+                &nbsp;
+                {{'Is Alive' | translate}}</label>
+
+
+
         </div>
         <div class="form-group" ng-show="!model.isAlive">
             <label>{{'Date of Death' | translate}}</label>

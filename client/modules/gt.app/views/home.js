@@ -80,7 +80,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             if (newValue > 0) {
                 if (newValue > oldValue) {
                     for (var x = $scope.model.brothers.length; x < newValue; x++) {
-                        $scope.model.brothers.push({});
+                        $scope.model.brothers.push({isAlive: true});
                     }
                 }
                 else {

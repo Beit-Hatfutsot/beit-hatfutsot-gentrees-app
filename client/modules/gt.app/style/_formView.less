@@ -22,6 +22,7 @@
     font-size: 16px;
     font-weight: bolder;
     border-bottom: solid 1px @form-border-color;
+    background: @form-h3-background-color;
   }
 
   .form-group {
@@ -55,7 +56,7 @@
       float: left;
       padding: 5px;
       text-align: left;
-      color: darken(@color2, 30%);
+      //color: darken(@color2, 30%);
       border: solid 1px transparent;
 //      border-color: transparent;
 
@@ -65,14 +66,14 @@
     }
 
     input {
-      &.ng-invalid, &.ng-invalid-required{
+      &.ng-invalid.ng-dirty, &.ng-invalid-required.ng-dirty,{
         border: solid 1px @form-error-color;
         color: @form-error-color;
       }
     }
 
     div {
-      &.ng-invalid, &.ng-invalid-required{
+      &.ng-invalid.ng-dirty, &.ng-invalid-required.ng-dirty,{
         input {
           border: solid 1px @form-error-color;
           color: @form-error-color;

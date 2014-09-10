@@ -59,7 +59,7 @@
                 <label class="text">{{'Please check all info entered by you is OK.' | translate}}</label>
                 <div class="btn-field">
                     <button class="btn btn-inverse"
-                            ng-disabled="form.$valid"
+                            ng-disabled="!form.$valid"
                             ng-click="save()">{{'Save' | translate}}
                     </button>
                 </div>

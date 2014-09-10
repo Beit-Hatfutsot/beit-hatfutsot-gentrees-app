@@ -31,7 +31,9 @@ router.post('/registration/confirm', apiAction(function(req) {
 
 router.post('/save', apiAction(function(req) {
     console.log(req.body);
-    return 'saved';
+    return Q.delay(400).then(function(){
+        return 'saved';
+    });
 }));
 
 

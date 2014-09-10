@@ -10,7 +10,7 @@ angular.module('gt.app').controller('gtHomeCtrl', ['$scope', '$filter', 'gtRegis
 
     $scope.registrationCode = undefined;
 
-    $scope.step = 5;
+    $scope.step = 1;
 
     $scope.stepCount = 5;
 

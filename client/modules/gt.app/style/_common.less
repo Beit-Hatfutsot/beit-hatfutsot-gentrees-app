@@ -15,14 +15,55 @@ html {
 
 
 label, h1,h2,h3,h4 {
+  font-family: OpenSans;
   font-weight: lighter;
 }
+
+//.shell > div, .shell-wrapper{
+//  height:100%;
+//}
+
+.body-wrapper {
+  margin-top: 65px;
+}
+
+p {
+  color: @color4;
+  padding: 10px 20px 20px 10px;
+  text-align: center;
+  margin: 0px;
+  border-bottom: 1px solid @form-group-border-color;
+}
+
+.snap-to-bottom{
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.snap-to-bottom p{
+  border:none;
+  padding: 0px 20px;
+}
+
+.snap-to-bottom a{
+  padding: 10px 20px;
+  text-decoration: underline;
+  text-align: center;
+  display: block;
+  color:@color10;
+}
+
+.gt-view-confirm .btn{
+  margin-top: 0.9em !important;
+}
+
 
 .gt-view {
 //  position: absolute;
   width: 100%;
   height: 100%;
-
 
   .btn{
     //margin-top: 1em;
@@ -40,7 +81,8 @@ label, h1,h2,h3,h4 {
     }
 
     &[disabled] {
-      opacity: .2;
+      color: @color9;
+      background: @color8;
     }
   }
 }

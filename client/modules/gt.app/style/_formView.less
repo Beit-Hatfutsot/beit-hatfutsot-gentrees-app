@@ -11,7 +11,7 @@
     height: 50px;
     padding: 5px;
     text-align: center;
-    border-bottom: solid 1px @color3;
+    border-bottom: solid 1px @color6;
     background-color: @form-group-background-color;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -26,15 +26,24 @@
       width: 50px;
     }
 
+    .left{
+      text-align: left;
+    }
+
+    .right{
+      text-align: right;
+    }
+
     span {
       flex: 1;
       text-align: center;
-      margin-top: 5px;
       font-size: 20px;
+      font-weight: bold;
+      margin-top: 7px;
     }
 
     button {
-      padding: 7px;
+      padding: 4px 15px;
       margin: 0;
       border: none;
       background: none;
@@ -51,9 +60,14 @@
     margin-bottom: 20px;
   }
 
+  .section-counter{
+    float: left;
+    margin-top: -44px;
+  }
+
   h3 {
     margin: 0;
-    padding: 20px 20px 10px 10px;
+    padding: 20px 20px 6px 10px;
     color: @form-h3-color;
     font-family: OpenSans;
     font-size: 16px;
@@ -66,11 +80,11 @@
     background-color: @form-group-background-color;
     border-bottom: solid 1px @form-group-border-color;
     margin: 0;
-    padding: 10px 20px 10px 10px;
+    padding: 10px 20px;
     overflow: auto;
 
     label {
-      width: 30%;
+      width: 50%;
       margin-top: 5px;
       color: @color6;
 
@@ -86,19 +100,20 @@
 
     .form-input-container {
       float: left;
-      width: 66%;
+      width: 50%;
     }
 
     input {
       float: left;
-      padding: 5px;
+      padding: 5px 0px;
+      margin-left: 5px;
       text-align: left;
       //color: darken(@color2, 30%);
-      border: solid 1px transparent;
-//      border-color: transparent;
+      border: none;
+      outline: none;
 
       &:focus{
-        border-bottom: solid 1px @color2;
+//        border-bottom: solid 1px @color2;
       }
     }
 
@@ -110,7 +125,7 @@
     }
 
     input[type=number] {
-      text-align: right;
+      text-align: left;
     }
 
     div {

@@ -21,8 +21,16 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         $scope.stepCount = 5;
 
         $scope.next = function () {
+            if($scope.step === $scope.stepCount){
+                $scope.save();
+                return;
+            }
             $scope.step++;
             scrollToTop();
+        };
+
+        $scope.disabled = function(){
+            return $scope.step === $scope.stepCount && !$scope.form.$valid;
         };
 
         $scope.back = function () {

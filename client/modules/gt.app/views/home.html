@@ -55,16 +55,24 @@
                     <div ng-repeat="brother in model.brothers">
                         <gt-person model="brother" title="{{'Brother' | translate}}" counter="{{ $index + 1 }}/{{ model.brothers.length }}"></gt-person>
                     </div>
-                </div>
 
-                <div ng-show="step == stepCount">
-                    <p class="text">{{'Please check all info entered by you is OK.' | translate}}</p>
                     <div class="btn-field">
                         <button class="btn btn-inverse"
                                 ng-disabled="!form.$valid"
                                 ng-click="save()">{{'Save' | translate}}
                         </button>
                     </div>
+                </div>
+
+                <div ng-show="step == stepCount">
+                    <p class="text">{{'Please check all info entered by you is OK.' | translate}}</p>
+                </div>
+
+                <div class="btn-field">
+                    <button class="btn btn-inverse"
+                            ng-disabled="disabled()"
+                            ng-click="next()">{{(step == stepCount ? 'Save' : 'Continue') | translate}}
+                    </button>
                 </div>
             </div>
         </section>

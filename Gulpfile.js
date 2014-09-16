@@ -20,7 +20,7 @@ var gulp = require('gulp'),
     fs = require('fs'),
     _ = require('lodash');
 
-var concatFiles =  process.env.NODE_ENV === 'production'; //todo: determine/change based on target of compilation, and maybe add some more params, such as compression, maps etc.
+var concatFiles = process.env.NODE_ENV === 'production'; //todo: determine/change based on target of compilation, and maybe add some more params, such as compression, maps etc.
 
 var paths = {
     dist : 'server/public/',
@@ -37,20 +37,26 @@ var sources = {
     'server.js' : [paths.src.server + '**/*.js', paths.src.server + '../server.js'],
     'statics' : ['**/*.html', '**/*.png', '**/*.gif', '**/*.ico', '**/fonts/**'].map(function(f){return paths.src.client + f;}),
     'vendor.js.watched' : [paths.src.client + 'vendor.json'],
-    'vendor.css.watched' : [paths.src.client + 'vendor.json'],
-    get "vendor.js"(){
-    var vendorSources = JSON.parse(fs.readFileSync('./client/vendor.json', 'utf-8'));
-    return vendorSources.js.map(function (f) {
-        return paths.src.client + f
-    });
-},
-get "vendor.css"(){
-    var vendorSources = JSON.parse(fs.readFileSync('./client/vendor.json', 'utf-8'));
-    return vendorSources.css.map(function (f) {
-        return paths.src.client + f
-    });
-}
+    'vendor.css.watched' : [paths.src.client + 'vendor.json']
 };
+
+Object.defineProperty(sources, 'vendor.js', {
+    get: function() {
+        var vendorSources = JSON.parse(fs.readFileSync('./client/vendor.json', 'utf-8'));
+        return vendorSources.js.map(function (f) {
+            return paths.src.client + f;
+        });
+    }
+});
+
+Object.defineProperty(sources, 'vendor.css', {
+    get: function() {
+        var vendorSources = JSON.parse(fs.readFileSync('./client/vendor.json', 'utf-8'));
+        return vendorSources.css.map(function (f) {
+            return paths.src.client + f;
+        });
+    }
+});
 
 gulp.task('clean-client', function (cb) {
     return gulp.src(paths.dist, {read: false})
@@ -144,7 +150,6 @@ gulp.task('vendor.css', function() {
         .pipe(bundle('vendor.css', {type: 'css', base: paths.src.client}))
         .pipe(changed(paths.dist))
         .pipe(gulp.dest(paths.dist));
-
 });
 
 
@@ -166,8 +171,6 @@ gulp.task('watch', function(){
     watch({glob: 'server/public/**/*.*', emitOnGlob: false}, function(files){
         files.pipe(print()).pipe(livereload());
     });
-
-
 });
 
 gulp.task('serve', function () {
@@ -183,7 +186,6 @@ gulp.task('serve', function () {
     })
         //.on('change', ['server-lint'])
         .on('restart', function () {
-
             gutil.log('restarted!');
         })
 });

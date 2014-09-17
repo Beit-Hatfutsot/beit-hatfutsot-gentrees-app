@@ -18,7 +18,9 @@ angular.module('gt.app').directive('gtDate',
                 jQuery(dom2).mobiscroll().date({
                     theme: 'mobiscroll',
                     display: 'bottom',
-                    mode: 'scroller'
+                    mode: 'scroller',
+                    dateOrder: 'yy mm dd',
+                    dateFormat: 'dd/mm/yy'
                 });
 
                 jQuery(dom1).on('click tap', function(){

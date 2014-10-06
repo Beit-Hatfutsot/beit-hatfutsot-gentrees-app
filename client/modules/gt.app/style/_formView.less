@@ -109,9 +109,8 @@
       margin-left: 5px;
       text-align: left;
       //color: darken(@color2, 30%);
-      border: none;
       outline: none;
-
+      border: solid 1px rgba(0, 0, 0, 0);
       &:focus{
 //        border-bottom: solid 1px @color2;
       }
@@ -210,4 +209,8 @@
       }
     }
   }
+}
+
+.gt-form-view .form-group input.ng-invalid.ng-dirty, .gt-form-view .form-group input.ng-invalid-required.ng-dirty {
+  color: inherit !important;
 }

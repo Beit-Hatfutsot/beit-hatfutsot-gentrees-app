@@ -19,8 +19,12 @@ label, h1,h2,h3,h4 {
   font-weight: lighter;
 }
 
-//.shell > div, .shell-wrapper{
-//  height:100%;
+//.shell div:first-child{
+//  height: 100%;
+//}
+
+//.shell-wrapper{
+//  height: 100%;
 //}
 
 .body-wrapper {
@@ -32,7 +36,7 @@ p {
   padding: 10px 20px 20px 10px;
   text-align: center;
   margin: 0px;
-  border-bottom: 1px solid @form-group-border-color;
+//  border-bottom: 1px solid @form-group-border-color;
 }
 
 .snap-to-bottom{
@@ -59,6 +63,12 @@ p {
   margin-top: 0.9em !important;
 }
 
+.force-bottom{
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  left: 20px;
+}
 
 .gt-view {
 //  position: absolute;
@@ -80,11 +90,67 @@ p {
       background: @color1;
     }
 
+    &.btn-footer{
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      width:auto;
+    }
+
     &[disabled] {
-      color: @color9;
-      background: @color8;
+      color: @color5;
+      background: @color11;
     }
   }
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.spinner img
+{
+  vertical-align: middle;
+  -webkit-animation-name:             rotate;
+  -webkit-animation-duration:         0.5s;
+  -webkit-animation-iteration-count:  infinite;
+  -webkit-animation-timing-function: linear;
+}
+
+.spinner {
+  height:100%;      /* equals max image height */
+  white-space: nowrap;
+  text-align: center;
+
+}
+
+.spinner:before,
+.spinner_before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.div-clip-wrapper .spinner{
+  position: absolute;
+}
+
+/* Move this to conditional comments */
+.spinner {
+  list-style:none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
 

@@ -43,20 +43,27 @@ var clearBlankLines = function(str){
 
 var gedcomFromModel = function(model){
 
+    console.log(model);
+
     var individualsGedcoms =
         _.flatten(
             _.map(model, function(v, k){
-               if(k==='brothers'){
-                   return _.map(v, function(brother, index){
-                       var data = {id: 'b'+(index+1), fam:{famc: 'fam'}, ind: brother};
+               if(k==='brothers') {
+                   return _.map(v, function (brother, index) {
+                       var data = {id: 'b' + (index + 1), fam: {famc: 'fam'}, ind: brother};
                        return individualTpl(data);
                    });
+               }else if(k==='numBrothers'){
+                   return '';
                }else{
                    var data = {id: k, fam:familyMap[k], ind: v};
+                   //console.log(data);
                    return individualTpl(data);
                }
             })
         );
+
+    console.log(individualsGedcoms);
 
     var gedcom = familyTpl(model) + individualsGedcoms.join('\n') + '0 TRLR\n';
 

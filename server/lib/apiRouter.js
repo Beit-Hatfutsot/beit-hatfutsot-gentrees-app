@@ -40,6 +40,7 @@ router.post('/registration/confirm', apiAction(function(req) {
 }));
 
 router.post('/save', apiAction(function(req) {
+    //console.log(req.body);
     return registration.save(req.body.deviceId, req.body.code, req.body.model);
 
 }));

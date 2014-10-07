@@ -4,6 +4,8 @@ angular.module('gt.app').config(['$translateProvider',
     function ($translateProvider) {
 
         $translateProvider.translations('he', {
+            'OK' : 'אישור',
+            'Save Tree' : 'שמירת העץ',
             'My Details': 'פרטים אישיים',
             'Mom' : 'אמא',
             'Dad' : 'אבא',
@@ -38,7 +40,7 @@ angular.module('gt.app').config(['$translateProvider',
             'How many brothers you have ?': 'כמה אחים יש לך ?',
             'Steps': 'שלב {{step}} מתוך {{stepCount}}',
             'Please check all info entered by you is OK.': 'אנא וודא שכל המידע מדוייק. ניתן לחזור למסכים קודמים לצורך עריכה. ניתן לחזור לשלב זה מאוחר יותר.',
-            'Please correct all the invalid fields.': 'אנא תקן את כל השדות המופיעים באדום.',
+            'Please correct all the invalid fields.': 'יש לתקן את כל השדות המופיעים באדום.',
             'Your data has been successfully saved.': 'הנתונים ששלחת נשמרו בהצלחה.',
             'Confirm Email Description': 'בדוק/י את תיבת הדואר שלך. בדקות הדקות תקבל/י הודעה ובה קוד אימות, העתק/י את הקוד לכאן.',
             'Confirm Email No Mail': 'במידה ואינך מקבל/ת הודעה בדוק את תיבת דואר הזבל',

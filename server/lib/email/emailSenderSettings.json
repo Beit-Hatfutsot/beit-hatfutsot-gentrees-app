@@ -3,8 +3,9 @@
         "service": "Hotmail",
         "auth": {
             "user": "vzaidman@hotmail.com",
-            "pass": "WILL NO WORK"
+            "pass": "qaqa123$"
         }
+
     },
     "mailOptions" : {
         "from": "dontreply@bh.org.il",

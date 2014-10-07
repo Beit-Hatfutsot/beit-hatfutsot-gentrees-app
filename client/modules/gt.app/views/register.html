@@ -4,11 +4,10 @@
         <button ng-click="clear()" style="display: none">Clear</button>
     </header>
     <div class="body-wrapper">
-        <div class="spinner" ng-show="showSpinner"><img src="images/spinner.png"/></div>
 
-        <h3 ng-show="!showSpinner">{{'Registration Details' | translate}}</h3>
+        <h3>{{'Registration Details' | translate}}</h3>
 
-        <form name="form" ng-show="!showSpinner">
+        <form name="form">
 
             <div class="form-group">
                 <label>{{'Email' | translate}}</label>

@@ -8,12 +8,6 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             $anchorScroll();
         };
 
-        $scope.loading = false;
-
-        $scope.error = undefined;
-
-        $scope.info = undefined;
-
         $scope.registrationCode = undefined;
 
         $scope.step = 1;
@@ -53,21 +47,10 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         $scope.save = function () {
             $scope.loading = true;
 
-            return regSvc.saveModel().then(
+            return regSvc.saveModel($scope.model).then(
                 function () {
-                    $scope.info = 'Your data has been successfully saved.';
                     $timeout(function () {
                         $state.go('welcome');
-                    }, 3500);
-                },
-                function (error) {
-                    $scope.error = error;
-                })
-                .finally(function () {
-                    $scope.loading = false;
-                    $timeout(function () {
-                        $scope.info = undefined;
-                        $scope.error = undefined;
                     }, 3500);
                 });
         };

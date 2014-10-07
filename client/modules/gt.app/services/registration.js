@@ -2,23 +2,33 @@
 
 angular.module('gt.app').factory('gtRegistrationSvc',
     [
-        '$http', 'rfc4122',
+        '$http', 'rfc4122', '$rootScope', 'gtDialogsSvc',
 
-        function ($http, rfc4122) {
+        function ($http, rfc4122, $rootScope, dialogsSvc) {
 
 
-            var exports = {
+            function wrap(promise, title, successMessage){
+                $rootScope.showSpinner = true;
+                promise.finally(function(){
+                    $rootScope.showSpinner = false;
+                });
+                return promise.then(
+                    function(data){
+                        if(successMessage){
+                            return dialogsSvc.showMessage(successMessage, title, false).then(function(){
+                                return data;
+                            });
+                        }
+                        return data;
+                    },
+                    function(err){
+                        return dialogsSvc.showMessage(err.message || (err.data && err.data.message) || err, title, true).then(function(){
+                            return promise;
+                        });
+                    });
+            }
 
-                get status() {
-                    if (localStorage.confirimationCode) {
-                        return 'confirmed';
-                    }
-                    if (localStorage.deviceId) {
-                        return 'pending';
-                    }
-                    return 'init';
-                },
-
+            var functions = {
                 confirm: function (code) {
                     return $http.post('api/v1/registration/confirm', {code: code, deviceId: localStorage.deviceId})
                         .then(function (result) {
@@ -40,10 +50,35 @@ angular.module('gt.app').factory('gtRegistrationSvc',
 
                 saveModel : function(model){
                     return $http.post('api/v1/save', {
-                            deviceId: localStorage.deviceId,
-                            code: localStorage.confirimationCode,
-                            model: model
-                        });
+                        deviceId: localStorage.deviceId,
+                        code: localStorage.confirimationCode,
+                        model: model
+                    });
+                }
+            };
+
+            var exports = {
+
+                get status() {
+                    if (localStorage.confirimationCode) {
+                        return 'confirmed';
+                    }
+                    if (localStorage.deviceId) {
+                        return 'pending';
+                    }
+                    return 'init';
+                },
+
+                confirm: function (code) {
+                    return wrap(functions.confirm(code), 'Confirmation Code');
+                },
+
+                sendMail: function (email) {
+                    return wrap(functions.sendMail(email), 'Confirm Email');
+                },
+
+                saveModel : function(model){
+                    return wrap(functions.saveModel(model), 'Save Tree', 'Your data has been successfully saved.');
                 }
             };
 

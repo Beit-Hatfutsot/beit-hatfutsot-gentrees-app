@@ -20,10 +20,6 @@
 
         <section>
             <div class="body-wrapper" ng-class="{'last-step' : step === stepCount}">
-                <div class="msg alert alert-danger" ng-show="error">{{error}}</div>
-
-                <div class="msg alert alert-info" ng-show="info">{{info | translate}}</div>
-
                 <div ng-show="step == stepCount">
                     <p class="text">
                         <span>{{'Please check all info entered by you is OK.' | translate}}</span>

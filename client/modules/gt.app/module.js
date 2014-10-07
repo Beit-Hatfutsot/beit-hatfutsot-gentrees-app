@@ -31,6 +31,7 @@
             $templateCache.put('shell.html', '<div ng-include="\'/modules/gt.app/views/shell.html\'"></div>');
 
 
+            $rootScope.showSpinner = false;
             $rootScope.model = localStorage.model ? JSON.parse(localStorage.model) : createModel();
 
             $rootScope.$watch('model', function () {

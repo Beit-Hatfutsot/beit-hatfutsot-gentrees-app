@@ -17,6 +17,8 @@ exports = module.exports = {
             return Q.when();
         }
 
+        console.log(mailOptions);
+
         return sendMail(mailOptions);
     }
 };

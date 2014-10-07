@@ -1,30 +1,19 @@
 var _ = require('lodash'),
     nodemailer = require('nodemailer'),
-    Q = require('q');
+    Q = require('q'),
+    settings = require(process.env.EMAIL_SETTINGS_JSON_PATH || __dirname + '/email/emailSenderSettings.json');
 
-var transporter = nodemailer.createTransport({
-    service: 'Hotmail',
-    auth: {
-        user: "vzaidman@hotmail.com",
-        pass: "qaqa123$"
-    }
-}),
-    sendMail = Q.nbind(transporter.sendMail, transporter);
+var transporter = settings && nodemailer.createTransport(settings.transporter),
+    sendMail = transporter && Q.nbind(transporter.sendMail, transporter);
 
-var disabled = false;
 
 exports = module.exports = {
-    disable: function(){
-        disabled = true;
-    },
-    send: function(mailOptions){
-        mailOptions = _.defaults(mailOptions, {
-            from: 'dani@test.com',
-            subject: 'Confirm'
-        });
 
-        if(disabled){
-            console.log('Email Service is disabled. would of send: ' + JSON.stringify(mailOptions));
+    send: function (mailOptions) {
+        mailOptions = _.defaults(mailOptions, settings.mailOptions);
+
+        if (!transporter) {
+            console.log('Email Service is disabled. Would have sent: ' + JSON.stringify(mailOptions));
             return Q.when();
         }
 

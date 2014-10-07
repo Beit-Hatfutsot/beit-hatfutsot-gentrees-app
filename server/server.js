@@ -2,7 +2,8 @@ var express = require('express'),
     morgan = require('morgan'),
     helmet = require('helmet'),
     bodyParser = require('body-parser'),
-    apiRouter = require('./lib/apiRouter');
+    apiRouter = require('./lib/apiRouter'),
+    port = process.env.PORT || 3000;
 
 var app = express();
 
@@ -16,8 +17,6 @@ app.use(morgan('dev')); //'combined'
 
 app.enable('etag');
 
-
-
 app.use(express.static(__dirname + '/public', {
     //etag: true
 }));
@@ -27,7 +26,7 @@ app.use(express.static(__dirname + '/public', {
 app.use(bodyParser.json());
 app.use('/api/v1', apiRouter);
 
-var server = app.listen(3000, function () {
+var server = app.listen(port, function () {
     console.log('Listening on port %d', server.address().port);
 });
 

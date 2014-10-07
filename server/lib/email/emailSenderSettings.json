@@ -1,0 +1,14 @@
+{
+    "transport" :  {
+        "service": "Hotmail",
+        "auth": {
+            "user": "vzaidman@hotmail.com",
+            "pass": "WILL NO WORK"
+        }
+    },
+    "mailOptions" : {
+        "from": "dontreply@bh.org.il",
+        "subject": "קוד אישור לאפליקציית בית התפוצות"
+    }
+
+}

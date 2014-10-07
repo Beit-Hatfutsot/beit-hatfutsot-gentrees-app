@@ -8,21 +8,31 @@ function apiAction(fn){
 
         Q.when()
             .then(function(){
-                console.log(req.body);
+                console.log('body', req.body);
                 return fn(req);
             })
             .then(function(data){
                 res.json(data);
 
             }).catch(function(err){
-                console.lgo(err);
+                console.log(err);
                 res.status(500).json(err);
             });
     }
 }
 
+
+var getBaseUrl = function(req){
+    //hack - since production node may be behind load balancer. (balancer get https and passes the node http without x-forwared-proto)
+    var protocol = 'https';
+    if (req.get('host').indexOf('localhost:') >= 0) {
+        protocol = 'http';
+    }
+    return protocol  + '://' + req.get('host');
+};
+
 router.post('/registration/mail', apiAction(function (req) {
-    return registration.sendMail(req.body.deviceId, req.body.email);
+    return registration.sendMail(req.body.deviceId, req.body.email, getBaseUrl(req));
 }));
 
 router.post('/registration/confirm', apiAction(function(req) {
@@ -30,10 +40,8 @@ router.post('/registration/confirm', apiAction(function(req) {
 }));
 
 router.post('/save', apiAction(function(req) {
-    console.log(req.body);
-    return Q.delay(400).then(function(){
-        return 'saved';
-    });
+    return registration.save(req.body.deviceId, req.body.code, req.body.model);
+
 }));
 
 

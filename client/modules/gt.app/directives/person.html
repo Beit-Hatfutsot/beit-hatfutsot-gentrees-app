@@ -8,13 +8,13 @@
         <div class="form-group">
             <label>{{'First Name' | translate}}</label>
             <div class="form-input-container">
-                <input type="text" placeholder="{{'Enter Value' | translate}}" ng-model="model.firstName" required>
+                <input type="text" placeholder="{{'Click to add' | translate}}" ng-model="model.firstName" required>
             </div>
         </div>
         <div class="form-group">
             <label>{{model.isWife ? 'Maiden Name' : 'Last Name' | translate}}</label>
             <div class="form-input-container">
-                <input type="text" placeholder="{{'Enter Value' | translate}}" ng-model="model.lastName" required>
+                <input type="text" placeholder="{{'Name before marriage' | translate}}" ng-model="model.lastName" required>
             </div>
         </div>
         <div class="form-group gt-gender" ng-show="!model.isMaleNotEditable">
@@ -33,7 +33,7 @@
         <div class="form-group">
             <label>{{'Place of Birth' | translate}}</label>
             <div class="form-input-container">
-                <input type="text" ng-model="model.placeOfBirth" placeholder="{{'Enter Value' | translate}}" required>
+                <input type="text" ng-model="model.placeOfBirth" placeholder="{{'City and or country' | translate}}" required>
             </div>
         </div>
         <div class="form-group" ng-show="!model.isAliveNotEditable">

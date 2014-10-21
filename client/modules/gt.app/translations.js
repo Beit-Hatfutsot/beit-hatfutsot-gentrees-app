@@ -37,16 +37,18 @@ angular.module('gt.app').config(['$translateProvider',
             'The family tree will be saved for you in the Beit Hatfutsot archive and you will be able to watch and edit it in the future in Beit Hatfutsot archive site' : 'העץ שתבנו יישמר במאגר עצי המשפחה המאובטח של בית התפוצות ותוכלו לעיין בו ולערוך אותו בעתיד באתר בית התפוצות.',
             'Registration Details' : 'פרטי רישום',
             'How many brothers you have ?': 'כמה אחים יש לך?',
-            'Steps': 'שלב {{step}} מתוך {{stepCount}}',
-            'Please check all info entered by you is OK.': 'אנא ודאו שכל המידע מדוייק. ניתן לחזור למסכים קודמים לצורך עריכה. ניתן לחזור לשלב זה מאוחר יותר.',
+            'Steps': ' ({{step}}/{{stepCount}})',
+            'Please check all info entered by you is OK.': 'זה הכל! עכשיו נשאר לכם רק לעבור על המידע שהזנתם. אם יש טעויות, לחצו על השדה כדי לתקן. מידע שלא הזנתם מסומן במסגרת אדומה – כדאי לברר את המידע החסר עם בני משפחה ולהשלים אותו בהמשך.',
             'Please correct all the invalid fields.': 'יש לתקן את כל השדות המופיעים באדום.',
-            'Your data has been successfully saved.': 'הנתונים ששלחת נשמרו בהצלחה.',
+            'Your data has been successfully saved.': 'תודה רבה! עץ המשפחה שלך נוצר ברגעים אלה והוא יישמר במאגר עצי המשפחה של בית התפוצות. מייל אישור עם הקובץ של עץ המשפחה יישלח אליכם בהקדם".',
             'Confirm Email Description': 'בדקו את תיבת הדואר. בדקות הקרובות תתקבל הודעה ובה קוד אימות, יש להעתיק את הקוד לכאן.',
             'Confirm Email No Mail': 'במידה ולא התקבלה הודעה, בדקו את תיבת דואר הזבל',
             'Resend':'שלח שוב',
             'Click to add':'לחצו להוספה',
             'Name before marriage':'שם משפחה לפני החתונה',
-            'City and or country':'עיר ו/או מדינה'
+            'City and or country':'עיר ו/או מדינה',
+            "Mother_s side": ' הצד של אמא',
+            "Father_s side": 'הצד של אבא'
         });
 
         $translateProvider.preferredLanguage('he');

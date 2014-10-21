@@ -13,7 +13,7 @@ angular.module('gt.app').directive('gtPerson',
             },
             templateUrl: 'modules/gt.app/directives/person.html',
             controller: ['$scope', function ($scope) {
-
+                $scope.model.isMale = true;
             }]
         };
 

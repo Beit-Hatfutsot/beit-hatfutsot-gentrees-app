@@ -15,7 +15,7 @@ var collPromise = (function(){
         return  Q.ninvoke(MongoClient, 'connect', mongoURL).then(function(db){
             return db.collection('registrations');
         }).catch(function(err){
-            console.err(err.message, err.stack);
+            console.error(err.message, err.stack);
             process.exit(1);
         });
     })(),
@@ -31,7 +31,7 @@ var emailTpl = _.template(fs.readFileSync(emailTplPath, 'utf-8'));
 
 function generateCode(length) {
     var text = '',
-        possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890123456789__--++^^%%$$##@@!!";
+        possible = "01234567890123456789";
 
     for (var i = 0; i < length; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -42,7 +42,7 @@ function generateCode(length) {
 
 exports.sendMail = function (deviceId, email, baseUrl) {
 
-    var code = generateCode(6),
+    var code = generateCode(4),
         query = {_id: deviceId},
         data = {_id: deviceId, code: code, createdAt: new Date(), confirmedAt: null},
         options = {upsert: true};

@@ -3,7 +3,7 @@ var _ = require('lodash'),
     Q = require('q'),
     settings = require(process.env.EMAIL_SETTINGS_JSON_PATH || __dirname + '/email/emailSenderSettings.json');
 
-var transporter = settings && nodemailer.createTransport(settings.transporter),
+var transporter = settings && settings.transport && nodemailer.createTransport(settings.transport),
     sendMail = transporter && Q.nbind(transporter.sendMail, transporter);
 
 

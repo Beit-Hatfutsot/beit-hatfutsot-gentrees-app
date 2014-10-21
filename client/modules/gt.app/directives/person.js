@@ -13,7 +13,13 @@ angular.module('gt.app').directive('gtPerson',
             },
             templateUrl: 'modules/gt.app/directives/person.html',
             controller: ['$scope', function ($scope) {
+
                 $scope.model.isMale = true;
+
+                $scope.focusThis = function($event){
+                    angular.element($event.currentTarget).find("input:first").focus();
+                }
+
             }]
         };
 

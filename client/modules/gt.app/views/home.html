@@ -8,7 +8,12 @@
                     <i class="fa fa-angle-right"></i>
                 </button>
             </div>
-            <span translate="Steps" translate-values="{step: step, stepCount: stepCount}"></span>
+            <span>
+                <span class="steps">{{step}}/{{stepCount}}</span>
+                <span ng-if="step == 2">{{'Mother_s side' | translate}}</span>
+                <span ng-if="step == 3">{{'Father_s side' | translate}}</span>
+            </span>
+
             <div class="left">
                 <button ng-click="next()" ng-show="step < stepCount">
                     <i class="fa fa-angle-left"></i>

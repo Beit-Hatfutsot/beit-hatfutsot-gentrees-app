@@ -54,7 +54,7 @@
                     <h3>{{'Brothers' | translate}}</h3>
 
                     <div>
-                        <div class="form-group">
+                        <div class="form-group" ng-click="focusThis($event)">
                             <label>{{'How many brothers you have ?' | translate}}</label>
                             <div class="form-input-container">
                                 <input type="number" ng-model="model.numBrothers" min="0" max="50">

@@ -8,6 +8,11 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             $anchorScroll();
         };
 
+        $scope.focusThis = function($event){
+            angular.element($event.currentTarget).find("input:first").focus();
+            angular.element($event.currentTarget).find("input:first").select();
+        };
+
         $scope.registrationCode = undefined;
 
         $scope.step = 1;

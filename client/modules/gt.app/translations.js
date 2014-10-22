@@ -47,8 +47,8 @@ angular.module('gt.app').config(['$translateProvider',
             'Click to add':'לחצו להוספה',
             'Name before marriage':'שם משפחה לפני החתונה',
             'City and or country':'עיר ו/או מדינה',
-            "Mother_s side": ' הצד של אמא',
-            "Father_s side": 'הצד של אבא'
+            "Mother's side": ' הצד של אמא',
+            "Father's side": 'הצד של אבא'
         });
 
         $translateProvider.preferredLanguage('he');

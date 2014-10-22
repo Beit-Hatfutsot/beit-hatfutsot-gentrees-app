@@ -9,10 +9,10 @@
 
         <form name="form">
 
-            <div class="form-group">
+            <div class="form-group" ng-click="focusThis($event)">
                 <label>{{'Email' | translate}}</label>
                 <div class="form-input-container">
-                    <input type="email" required ng-model="model.me.email" placeholder="{{'Enter Value' | translate}}" name="email">
+                    <input type="email" required ng-model="model.me.email" ng-class="{overwriteDirty: thisWasBluered}" ui-event="{ blur : 'blurEv()' }" placeholder="{{'Enter Value' | translate}}" name="email">
                 </div>
             </div>
             <div class="form-group">

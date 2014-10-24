@@ -22,7 +22,7 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                         return data;
                     },
                     function(err){
-                        return dialogsSvc.showMessage(err.message || (err.data && err.data.message) || err, title, true).then(function(){
+                        return dialogsSvc.showMessage(err.message || (err.data && err.data.response) || err, title, true).then(function(){
                             return promise;
                         });
                     });

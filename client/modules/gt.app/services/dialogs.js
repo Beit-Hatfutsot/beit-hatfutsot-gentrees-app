@@ -17,7 +17,7 @@ angular.module('gt.app').factory('gtDialogsSvc',
                         $scope.isError = isError;
 
                         $scope.ok = function(){
-                            $modalInstance.dismiss();
+                            $modalInstance.close();
                         };
                     }]
                 })

@@ -55,8 +55,11 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             return regSvc.saveModel($scope.model).then(
                 function () {
                     $timeout(function () {
-                        $state.go('welcome');
-                    }, 3500);
+                        $scope.step = 1;
+                        scrollToTop();
+                    }, 100);
+                }).finally(function(){
+                    $scope.loading = false;
                 });
         };
 

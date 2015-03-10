@@ -20,8 +20,6 @@ angular.module('gt.app').directive('gtBrother',
 
                   scope.$watch('number', function (newValue, oldValue) {
                       //newValue = parseInt($filter('number')(newValue)) || 0;
-                      console.log(scope.brother);
-
                       newValue = newValue *1;
                       oldValue = oldValue || 0;
 

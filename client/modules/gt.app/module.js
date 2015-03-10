@@ -16,6 +16,8 @@
             dadsDad : _.clone(dad),
             dadsMom : _.clone(mom),
             numBrothers: 0,
+            numMomsBrothers: 0,
+            numDadsBrothers: 0,
             brothers: [],
             momsBrothers: [],
             dadsBrothers: []

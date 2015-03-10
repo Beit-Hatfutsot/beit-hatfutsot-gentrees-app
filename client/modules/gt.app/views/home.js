@@ -29,7 +29,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         };
 
         $scope.disabled = function(){
-            var persons =_.flatten(_.values(_.omit($scope.model, 'numBrothers')));
+            var persons =_.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers')));
             var allValid = _.all(persons, function(p){
                 return  p.isMale != null && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
             });
@@ -69,7 +69,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         };
 
 
-       $scope.$watch('model.numBrothers', function (newValue, oldValue) {
+      /* $scope.$watch('model.numBrothers', function (newValue, oldValue) {
             newValue = parseInt($filter('number')(newValue)) || 0;
             oldValue = oldValue || 0;
 
@@ -94,7 +94,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
                     }
                 }
             }
-        });
+        });*/
 
 
 

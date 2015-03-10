@@ -13,6 +13,7 @@ angular.module('gt.app').directive('gtImagePicker',
             link: function (scope, element, attrs) {
 
                 var imageInput = element[0].children[0];
+                var span = element[0].children[1];
                 var image = element[0].children[2];
 
                 scope.chooseFile = function(e){
@@ -22,9 +23,11 @@ angular.module('gt.app').directive('gtImagePicker',
                 scope.createImage = function(src){
                     var i = new Image();
                     i.src = src;
-                    $(i).css({'width':'100%','border-radius':'4px'});
+                    $(i).css({'width':'80px','border-radius':'4px'});
                     $(image).empty();
                     $(image).append(i, null);
+
+                    $(span).hide();
                 };
 
                 if(scope.model)

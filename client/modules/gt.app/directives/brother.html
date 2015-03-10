@@ -1,0 +1,14 @@
+<div>
+    <div>
+    <div class="form-group" ng-click="focusThis($event)">
+        <label>{{labelText | translate}}</label>
+        <div class="form-input-container">
+            <input type="number" ng-model="number" min="0" max="50" >
+        </div>
+    </div>
+</div>
+
+<div ng-repeat="b in brother">
+    <gt-person model="b" title="{{ title | translate}}" counter="{{ $index + 1 }}/{{ brother.length }}"></gt-person>
+</div>
+</div>

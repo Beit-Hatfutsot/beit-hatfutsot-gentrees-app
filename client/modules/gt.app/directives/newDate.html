@@ -3,14 +3,27 @@
 <div class="form-input-container">
     <input ng-show="!isOpen" type="text" placeholder="{{'Click to add' | translate}}" readonly value="{{model|date}}" ng-click="isOpen = true">
     <div class="form-input-date-popup" ng-show="isOpen" >
+        <header>
+            <span>{{header | translate}}</span>
+            <div id="form-input-date-popup_close" ng-click="isOpen = false" class="fa fa-times fa-lg"></div>
+        </header>
         <div >
              <div >
-              <input type="number"  placeholder="dd"  ng-model="date.day" min="1" max="31">
-              <input type="number"  placeholder="mm"  ng-model="date.mounth" min="1" max="12">
-              <input type="number"  placeholder="yyyy"  ng-model="date.year" min="1800" max="2100">
+                 <div>
+                 <span>{{'Year' | translate}}</span>
+                     <input type="number" ng-model="date.year" min="1700" max="2100">
+                 </div>
+                 <div>
+                     <span>{{'Mounth' | translate}}</span>
+                     <input type="number" ng-model="date.mounth" min="1" max="12">
+                 </div>
+                 <div>
+                     <span>{{'Day' | translate}}</span>
+                     <input type="number" ng-model="date.day" min="1" max="31">
+                 </div>
              </div>
-        <button class="btn btn-inverse"ng-click="save()"translate="OK"></button>
-        <button class="btn btn-inverse"ng-click="$parent.isOpen = false"translate="Cancel"></button>
-        </div>
+            <span>{{'If you dont know the specific date you can use only year' | translate}}</span>
+        <button class="btn btn-inverse"ng-click="save()"translate="Save"></button>
+         </div>
     </div>
 </div>

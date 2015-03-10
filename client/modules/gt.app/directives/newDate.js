@@ -7,7 +7,8 @@ angular.module('gt.app').directive('gtNewDate',
             restrict: 'E',
             replace: true,
             scope: {
-                model: '='
+                model: '=',
+                header: '='
             },
             templateUrl: 'modules/gt.app/directives/newDate.html',
             link: function (scope, element, attrs) {
@@ -22,14 +23,14 @@ angular.module('gt.app').directive('gtNewDate',
                     scope.date['year'] = temp[2] * 1;
                 }
                 scope.save = function(){
+                    if(!scope.date['year'])
+                        return;
+
                     if(!scope.date['day'])
                         scope.date['day'] = 0;
 
                     if(!scope.date['mounth'])
                         scope.date['mounth'] = 0;
-
-                    if(!scope.date['year'])
-                        scope.date['year'] = 0;
 
                     scope.model = scope.date['day'] +'/' + scope.date['mounth'] +'/' + scope.date['year'];
                     scope.isOpen = false;

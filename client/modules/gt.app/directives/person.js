@@ -19,7 +19,7 @@ angular.module('gt.app').directive('gtPerson',
                 $scope.focusThis = function($event){
                     angular.element($event.currentTarget).find("input:first").focus();
                 }
-
+                                // comment for commit test
             }]
         };
 

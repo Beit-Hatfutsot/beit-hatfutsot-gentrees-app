@@ -1,8 +1,8 @@
 {
-    "transport" :  {
-        "service": "Hotmail",
+    "xtransport" :  {
+        "service": "gmail",
         "auth": {
-            "user": "vzaidman@hotmail.com",
+            "user": "email@welldone-software.com",
             "pass": "qaqa123$"
         }
 

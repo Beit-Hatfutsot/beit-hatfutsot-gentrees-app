@@ -7,10 +7,11 @@ angular.module('gt.app').config(['$stateProvider', '$urlRouterProvider', '$locat
 
         $urlRouterProvider.otherwise('/welcome');
 
-        var states = {'welcome':['init'], 'register':['init', 'pending'], 'confirm':['pending'], 'home':['confirmed']};
+        //   var states = {'welcome':['init'], 'register':['init', 'pending'],'usageterms':['init', 'pending'], 'confirm':['pending'], 'home':['confirmed']};
+          var states = {'welcome':['init'], 'register':['init', 'pending'],'usageterms':['init', 'pending'], 'confirm':['pending'], 'home':['confirmed','init', 'pending']};
 
         _.each(states, function(statuses, stateName){
-            $stateProvider.
+                $stateProvider.
                 state(stateName, {
                     url: '/' + stateName,
                     templateUrl: 'modules/gt.app/views/'+ stateName +'.html',

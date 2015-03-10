@@ -5,10 +5,11 @@
 
     <ng-form>
 
+
         <div class="form-group" ng-click="focusThis($event)">
             <label>{{'First Name' | translate}}</label>
             <div class="form-input-container">
-                <input type="text" placeholder="{{'Click to add' | translate}}" ng-model="model.firstName" required>
+                <input type="text" placeholder="{{'Click to add' | translate}}" ng-model="model.firstName" required >
             </div>
         </div>
         <div class="form-group" ng-click="focusThis($event)">
@@ -19,16 +20,19 @@
         </div>
         <div class="form-group gt-gender" ng-show="!model.isMaleNotEditable">
             <label translate="Gender"></label>
-            <div class="form-input-container">
-                <span class="icon-gender icon-male" ng-model="model.isMale" btn-radio="true" uncheckable ng-class="{on: model.isMale}"/>
-                <span class="icon-gender icon-female" ng-model="model.isMale" btn-radio="false" uncheckable ng-class="{on: !model.isMale}"/>
+            <div class="form-input-container" >
+                <span class="icon-gender icon-male" ng-model="model.isMale" btn-radio="true" uncheckable ng-class="{on: model.isMale === true}" />
+                <span class="icon-gender icon-female" ng-model="model.isMale" btn-radio="false" uncheckable ng-class="{on: model.isMale === false}"/>
             </div>
         </div>
         <div class="form-group">
             <label>{{'Date of Birth' | translate}}</label>
-            <div class="form-input-container">
-                <gt-date model="model.dateOfBirth" ng-model="model.dateOfBirth" required/>
-            </div>
+
+            <gt-new-date model="model.dateOfBirth" />
+
+           <!-- <div class="form-input-container">
+          <gt-date model="model.dateOfBirth" ng-model="model.dateOfBirth" required/>
+            </div>-->
         </div>
         <div class="form-group" ng-click="focusThis($event)">
             <label>{{'Place of Birth' | translate}}</label>
@@ -45,7 +49,14 @@
         <div class="form-group" ng-show="!model.isAlive">
             <label>{{'Date of Death' | translate}}</label>
             <div class="form-input-container">
-                <gt-date model="model.dateOfDeath" ng-model="model.dateOfDeath" ng-required='!model.isAlive'/>
+                <gt-date model="model.dateOfDeath" ng-model="model.dateOfDeath" ng-required="!model.isAlive"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{'Image' | translate}}</label>
+            <div class="form-input-container">
+                <gt-image-picker model="model.image" />
             </div>
         </div>
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('gt.app').directive('gtDate',
-    ['$timeout', function ($timeout) {
+    [ function ($timeout) {
 
         return {
             restrict: 'E',

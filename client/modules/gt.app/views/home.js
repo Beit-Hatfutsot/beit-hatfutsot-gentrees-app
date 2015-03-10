@@ -29,7 +29,12 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         };
 
         $scope.disabled = function(){
-            return $scope.step === $scope.stepCount && !$scope.form.$valid;
+           var persons =_.flatten(_.values(_.omit($scope.model, 'numBrothers')));
+            var allValid = _.all(persons, function(p){
+                return  p.isMale != null && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
+            });
+
+            return $scope.step === $scope.stepCount && !allValid;
         };
 
         $scope.back = function () {

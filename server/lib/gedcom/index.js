@@ -1,8 +1,6 @@
 
 var _ = require('lodash'),
-    fs = require('fs'),
-    individualTpl = _.template(fs.readFileSync( __dirname + '/individual.tpl')),
-    familyTpl = _.template(fs.readFileSync(__dirname + '/family.tpl'));
+    fs = require('fs');
 
 
 var familyMap = {
@@ -28,6 +26,15 @@ var familyMap = {
     },
     "dadsMom": {
         "fams": 'dadsFam'
+    },
+    "brothers": {
+        "famc": 'famc'
+    },
+    "momsBrothers": {
+        "famc": 'momsFam'
+    },
+    "dadsBrothers": {
+        "famc": 'dadsFam'
     }
 };
 
@@ -41,6 +48,63 @@ var clearBlankLines = function(str){
 //see http://genealogy.about.com/od/family_tree_software/a/Genealogy-Gedcom.htm
 //see http://www.phpgedview.net/ged551-5.pdf
 
+
+var familyTpl = function(model){
+
+    var arr = _.flaten([
+        '0 HEAD',
+        '1 GEDC',
+        '2 VERS 5.5.1',
+        '1 CHAR UTF-8',
+        '0 @momsFam@ FAM',
+        '1 HUSB @momsDad@',
+        '1 WIFE @momsMom@',
+        '1 CHIL @mom@',
+        model.momsBrothers.map(function(b, i){'1 CHIL @momsBrothers' + i+1 + '@';}),
+        '0 @dadsFam@ FAM',
+        '1 HUSB @dadsDad@',
+        '1 WIFE @dadsMom@',
+        '1 CHIL @dad@',
+        model.dadsBrothers.map(function(b, i){'1 CHIL @dadsBrothers' + i+1 + '@';}),
+        '0 @fam@ FAM',
+        '1 HUSB @dad@',
+        '1 WIFE @mom@',
+        '1 CHIL @me@',
+        model.brothers.map(function(b, i){'1 CHIL @brothers' + i+1 + '@';})
+    ]);
+
+    return arr.join('\n');
+
+};
+
+
+var individualTpl = function(id, ind, famc, fams){
+
+    var line = function(level, prop, value){
+        if(value === 'undefined'){
+            return '';
+        }
+        return [level, prop, value].join(' ').trim();
+    }
+
+    return [
+        [0, '@' + id + '@', 'INDI'],
+        [1, 'NAME', ind.firstName + ' ' + ind.lastName],
+        [1, 'EMAIL', ind.email],
+        [1, 'SEX', ind.isMale ? 'M' : 'F'],
+        [1, 'BIRT', ind.dateOfBirth || ind.placeOfBirth ? '' : undefined],
+        [2, 'DATE', ind.dateOfBirth],
+        [2, 'PLAC', ind.placeOfBirth],
+        [1, 'DEAT', ind.dateOfDeath],
+        [2, 'DATE', ind.dateOfDeath],
+        [1, 'FAMC', ind.fam.famc],
+        [1, 'FAMS', ind.fam.fams]
+    ].map(
+        function (args) {
+            return line.apply(this, args);
+        });
+};
+
 var gedcomFromModel = function(model){
 
     console.log(model);
@@ -48,12 +112,14 @@ var gedcomFromModel = function(model){
     var individualsGedcoms =
         _.flatten(
             _.map(model, function(v, k){
-               if(k==='brothers') {
+               if(k==='brothers' || k==='dadsBrothers' || k==='momsBrothers') {
+                   var fam = familyMap[k];
                    return _.map(v, function (brother, index) {
-                       var data = {id: 'b' + (index + 1), fam: {famc: 'fam'}, ind: brother};
+                       var data = {id: k + (index + 1), fam: fam, ind: brother};
                        return individualTpl(data);
                    });
-               }else if(k==='numBrothers'){
+
+               }else if(k==='numBrothers' || k==='numDadsBrothers' || k==='numMomsBrothers'){
                    return '';
                }else{
                    var data = {id: k, fam:familyMap[k], ind: v};

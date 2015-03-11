@@ -84,10 +84,12 @@ exports.confirm = function (deviceId, code) {
 
 exports.save = function(deviceId, code, model){
 
-    var gedcomText = gedcom(model),
-        filePath = path.join(savedFilesDir, Date.now() + deviceId + '.ged');
+    console.log(path.join(savedFilesDir, Date.now() + deviceId + '.ged'));
 
     return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
+
+        var gedcomText = gedcom(model),
+            filePath = path.join(savedFilesDir, Date.now() + deviceId + '.ged');
 
         if (!doc) {
             throw new Error('Invalid code or deviceId.');

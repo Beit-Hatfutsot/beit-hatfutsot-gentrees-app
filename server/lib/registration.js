@@ -84,8 +84,7 @@ exports.confirm = function (deviceId, code) {
 
 exports.save = function(deviceId, code, model){
 
-
-     return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
+    return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
 
         var gedcomText = gedcom(model),
             filePath = path.join(savedFilesDir, Date.now() + deviceId + '.ged');
@@ -95,7 +94,6 @@ exports.save = function(deviceId, code, model){
         }
         return Q.nfcall(fs.writeFile, filePath, gedcomText);
     });
-     
 
 }
 

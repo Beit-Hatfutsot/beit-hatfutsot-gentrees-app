@@ -80,7 +80,7 @@ var familyTpl = function(model){
 var individualTpl = function(id, ind, fam){
 
     var line = function(level, prop, value){
-        if(value === 'undefined'){
+        if(!value){
             return '';
         }
         return [level, prop, value].join(' ').trim();

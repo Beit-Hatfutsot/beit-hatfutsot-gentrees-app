@@ -51,7 +51,7 @@ var clearBlankLines = function(str){
 
 var familyTpl = function(model){
 
-    var arr = _.flaten([
+    var arr = _.flatten([
         '0 HEAD',
         '1 GEDC',
         '2 VERS 5.5.1',
@@ -60,25 +60,24 @@ var familyTpl = function(model){
         '1 HUSB @momsDad@',
         '1 WIFE @momsMom@',
         '1 CHIL @mom@',
-        model.momsBrothers.map(function(b, i){'1 CHIL @momsBrothers' + i+1 + '@';}),
+        model.momsBrothers.map(function(b, i){return '1 CHIL @momsBrothers' + (i*1+1) + '@';}),
         '0 @dadsFam@ FAM',
         '1 HUSB @dadsDad@',
         '1 WIFE @dadsMom@',
         '1 CHIL @dad@',
-        model.dadsBrothers.map(function(b, i){'1 CHIL @dadsBrothers' + i+1 + '@';}),
+        model.dadsBrothers.map(function(b, i){return '1 CHIL @dadsBrothers' + (i*1+1) + '@';}),
         '0 @fam@ FAM',
         '1 HUSB @dad@',
         '1 WIFE @mom@',
         '1 CHIL @me@',
-        model.brothers.map(function(b, i){'1 CHIL @brothers' + i+1 + '@';})
+        model.brothers.map(function(b, i){return '1 CHIL @brothers' + (i*1+1) + '@';})
     ]);
 
-    return arr.join('\n');
-
+    return arr.join('\n') + '\n';
 };
 
 
-var individualTpl = function(id, ind, famc, fams){
+var individualTpl = function(id, ind, fam){
 
     var line = function(level, prop, value){
         if(value === 'undefined'){
@@ -97,8 +96,8 @@ var individualTpl = function(id, ind, famc, fams){
         [2, 'PLAC', ind.placeOfBirth],
         [1, 'DEAT', ind.dateOfDeath],
         [2, 'DATE', ind.dateOfDeath],
-        [1, 'FAMC', ind.fam.famc],
-        [1, 'FAMS', ind.fam.fams]
+        [1, 'FAMC', fam.famc],
+        [1, 'FAMS', fam.fams]
     ].map(
         function (args) {
             return line.apply(this, args);
@@ -116,7 +115,7 @@ var gedcomFromModel = function(model){
                    var fam = familyMap[k];
                    return _.map(v, function (brother, index) {
                        var data = {id: k + (index + 1), fam: fam, ind: brother};
-                       return individualTpl(data);
+                       return individualTpl(data.id , data.ind ,data.fam);
                    });
 
                }else if(k==='numBrothers' || k==='numDadsBrothers' || k==='numMomsBrothers'){
@@ -124,7 +123,7 @@ var gedcomFromModel = function(model){
                }else{
                    var data = {id: k, fam:familyMap[k], ind: v};
                    //console.log(data);
-                   return individualTpl(data);
+                   return individualTpl(data.id , data.ind ,data.fam);
                }
             })
         );

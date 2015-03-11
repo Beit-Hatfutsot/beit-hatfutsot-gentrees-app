@@ -84,9 +84,12 @@ exports.confirm = function (deviceId, code) {
 
 exports.save = function(deviceId, code, model){
 
-    console.log(path.join(savedFilesDir, Date.now() + deviceId + '.ged'));
+    var gedcomText = gedcom(model),
+        filePath = path.join(savedFilesDir, Date.now() + deviceId + '.ged');
+    return Q.nfcall(fs.writeFile, filePath, gedcomText);
 
-    return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
+    // For Test
+   /* return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
 
         var gedcomText = gedcom(model),
             filePath = path.join(savedFilesDir, Date.now() + deviceId + '.ged');
@@ -95,7 +98,8 @@ exports.save = function(deviceId, code, model){
             throw new Error('Invalid code or deviceId.');
         }
         return Q.nfcall(fs.writeFile, filePath, gedcomText);
-
     });
+    */
+
 }
 

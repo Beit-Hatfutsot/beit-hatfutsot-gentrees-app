@@ -20,7 +20,7 @@
         <div class="form-group gt-gender" ng-show="!model.isMaleNotEditable">
             <label translate="Gender"></label>
             <div class="form-input-container" >
-                    <div class="gender-required-div" ng-show="model.isMale !== true && model.isMale !== false"></div>
+                    <div class="gender-required-div" ng-show="model.isMale !== true && model.isMale !== false && ($parent.step == 5 || $parent.$parent.$parent.step == 5 )"></div>
                 <span style="position: relative" class="icon-gender icon-male" ng-model="model.isMale" btn-radio="true" uncheckable ng-class="{on: model.isMale === true}" />
                 <span style="position: relative" class="icon-gender icon-female" ng-model="model.isMale" btn-radio="false" uncheckable ng-class="{on: model.isMale === false}"/>
             </div>
@@ -40,7 +40,7 @@
         <div class="form-group">
             <label>{{'Image' | translate}}</label>
             <div class="form-input-container">
-                <gt-image-picker model="image" />
+                <gt-image-picker model="model.image" />
             </div>
         </div>
 

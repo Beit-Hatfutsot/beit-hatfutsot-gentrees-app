@@ -1,9 +1,9 @@
 <div>
-    <div>
+    <div ng-show="$parent.step != 5">
     <div class="form-group" ng-click="focusThis($event)">
         <label>{{labelText | translate}}</label>
         <div class="form-input-container">
-            <input type="number" ng-model="number" min="0" max="50" >
+            <input type="number" ng-model="number" min="0" max="50" class="test" >
         </div>
     </div>
 </div>

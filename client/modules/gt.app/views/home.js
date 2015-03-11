@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('gt.app').controller('gtHomeCtrl', [
     '$scope', '$filter', 'gtRegistrationSvc', '$state', '$timeout', '$location', '$anchorScroll', function ($scope, $filter, regSvc, $state, $timeout, $location, $anchorScroll) {
 

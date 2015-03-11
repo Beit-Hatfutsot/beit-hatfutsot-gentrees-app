@@ -1,8 +1,9 @@
+
 <div class="gt-view gt-form-view gt-view-home">
 
     <form name="form" novalidate>
 
-        <header>
+        <header ng-swipe-left="step < 5 ? next() : ''"  ng-swipe-right="step > 1 ? back() : '' ">
             <div class="right">
                 <button ng-click="back()" ng-show="step > 1">
                     <i class="fa fa-angle-right"></i>
@@ -43,7 +44,7 @@
                     <gt-person model="model.momsDad" title="{{'Mom\'s Dad' | translate}}"></gt-person>
                     <gt-person model="model.momsMom" title="{{'Mom\'s Mom' | translate}}"/></gt-person>
 
-                    <h3>{{'MomsBrothers' | translate}}</h3>
+                    <h3 ng-show="step != 5">{{'MomsBrothers' | translate}}</h3>
                     <gt-brother brother="model.momsBrothers" number="model.numMomsBrothers" title="'Brother of mam'" label-text="'How many brothers your mom have ?'"/></gt-brother>
                 </div>
 
@@ -52,13 +53,13 @@
                     <gt-person model="model.dadsDad" title="{{'Dad\'s Dad' | translate}}"></gt-person>
                     <gt-person model="model.dadsMom" title="{{'Dad\'s Mom' | translate}}"/></gt-person>
 
-                    <h3>{{'DadsBrothers' | translate}}</h3>
+                    <h3 ng-show="step != 5">{{'DadsBrothers' | translate}}</h3>
                     <gt-brother brother="model.dadsBrothers" number="model.numDadsBrothers" title="'Brother of dad'" label-text="'How many brothers your dad have ?'"/></gt-brother>
                 </div>
 
                 <div ng-show="step == 4 || step == stepCount">
-                    <h3>{{'Brothers' | translate}}</h3>
 
+                    <h3 ng-show="step != 5">{{'Brothers' | translate}}</h3>
                     <gt-brother brother="model.brothers" number="model.numBrothers" title="'Brother'" label-text="'How many brothers you have ?'"/></gt-brother>
                 <!--  <div>
                         <div class="form-group" ng-click="focusThis($event)">

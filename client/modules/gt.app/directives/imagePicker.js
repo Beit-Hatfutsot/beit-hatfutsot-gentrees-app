@@ -43,8 +43,25 @@ angular.module('gt.app').directive('gtImagePicker',
                     var reader = new FileReader();
                     reader.onload = (function(theFile) {
                         return function(e) {
-                           // scope.model = e.target.result;
-                            localStorage.setItem('image'+scope.model,e.target.result);
+
+                            var image = new Image();
+                            image.src = e.target.result;
+
+                            var width = 300 ;
+                            var height = 300 ;
+                            if(image.height > image.width)
+                                width = width * (image.width/image.height);
+                             else
+                                height = height * (image.height/image.width);
+
+                            var canvas = document.createElement('canvas'),
+                            ctx = canvas.getContext('2d');
+                             canvas.width = width;
+                             canvas.height =  height;
+                            ctx.drawImage(image, 0, 0, width, height);
+                            localStorage.setItem('image'+scope.model,canvas.toDataURL("image/jpeg", 0.5));
+
+                            //localStorage.setItem('image'+scope.model,e.target.result);
                             scope.createImage(e.target.result);
                         };
                     })(file);

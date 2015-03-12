@@ -77,7 +77,7 @@ var familyTpl = function(model){
 };
 
 
-var individualTpl = function(id, ind, fam,image,fileName,filePath){
+var individualTpl = function(id, ind, fam,image,fileName){
 
     var line = function(level, prop, value){
         if(value === undefined){
@@ -100,7 +100,7 @@ var individualTpl = function(id, ind, fam,image,fileName,filePath){
         [1, 'FAMS', fam.fams ? '@' + fam.fams + '@' : undefined ],
         [1, 'OBJE', image ? '' : undefined],
         [2, 'FORM', image ? 'jpg' : undefined ],
-        [2, 'FILE',  image ?  filePath +'_'+ id+'.jpg' : undefined  ],
+        [2, 'FILE',  image ?  fileName +'_'+ id+'.jpg' : undefined  ],
         [2, 'TITL',  image ?  fileName +'_'+ id+'.jpg' : undefined  ],
         [2, '_TYPE', image ? 'PHOTO' : undefined ],
         [2, '_PRIM', image ? 'Y' : undefined ]
@@ -110,7 +110,7 @@ var individualTpl = function(id, ind, fam,image,fileName,filePath){
         });
 };
 
-var gedcomFromModel = function(model,fileName,filePath){
+var gedcomFromModel = function(model,fileName){
 
     var individualsGedcoms =
         _.flatten(
@@ -127,12 +127,10 @@ var gedcomFromModel = function(model,fileName,filePath){
                }else{
                    var data = {id: k, fam:familyMap[k], ind: v};
                    //console.log(data);
-                   return individualTpl(data.id , data.ind ,data.fam,model.image[k],fileName,filePath);
+                   return individualTpl(data.id , data.ind ,data.fam,model.image[k],fileName);
                }
             })
         );
-
-    console.log(individualsGedcoms);
 
     var gedcom = familyTpl(model) + individualsGedcoms.join('\n') + '0 TRLR\n';
 

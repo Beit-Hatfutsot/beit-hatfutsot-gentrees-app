@@ -67,7 +67,6 @@ angular.module('gt.app').controller('gtHomeCtrl', [
                 } else {
                     if (value.image && localStorage.getItem('image' + value.image)) {
                         $scope.model.image[key] = localStorage.getItem('image' + value.image);
-                        console.log($scope.model.image);
                     }
                 }
             });

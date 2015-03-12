@@ -23,7 +23,7 @@ app.use(express.static(__dirname + '/public', {
 
 
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use('/api/v1', apiRouter);
 
 var server = app.listen(port, function () {

@@ -28,7 +28,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         };
 
         $scope.disabled = function(){
-            var persons =_.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers')));
+            var persons =_.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image')));
             var allValid = _.all(persons, function(p){
                 return  p.isMale != null && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
             });
@@ -55,6 +55,13 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
         $scope.save = function () {
             $scope.loading = true;
+
+          $scope.model.image ={};
+            _.each($scope.model,function(value,key){
+                if(value.image && localStorage.getItem('image'+value.image))
+                    $scope.model.image[key] = localStorage.getItem('image'+value.image);
+            });
+
 
             return regSvc.saveModel($scope.model).then(
                 function () {

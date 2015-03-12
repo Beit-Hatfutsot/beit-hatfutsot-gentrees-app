@@ -84,16 +84,23 @@ exports.confirm = function (deviceId, code) {
 
 exports.save = function(deviceId, code, model){
 
-    return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
+   return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
 
-        var gedcomText = gedcom(model),
-            filePath = path.join(savedFilesDir, Date.now() + deviceId + '.ged');
+       var fileName = Date.now() + deviceId ;
+       var filePath = path.join(savedFilesDir,fileName);
+
+       _.each(model.image,function(value,key){
+           var base64Data = value.replace(/^data:image\/jpeg;base64,/, "");
+           fs.writeFile( filePath + '_'+key+ '.jpg', base64Data, 'base64');
+       });
+
+       var gedcomText = gedcom(model,fileName,filePath);
 
         if (!doc) {
             throw new Error('Invalid code or deviceId.');
         }
-        return Q.nfcall(fs.writeFile, filePath, gedcomText);
-    });
+        return Q.nfcall(fs.writeFile,  filePath + '.ged', gedcomText);
 
+    });
 }
 

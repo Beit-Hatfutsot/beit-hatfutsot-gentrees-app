@@ -77,10 +77,10 @@ var familyTpl = function(model){
 };
 
 
-var individualTpl = function(id, ind, fam){
+var individualTpl = function(id, ind, fam,image,fileName,filePath){
 
     var line = function(level, prop, value){
-        if(!value){
+        if(value === undefined){
             return '';
         }
         return [level, prop, value].join(' ').trim();
@@ -88,25 +88,29 @@ var individualTpl = function(id, ind, fam){
 
     return [
         [0, '@' + id + '@', 'INDI'],
-        [1, 'NAME', ind.firstName + ' ' + ind.lastName],
+        [1, 'NAME', ind.firstName + ' ' + (ind.lastName ? '/'+ind.lastName +'/' : '')],
         [1, 'EMAIL', ind.email],
         [1, 'SEX', ind.isMale ? 'M' : 'F'],
         [1, 'BIRT', ind.dateOfBirth || ind.placeOfBirth ? '' : undefined],
         [2, 'DATE', ind.dateOfBirth],
         [2, 'PLAC', ind.placeOfBirth],
-        [1, 'DEAT', ind.dateOfDeath],
+        [1, 'DEAT', ind.dateOfDeath ? '' : undefined],
         [2, 'DATE', ind.dateOfDeath],
-        [1, 'FAMC', fam.famc],
-        [1, 'FAMS', fam.fams]
+        [1, 'FAMC',  fam.famc ? '@' + fam.famc + '@' : undefined],
+        [1, 'FAMS', fam.fams ? '@' + fam.fams + '@' : undefined ],
+        [1, 'OBJE', image ? '' : undefined],
+        [2, 'FORM', image ? 'jpg' : undefined ],
+        [2, 'FILE',  image ?  filePath +'_'+ id+'.jpg' : undefined  ],
+        [2, 'TITL',  image ?  fileName +'_'+ id+'.jpg' : undefined  ],
+        [2, '_TYPE', image ? 'PHOTO' : undefined ],
+        [2, '_PRIM', image ? 'Y' : undefined ]
     ].map(
         function (args) {
             return line.apply(this, args);
         });
 };
 
-var gedcomFromModel = function(model){
-
-    console.log(model);
+var gedcomFromModel = function(model,fileName,filePath){
 
     var individualsGedcoms =
         _.flatten(
@@ -118,12 +122,12 @@ var gedcomFromModel = function(model){
                        return individualTpl(data.id , data.ind ,data.fam);
                    });
 
-               }else if(k==='numBrothers' || k==='numDadsBrothers' || k==='numMomsBrothers'){
+               }else if(k==='numBrothers' || k==='numDadsBrothers' || k==='numMomsBrothers'  || k==='image'){
                    return '';
                }else{
                    var data = {id: k, fam:familyMap[k], ind: v};
                    //console.log(data);
-                   return individualTpl(data.id , data.ind ,data.fam);
+                   return individualTpl(data.id , data.ind ,data.fam,model.image[k],fileName,filePath);
                }
             })
         );

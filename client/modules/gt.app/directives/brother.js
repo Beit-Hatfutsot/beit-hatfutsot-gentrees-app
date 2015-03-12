@@ -15,11 +15,7 @@ angular.module('gt.app').directive('gtBrother',
             templateUrl: 'modules/gt.app/directives/brother.html',
             link: function (scope,$scope, element, attrs) {
 
-               /* var input =element.$$element[0].children[0].children[0].children[1].children;
 
-                $(input).click(function(){
-                    $(input).select();
-                });*/
 
                 if(!scope.number)
                     scope.number = 0;

@@ -56,8 +56,8 @@ angular.module('gt.app').directive('gtImagePicker',
 
                             var canvas = document.createElement('canvas'),
                             ctx = canvas.getContext('2d');
-                             canvas.width = width;
-                             canvas.height =  height;
+                            canvas.width = width;
+                            canvas.height =  height;
                             ctx.drawImage(image, 0, 0, width, height);
                             localStorage.setItem('image'+scope.model,canvas.toDataURL("image/jpeg", 0.5));
 

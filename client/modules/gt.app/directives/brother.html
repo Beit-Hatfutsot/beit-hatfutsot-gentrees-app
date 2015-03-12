@@ -3,7 +3,7 @@
     <div class="form-group" ng-click="focusThis($event)">
         <label>{{labelText | translate}}</label>
         <div class="form-input-container">
-            <input type="number" ng-model="number" min="0" max="50" class="test" >
+          <input type="number" ng-model="number" min="0" max="50" class="test" onclick="this.setSelectionRange(0, 999)">
         </div>
     </div>
 </div>

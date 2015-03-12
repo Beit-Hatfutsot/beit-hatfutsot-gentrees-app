@@ -77,7 +77,6 @@ exports.confirm = function (deviceId, code) {
         }
 
         return null;
-
     });
 };
 

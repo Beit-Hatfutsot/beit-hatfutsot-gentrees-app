@@ -119,7 +119,7 @@ var gedcomFromModel = function(model,fileName){
                    var fam = familyMap[k];
                    return _.map(v, function (brother, index) {
                        var data = {id: k + (index + 1), fam: fam, ind: brother};
-                       return individualTpl(data.id , data.ind ,data.fam);
+                       return individualTpl(data.id , data.ind ,data.fam,model.image[k],fileName);
                    });
 
                }else if(k==='numBrothers' || k==='numDadsBrothers' || k==='numMomsBrothers'  || k==='image'){

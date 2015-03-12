@@ -57,11 +57,20 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             $scope.loading = true;
 
           $scope.model.image ={};
-            _.each($scope.model,function(value,key){
-                if(value.image && localStorage.getItem('image'+value.image))
-                    $scope.model.image[key] = localStorage.getItem('image'+value.image);
+            _.each($scope.model,function(value,key) {
+                if (key === 'brothers' || key === 'dadsBrothers' || key === 'momsBrothers') {
+                    _.each(value, function (v, k) {
+                        if (v.image && localStorage.getItem('image' + v.image)) {
+                            $scope.model.image[key + (k * 1 + 1)] = localStorage.getItem('image' + v.image);
+                        }
+                    });
+                } else {
+                    if (value.image && localStorage.getItem('image' + value.image)) {
+                        $scope.model.image[key] = localStorage.getItem('image' + value.image);
+                        console.log($scope.model.image);
+                    }
+                }
             });
-
 
             return regSvc.saveModel($scope.model).then(
                 function () {
@@ -73,39 +82,6 @@ angular.module('gt.app').controller('gtHomeCtrl', [
                     $scope.loading = false;
                 });
         };
-
-
-      /* $scope.$watch('model.numBrothers', function (newValue, oldValue) {
-            newValue = parseInt($filter('number')(newValue)) || 0;
-            oldValue = oldValue || 0;
-
-            if (newValue === oldValue) {
-                return;
-            }
-
-            if (!newValue || newValue === 0) {
-                $scope.model.brothers = [];
-                return;
-            }
-
-            if (newValue > 0) {
-                if (newValue > oldValue) {
-                    for (var x = $scope.model.brothers.length; x < newValue; x++) {
-                        $scope.model.brothers.push({isAlive: true});
-                    }
-                }
-                else {
-                    for (var y = $scope.model.brothers.length; y > newValue; y--) {
-                        $scope.model.brothers.pop();
-                    }
-                }
-            }
-        });*/
-
-
-
-
-
 
 
     }]);

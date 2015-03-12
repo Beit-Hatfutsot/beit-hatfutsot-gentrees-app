@@ -15,8 +15,6 @@ angular.module('gt.app').directive('gtBrother',
             templateUrl: 'modules/gt.app/directives/brother.html',
             link: function (scope,$scope, element, attrs) {
 
-
-
                 if(!scope.number)
                     scope.number = 0;
 
@@ -38,7 +36,6 @@ angular.module('gt.app').directive('gtBrother',
                         if (newValue > oldValue) {
                             for (var x = scope.brother.length; x < newValue; x++) {
                                 scope.brother.push({isAlive: true});
-                                console.log(123,scope.brother);
                             }
                         }
                         else {

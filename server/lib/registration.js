@@ -51,15 +51,15 @@ exports.sendMail = function (deviceId, email, baseUrl) {
         .then(function () {
             console.log('sending email');
             console.log('code',code);
-            // remove only for cheking
-            /*  return emailSender.send({
+            // remove only when try to register
+              return emailSender.send({
                 to: email,
                 html: emailTpl({code: code, baseUrl: baseUrl})
             })
             .then(function () {
                 console.log('completed sending email');
                 return null;
-            });*/
+            });
         });
 };
 

@@ -15,6 +15,14 @@
                     <input type="email" required ng-model="model.me.email" ng-class="{overwriteDirty: thisWasBluered}" ui-event="{ blur : 'blurEv()' }" placeholder="{{'Enter Value' | translate}}" name="email">
                 </div>
             </div>
+
+            <div class="form-group" ng-click="focusThis($event)">
+                <label>{{'Phone' | translate}}</label>
+                <div class="form-input-container">
+                    <input type="text" ng-pattern="{{phoneFormat}}" required ng-model="model.me.phone" ng-class="{overwriteDirty: thisWasBluered}" ui-event="{ blur : 'blurEv()' }" placeholder="{{'Enter Value' | translate}}" name="phone">
+                </div>
+            </div>
+
             <div class="form-group">
                 <div>
                     <label class="full">

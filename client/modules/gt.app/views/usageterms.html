@@ -6,9 +6,18 @@
     <div class="body-wrapper">
 
         <div class="content">
-            <p translate="The family tree will be saved for you in the Beit Hatfutsot archive and you will be able to watch and edit it in the future in Beit Hatfutsot archive site"></p>
+           <!-- <p translate="The family tree will be saved for you in the Beit Hatfutsot archive and you will be able to watch and edit it in the future in Beit Hatfutsot archive site"></p>-->
+            <ul class="usageterms-list">
+                <li ng-repeat="num in [1,2,3,4,5]">
+                    <p translate="{{'usageterms-content-'+num}}"></p>
+                </li>
+            </ul>
 
-            <a href="" class="btn btn-inverse btn-footer" ui-sref="register" translate="Confirm"></a>
+<div class="btn-footer-sction">
+    <a href="" class="btn btn-inverse btn-footer" ui-sref="register" translate="Confirm"></a>
+
+</div>
+
         </div>
 
     </div>

@@ -3,6 +3,8 @@
 angular.module('gt.app').controller('gtRegisterCtrl',
     ['$scope', '$state', 'gtRegistrationSvc', function ($scope, $state, regSvc) {
 
+        $scope.phoneFormat = '/^[0-9]{9,10}$/';
+
         $scope.register = function(){
 
             regSvc.sendMail($scope.model.me.email).then(function(){

@@ -60,6 +60,7 @@
                     var newState = _.findLast($state.get(), function (s) {
                         return s.data && _.contains(s.data.allowedStatuses, status);
                     });
+
                     $state.go(newState);
                 }
             });

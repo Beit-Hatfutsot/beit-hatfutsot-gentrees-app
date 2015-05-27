@@ -50,14 +50,16 @@ exports.sendMail = function (deviceId, email, baseUrl) {
     return collInvoke('update', query, data, options)
         .then(function () {
             console.log('sending email');
-            return emailSender.send({
+            console.log('code',code);
+            // remove only for cheking
+            /*  return emailSender.send({
                 to: email,
                 html: emailTpl({code: code, baseUrl: baseUrl})
             })
             .then(function () {
                 console.log('completed sending email');
                 return null;
-            });
+            });*/
         });
 };
 
@@ -94,6 +96,8 @@ exports.save = function(deviceId, code, model){
        });
 
        var gedcomText = gedcom(model,fileName);
+        console.log('gedcomText',gedcomText);
+
 
         if (!doc) {
             throw new Error('Invalid code or deviceId.');

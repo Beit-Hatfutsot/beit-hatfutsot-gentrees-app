@@ -77,8 +77,8 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                     return wrap(functions.sendMail(email), 'Confirm Email');
                 },
 
-                saveModel : function(model){
-                    return wrap(functions.saveModel(model), 'Save Tree', 'Your data has been successfully saved.');
+                saveModel : function(model,message){
+                    return wrap(functions.saveModel(model), 'Save Tree', message);
                 }
             };
 

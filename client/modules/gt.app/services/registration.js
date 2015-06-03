@@ -20,12 +20,12 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                             });
                         }
                         return data;
-                    },
-                    function(err){
-                        return dialogsSvc.showMessage(err.message || (err.data && err.data.response) || err, title, true).then(function(){
+                    }).catch(function(err){
+                        console.log('err 2',err)
+                        return dialogsSvc.showMessage(err.message || (err.data && err.data.response) || err.statusText || err, title, true).then(function(){
                             return promise;
                         });
-                    });
+                    })
             }
 
             var functions = {
@@ -54,6 +54,12 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                         code: localStorage.confirimationCode,
                         model: model
                     });
+                },
+                saveTree : function(model){
+                    return $http.post('api/v1/saveTree', {
+                        deviceId: localStorage.deviceId,
+                        model: model
+                    });
                 }
             };
 
@@ -79,6 +85,9 @@ angular.module('gt.app').factory('gtRegistrationSvc',
 
                 saveModel : function(model,message){
                     return wrap(functions.saveModel(model), 'Save Tree', message);
+                },
+                saveTree : function(model,message){
+                    return wrap(functions.saveTree(model), 'Save Tree', message);
                 }
             };
 

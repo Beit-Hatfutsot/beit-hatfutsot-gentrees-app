@@ -27,7 +27,10 @@
         </div>
         <div class="form-group">
             <label>{{'Date of Birth' | translate}}</label>
-            <gt-new-date model="model.dateOfBirth" header="'Date of Birth'"/>
+            <!--<gt-new-date model="model.dateOfBirth" header="'Date of Birth'"/>-->
+            <div class="form-input-container">
+                <input  type="text" ng-click="openDateModal()" ng-model="model.dateOfBirth" placeholder="{{'Date of Birth' | translate}}" >
+            </div>
         </div>
         <div class="form-group" ng-click="focusThis($event)">
             <label>{{'Place of Birth' | translate}}</label>

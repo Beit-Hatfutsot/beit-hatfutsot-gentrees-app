@@ -1,4 +1,4 @@
-var savedFilesDir = process.env.SAVED_FILES_DIR ||  (__dirname + '/../../'),
+var savedFilesDir = process.env.SAVED_FILES_DIR || (__dirname + '/../../'),
     mongoURL = process.env.MONGO_URL || 'mongodb://localhost:27017/gentreeDb',
     emailTplPath = process.env.EMAIL_BODY_TPL_PATH || (__dirname + '/email/emailTpl.html');
 
@@ -7,22 +7,22 @@ var emailSender = require('./emailSender'),
     gedcom = require('./gedcom'),
     fs = require('fs'),
     _ = require('lodash')
-    path = require('path'),
+path = require('path'),
     MongoClient = require('mongodb').MongoClient;
 
 
-var collPromise = (function(){
-        return  Q.ninvoke(MongoClient, 'connect', mongoURL).then(function(db){
+var collPromise = (function () {
+        return Q.ninvoke(MongoClient, 'connect', mongoURL).then(function (db) {
             return db.collection('registrations');
-        }).catch(function(err){
+        }).catch(function (err) {
             console.error(err.message, err.stack);
             process.exit(1);
         });
     })(),
-    collInvoke = function(){
+    collInvoke = function () {
         var args = Array.prototype.slice.call(arguments),
             methodName = args.shift();
-        return collPromise.then(function(coll){
+        return collPromise.then(function (coll) {
             return Q.npost(coll, methodName, args);
         });
     };
@@ -50,16 +50,16 @@ exports.sendMail = function (deviceId, email, baseUrl) {
     return collInvoke('update', query, data, options)
         .then(function () {
             console.log('sending email');
-            console.log('code',code);
+            console.log('code', code);
             // remove only when try to register
-              return emailSender.send({
+             /*return emailSender.send({
                 to: email,
                 html: emailTpl({code: code, baseUrl: baseUrl})
             })
-            .then(function () {
-                console.log('completed sending email');
-                return null;
-            });
+                .then(function () {
+                    console.log('completed sending email');
+                    return null;
+                });*/
         });
 };
 
@@ -83,27 +83,96 @@ exports.confirm = function (deviceId, code) {
 };
 
 
-exports.save = function(deviceId, code, model){
+exports.save = function (deviceId, code, model) {
 
-   return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
+    /*var fileName = Date.now() + deviceId;
+    var filePath =  path.join(savedFilesDir, Date.now() + deviceId);
 
-       var fileName = Date.now() + deviceId;
-       var filePath = path.join(savedFilesDir,fileName);
+    return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
 
-       _.each(model.image,function(value,key){
-           var base64Data = value.replace(/^data:image\/jpeg;base64,/, "");
-           fs.writeFile( filePath + '_'+key+ '.jpg', base64Data, 'base64');
-       });
+        _.each(model.image, function (value, key) {
+            var base64Data = value.replace(/^data:image\/jpeg;base64,/, "");
+            fs.writeFile(filePath + '_' + key + '.jpg', base64Data, 'base64');
+        });
 
-       var gedcomText = gedcom(model,fileName);
-        console.log('gedcomText',gedcomText);
-
+        var gedcomText = gedcom(model, fileName);
 
         if (!doc) {
             throw new Error('Invalid code or deviceId.');
         }
-        return Q.nfcall(fs.writeFile,  filePath + '.ged', gedcomText);
 
+        return Q.nfcall(fs.writeFile, filePath + '.ged', gedcomText);
+
+    });*/
+};
+
+
+// For Testing
+/*exports.getTreesByDeviceId = function (deviceId) {
+    return collInvoke('findOne', {_id: deviceId}).then(function (doc) {
+        *//*  delete doc.familyTrees;
+         delete doc.queryData;
+         collInvoke('update', {_id: deviceId}, doc).then(function (doc) {
+         });*//*
+        return doc;
     });
-}
+};*/
 
+exports.saveTree = function (deviceId, model) {
+    return collInvoke('findOne', {_id: deviceId}).then(function (doc) {
+
+        var nowDate = new Date();
+        if (!doc.familyTrees) {
+            doc.familyTrees = [];
+            model.dateAdded = nowDate;
+        }
+
+        model.dateUpdate = nowDate;
+        model.dateAdded = model.dateAdded || doc.familyTrees[0].dateAdded;
+
+        doc.familyTrees.push(model);
+
+        console.log(' model.dateUpdate', model.dateUpdate);
+        doc.queryData = {
+            me: model.me,
+            savingLocation: model.savingLocation,
+            dateAdded: model.dateAdded,
+            dateUpdate: model.dateUpdate
+        };
+
+        collInvoke('update', {_id: deviceId}, doc).then(function (doc) {
+        });
+
+        // createReport(model, deviceId);
+
+        return null;
+    });
+};
+
+
+
+/*
+
+
+ function createReport(model, deviceId) {
+
+
+ var headerList = ['firstName', 'lastName', 'email', 'phone', 'DateAdded', 'DateUpdate', 'savingLocation', 'isNewFolder'];
+ var header = 'First Name' + '\t' + 'Last Name' + '\t' + 'Email' + '\t' + 'Phone' + '\t' + 'Date Added' + '\t' + 'Date Update' + '\t' + 'Nation' + '\t' + 'New Folder' + '\t' + 'Link To Gedcom' + '\n';
+
+ var userDetails = '';
+ _.each(headerList, function (v) {
+ if (model[v]) {
+ userDetails += model[v] + '\t'
+ } else {
+ userDetails += model.me[v] + '\t'
+ }
+ });
+
+ var linkToGedcom = filePath + '.ged' + '\t';
+
+ var result = header + userDetails + linkToGedcom;
+ Q.nfcall(fs.writeFile, filePath + '.xls', result);
+ }
+
+ */

@@ -42,7 +42,14 @@ router.post('/registration/confirm', apiAction(function(req) {
 router.post('/save', apiAction(function(req) {
     //console.log(req.body);
     return registration.save(req.body.deviceId, req.body.code, req.body.model);
+}));
 
+// For Testing
+/*router.get('/trees', apiAction(function(req) {
+     return registration.getTreesByDeviceId(req.query.deviceId);
+}));*/
+router.post('/saveTree', apiAction(function(req) {
+    return registration.saveTree(req.body.deviceId, req.body.model);
 }));
 
 

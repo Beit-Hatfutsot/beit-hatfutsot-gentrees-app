@@ -1,0 +1,20 @@
+<div class="form-input-date-popup gt-form-view gt-view">
+    <header>
+        <span>{{header | translate}}</span>
+
+        <div id="form-input-date-popup_close" ng-click="close()" class="fa fa-times fa-lg"></div>
+    </header>
+    <div>
+        <div>
+            <form name="dateForm" >
+                <div ng-repeat="date in dates">
+                    <span>{{date.title | translate}}</span>
+                    <input type="number" ng-model="date.value" min="{{date.min}}" max="{{date.max}}">
+                </div>
+            </form>
+        </div>
+        {{dateForm.$valid}}
+        <span>{{'If you dont know the specific date you can use only year' | translate}}</span>
+        <button class="btn btn-inverse" ng-click="ok()" ng-disabled="!dateForm.$valid" translate="Save"></button>
+    </div>
+</div>

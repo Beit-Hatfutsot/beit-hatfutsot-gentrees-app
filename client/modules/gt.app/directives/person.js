@@ -11,11 +11,18 @@ angular.module('gt.app').directive('gtPerson',
                 counter: '@'
             },
             templateUrl: 'modules/gt.app/directives/person.html',
-            controller: ['$scope', function ($scope) {
+            controller: ['$scope','gtDialogsSvc', function ($scope,dialogsSvc) {
 
                 $scope.focusThis = function($event){
                     angular.element($event.currentTarget).find("input:first").focus();
+                };
+
+                $scope.openDateModal = function(date){
+                    dialogsSvc.openDateDialog('Date of Birth',$scope.model.dateOfBirth).then(function(data){
+                        $scope.model.dateOfBirth =data;
+                    });
                 }
+
             }]
         };
 

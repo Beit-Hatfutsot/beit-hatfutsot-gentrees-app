@@ -4,6 +4,8 @@
   position: absolute;
   background: @color6;
   color: @color5;
+  border-collapse: collapse;
+  display: table;
 
   header {
     background: @color5;
@@ -38,9 +40,23 @@
       color: @color7;
     }
   }
+
+  .welcome-btn {
+    display: table-row;
+    vertical-align: bottom;
+    height: 1px;
+    text-align: center;
+
+    .btn {
+      position: relative;
+      left: 0;
+      right: 0;
+      width: 90%;
+    }
+
+  }
+
 }
-
-
 
 .gt-view-usageterms {
   .usageterms-list {

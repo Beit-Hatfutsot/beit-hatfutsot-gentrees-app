@@ -8,7 +8,7 @@
             <form name="dateForm" class="date-form">
                 <div class="date-form-item" ng-repeat="date in dates |orderBy:'sort'">
                     <span>{{date.title | translate}}</span>
-                    <input type="number" ng-model="date.value" min="{{date.min}}" max="{{date.max}}">
+                    <input  type="number"  ng-model="date.value" min="{{date.min}}" max="{{date.max}}">
                 </div>
             </form>
         </div>

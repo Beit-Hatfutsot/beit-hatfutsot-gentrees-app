@@ -34,28 +34,28 @@ angular.module('gt.app').factory('gtDialogsSvc',
 
 
                         $scope.dates = {
-
                             year: {
                                 title: 'Year',
                                 value: 0,
                                 min: 1700,
-                                max: 2100
+                                max: 2100,
+                                sort:1
                             },
                             mounth: {
                                 title: 'Mounth',
                                 value: 0,
                                 min: 1,
-                                max: 12
+                                max: 12,
+                                sort:2
                             },
                             day: {
                                 title: 'Day',
                                 value: 0,
                                 min: 1,
-                                max: 31
+                                max: 31,
+                                sort:3
                             }
                         };
-
-                        console.log(date)
 
                         if (date) {
                             var temp = date.split('/');
@@ -79,7 +79,6 @@ angular.module('gt.app').factory('gtDialogsSvc',
                             var result = day + '/' + mounth + '/' + year;
                             $modalInstance.close(result);
                         };
-
 
                         $scope.close = function () {
                             $modalInstance.close();

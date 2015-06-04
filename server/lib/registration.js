@@ -52,14 +52,18 @@ exports.sendMail = function (deviceId, email, baseUrl) {
             console.log('sending email');
             console.log('code', code);
             // remove only when try to register
-           /*  return emailSender.send({
+         /*    return emailSender.send({
                 to: email,
                 html: emailTpl({code: code, baseUrl: baseUrl})
             })
                 .then(function () {
                     console.log('completed sending email');
                     return null;
-                });*/
+                }).catch(function(err){
+                     console.log('Cant sending email 1',err);
+                     throw new Error('Cant sending email');
+                 });
+            */
         });
 };
 
@@ -68,7 +72,7 @@ exports.confirm = function (deviceId, code) {
     return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
 
         if (!doc) {
-            throw new Error('Invalid code or deviceId.');
+            throw new Error('Invalid code or deviceId');
         }
 
         if (!doc.confirmedAt) {

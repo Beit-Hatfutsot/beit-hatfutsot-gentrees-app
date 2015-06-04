@@ -6,7 +6,6 @@ angular.module('gt.app').factory('gtRegistrationSvc',
 
         function ($http, rfc4122, $rootScope, dialogsSvc) {
 
-
             function wrap(promise, title, successMessage){
                 $rootScope.showSpinner = true;
                 promise.finally(function(){
@@ -21,8 +20,7 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                         }
                         return data;
                     }).catch(function(err){
-                        console.log('err 2',err)
-                        return dialogsSvc.showMessage(err.message || (err.data && err.data.response) || err.statusText || err, title, true).then(function(){
+                        return dialogsSvc.showMessage(err.message  || err.data.message  || (err.data && err.data.response) || err.statusText || err, title, true).then(function(){
                             return promise;
                         });
                     })

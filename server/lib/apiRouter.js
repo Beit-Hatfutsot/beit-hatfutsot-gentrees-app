@@ -15,9 +15,11 @@ function apiAction(fn){
                 res.json(data);
 
             }).catch(function(err){
-                console.log(err);
-                res.status(500).json(err);
+                console.log('err',err);
+                res.status(500).json({ message:err.message,error:err})
             });
+
+       
     }
 }
 

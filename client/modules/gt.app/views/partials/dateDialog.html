@@ -1,18 +1,17 @@
-<div class="form-input-date-popup gt-form-view gt-view">
+<div class="form-date-popup gt-form-view gt-view">
     <header>
         <span>{{header | translate}}</span>
-        <div id="form-input-date-popup_close" ng-click="close()" class="fa fa-times fa-lg"></div>
+        <div ng-click="close()" class="fa fa-times fa-lg popup_close"></div>
     </header>
-    <div>
+    <div class="date-form-container">
         <div>
-            <form name="dateForm" >
-                <div ng-repeat="date in dates">
+            <form name="dateForm" class="date-form">
+                <div class="date-form-item" ng-repeat="date in dates |orderBy:'sort'">
                     <span>{{date.title | translate}}</span>
                     <input type="number" ng-model="date.value" min="{{date.min}}" max="{{date.max}}">
                 </div>
             </form>
         </div>
-        {{dateForm.$valid}}
         <span>{{'If you dont know the specific date you can use only year' | translate}}</span>
         <button class="btn btn-inverse" ng-click="ok()" ng-disabled="!dateForm.$valid" translate="Save"></button>
     </div>

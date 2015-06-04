@@ -52,7 +52,7 @@ exports.sendMail = function (deviceId, email, baseUrl) {
             console.log('sending email');
             console.log('code', code);
             // remove only when try to register
-             /*return emailSender.send({
+           /*  return emailSender.send({
                 to: email,
                 html: emailTpl({code: code, baseUrl: baseUrl})
             })

@@ -219,12 +219,12 @@
   .modal-dialog {
     margin: 0;
     height: 100%;
+    width: 100%;
   }
 
   // Date popup
-  .form-input-date-popup {
+  .form-date-popup {
     background-color: #ececec;
-
     height: 100%;
     text-align: center;
     position: fixed;
@@ -232,42 +232,47 @@
     left: 0px;
     width: 100%;
     z-index: 1;
+
+    .date-form-container {
+      position: relative;
+      top: 100px;
+      width: 90%;
+      display: inline-block;
+      color: #000000;
+
+      .date-form {
+        .date-form-item {
+
+          width: 85px;
+          min-height: 70px;
+          display: inline-block;
+          text-align: right;
+
+          input {
+            width: 80px;
+            height: 35px;
+            float: none !important;
+            border-radius: 4px;
+            border: 1px solid rgb(200, 200, 200) !important;
+            text-align: right !important;
+            padding-right: 5px;
+          }
+
+          span {
+            display: block;
+          }
+        }
+      }
+    }
+    .popup_close {
+      line-height: 40px;
+      color: black;
+      margin-right: -50px;
+      color: rgb(0, 184, 209);
+    }
+
   }
 
-  .form-input-date-popup > div {
-    position: relative;
-    top: 100px;
-    width: 90%;
-    display: inline-block;
-    color: #000000;
-  }
-  .form-input-date-popup > div > div {
-    min-height: 70px;
-  }
-  .form-input-date-popup > div > div > form >div {
-    width: 85px;
-    display: inline-block;
-    text-align: right;
-  }
-  .form-input-date-popup > div > div > form >div >  input {
-    width: 80px;
-    height: 35px;
-    float: none !important;
-    border-radius: 4px;
-    border: 1px solid rgb(200, 200, 200) !important;
-    text-align: right !important;
-  }
-
-  .form-input-date-popup > div > div > form >div > span {
-    display: block;
-  }
-
-  #form-input-date-popup_close {
-    line-height: 40px;
-    color: black;
-    margin-right: -50px;
-    color: rgb(0, 184, 209);
-  }
 }
 
 /// Image

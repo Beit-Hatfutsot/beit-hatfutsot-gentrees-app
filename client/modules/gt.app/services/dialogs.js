@@ -6,7 +6,6 @@ angular.module('gt.app').factory('gtDialogsSvc',
 
         function ($modal) {
 
-
             function showMessage(message, title, isError) {
                 return $modal.open({
                     size: 'sm',
@@ -29,54 +28,51 @@ angular.module('gt.app').factory('gtDialogsSvc',
                     size: 'lg',
                     windowClass: 'date-modal',
                     templateUrl: 'modules/gt.app/views/partials/dateDialog.html',
-                    controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+                    controller: ['$scope', '$modalInstance', '$filter', function ($scope, $modalInstance, $filter) {
                         $scope.header = header;
-
-
-                        $scope.dates = {
-                            year: {
-                                title: 'Year',
-                                value: 0,
-                                min: 1700,
-                                max: 2100,
-                                sort:1
-                            },
-                            mounth: {
-                                title: 'Mounth',
-                                value: 0,
-                                min: 1,
-                                max: 12,
-                                sort:2
-                            },
-                            day: {
+                        $scope.dates = [
+                            {
                                 title: 'Day',
                                 value: 0,
                                 min: 1,
                                 max: 31,
-                                sort:3
+                                sort: 3
+                            },
+                            {
+                                title: 'Mounth',
+                                value: 0,
+                                min: 1,
+                                max: 12,
+                                sort: 2
+                            },
+                            {
+                                title: 'Year',
+                                value: 0,
+                                min: 1700,
+                                max: 2100,
+                                sort: 1
                             }
-                        };
+                        ];
 
                         if (date) {
-                            var temp = date.split('/');
-                            $scope.dates.day.value = temp[0] * 1;
-                            $scope.dates.mounth.value = temp[1] * 1;
-                            $scope.dates.year.value = temp[2] * 1;
+                            var tempDates = date.split('/');
+                            _.each(tempDates, function (v, i) {
+                                $scope.dates[i].value = v * 1;
+                            });
                         }
 
                         $scope.ok = function () {
 
-                            var day = $scope.dates.day.value;
-                            var mounth = $scope.dates.mounth.value;
-                            var year = $scope.dates.year.value;
+                            var day = $scope.dates[0].value || 0;
+                            var mounth = $scope.dates[1].value || 0;
+                            var year = $scope.dates[2].value;
 
                             if (!year)
                                 return;
 
-                            mounth = mounth || 0;
-                            day = day || 0;
-
                             var result = day + '/' + mounth + '/' + year;
+                            var d = new Date(mounth + '/' + day + '/' + year);
+
                             $modalInstance.close(result);
                         };
 

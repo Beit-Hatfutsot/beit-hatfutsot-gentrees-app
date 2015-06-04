@@ -19,7 +19,7 @@ angular.module('gt.app').directive('gtPerson',
 
                 $scope.openDateModal = function(date){
                     dialogsSvc.openDateDialog('Date of Birth',$scope.model.dateOfBirth).then(function(data){
-                        $scope.model.dateOfBirth =data;
+                        $scope.model.dateOfBirth =data || $scope.model.dateOfBirth;
                     });
                 }
 

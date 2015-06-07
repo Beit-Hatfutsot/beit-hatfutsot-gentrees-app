@@ -6,6 +6,7 @@ angular.module('gt.app').config(['$translateProvider',
         $translateProvider.translations('he', {
             'OK' : 'אישור',
             'Cancel' : 'ביטול',
+            'Remove' : 'הסר',
             'Save Tree' : 'שמירת העץ',
             'My Details': 'פרטים אישיים',
             'Mom' : 'אמא',

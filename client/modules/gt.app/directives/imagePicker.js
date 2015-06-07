@@ -1,7 +1,7 @@
 'use strict';
 var count =0;
 angular.module('gt.app').directive('gtImagePicker',
-    [ function () {
+    ['$timeout', function ($timeout) {
 
         return {
             restrict: 'E',
@@ -12,16 +12,14 @@ angular.module('gt.app').directive('gtImagePicker',
             templateUrl: 'modules/gt.app/directives/imagePicker.html',
             link: function (scope, element, attrs) {
 
-                count++;
-
-                if(!scope.model)
-                    scope.model = count;
+                setModelCount();
 
                 var imageInput = element[0].children[0];
                 var span = element[0].children[1];
                 var image = element[0].children[2];
 
                 scope.chooseFile = function(e){
+                    setModelCount();
                     imageInput.click()
                 };
 
@@ -32,7 +30,9 @@ angular.module('gt.app').directive('gtImagePicker',
                     $(image).empty();
                     $(image).append(i, null);
 
-                    $(span).hide();
+                    $timeout(function() {
+                        scope.isUploadImage = true;
+                    }, 0);
                 };
 
                 if(localStorage.getItem('image'+scope.model))
@@ -66,7 +66,22 @@ angular.module('gt.app').directive('gtImagePicker',
                         };
                     })(file);
                     reader.readAsDataURL(file);
-                })
+                });
+
+                scope.removeImage = function(){
+                    $(image).empty();
+                    scope.isUploadImage = false;
+                    console.log('scope.model',scope.model)
+                    localStorage.removeItem('image'+scope.model);
+                    scope.model = undefined;
+
+                };
+
+                function setModelCount(){
+                    count++;
+                    if(!scope.model)
+                        scope.model = count;
+                }
             }
         };
 

@@ -1,9 +1,17 @@
 
+
+
 <div class="image-section">
+
     <input class="imageInput" type="file" style="display: none" accept="image/*" />
 
-    <span ng-click="chooseFile($event)"translate="Click to add"></span>
+    <span ng-show="!isUploadImage" ng-click="chooseFile($event)"translate="Click to add"></span>
 
     <div class="image" ng-click="chooseFile($event)">
+    </div>
+
+    <div class="remove-btn" ng-show="isUploadImage" ng-click="removeImage()">
+        <span>X</span>
+        <span>{{'Remove' | translate}}</span>
     </div>
 </div>

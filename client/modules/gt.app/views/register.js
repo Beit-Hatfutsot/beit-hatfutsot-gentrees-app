@@ -3,7 +3,7 @@
 angular.module('gt.app').controller('gtRegisterCtrl',
     ['$scope', '$state', 'gtRegistrationSvc', function ($scope, $state, regSvc) {
 
-        $scope.phoneFormat = '/^[0-9]{9,10}$/';
+       $scope.phoneFormat = '/^0\\d{2}([-]{0,1})\\d{7}$/';
 
         $scope.register = function(){
 

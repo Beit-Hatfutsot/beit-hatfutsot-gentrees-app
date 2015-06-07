@@ -20,7 +20,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
         $scope.next = function () {
             if ($scope.step === $scope.stepCount) {
-                $state.go('savingTree' );
+                $state.go('savingTree');
                 return;
             }
             $scope.step++;
@@ -53,8 +53,6 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         $scope.confirmRegistration = function () {
             regSvc.confirm($scope.registrationCode);
         };
-
-
 
 
     }]);

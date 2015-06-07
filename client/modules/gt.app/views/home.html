@@ -84,10 +84,10 @@
 
 
                 <div class="btn-field">
-                   <!-- <button class="btn btn-inverse"
-                            ng-disabled="disabled()"
-                            ng-click="next()">{{(step == stepCount ? 'Save' : 'Continue') | translate}}
-                    </button>-->
+                    <!-- <button class="btn btn-inverse"
+                             ng-disabled="disabled()"
+                             ng-click="next()">{{(step == stepCount ? 'Save' : 'Continue') | translate}}
+                     </button>-->
                     <button class="btn btn-inverse"
                             ng-disabled="disabled()"
                             ng-click="next()">{{(step == stepCount ? 'Save' : 'Continue') | translate}}
@@ -101,39 +101,39 @@
     </form>
 
 
-<!--    <div ng-show="isSaveTreeOpen">
-        <header ng-swipe-right="back()">
-            <div class="right" style="width: 0px;">
-                <button ng-click="isSaveTreeOpen = false">
-                    <i class="fa fa-angle-right"></i>
+    <!--    <div ng-show="isSaveTreeOpen">
+            <header ng-swipe-right="back()">
+                <div class="right" style="width: 0px;">
+                    <button ng-click="isSaveTreeOpen = false">
+                        <i class="fa fa-angle-right"></i>
+                    </button>
+                </div>
+                <span>
+                    <span class="">{{'Save Tree' | translate}}</span>
+                </span>
+            </header>
+            <section>
+                <div class="body-wrapper" >
+                    <h3>{{'Where do you want to save the tree' | translate}}</h3>
+                    <ng-form>
+                        <div class="form-group" ng-repeat="location in savingTreeLocationList">
+                            <div>
+                                <label class="full">
+                                        <span class="icon-checkbox" ng-model="model.savingLocation" btn-checkbox btn-checkbox-true="location.value" ng-class="{on: model.savingLocation == location.value}"></span>
+                                        <span ng-model="model.savingLocation" btn-checkbox btn-checkbox-true="location.value" btn-checkbox-false="false" class="full" ng-bind-html="location.title | translate"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </ng-form>
+                </div>
+            </section>
+            <div class="btn-field">
+                <button class="btn btn-inverse"
+                        ng-click="save()">{{'Save Tree' | translate}}
                 </button>
             </div>
-            <span>
-                <span class="">{{'Save Tree' | translate}}</span>
-            </span>
-        </header>
-        <section>
-            <div class="body-wrapper" >
-                <h3>{{'Where do you want to save the tree' | translate}}</h3>
-                <ng-form>
-                    <div class="form-group" ng-repeat="location in savingTreeLocationList">
-                        <div>
-                            <label class="full">
-                                    <span class="icon-checkbox" ng-model="model.savingLocation" btn-checkbox btn-checkbox-true="location.value" ng-class="{on: model.savingLocation == location.value}"></span>
-                                    <span ng-model="model.savingLocation" btn-checkbox btn-checkbox-true="location.value" btn-checkbox-false="false" class="full" ng-bind-html="location.title | translate"></span>
-                            </label>
-                        </div>
-                    </div>
-                </ng-form>
-            </div>
-        </section>
-        <div class="btn-field">
-            <button class="btn btn-inverse"
-                    ng-click="save()">{{'Save Tree' | translate}}
-            </button>
         </div>
-    </div>
 
-    <gt-spinner model="loading"></gt-spinner>-->
+        <gt-spinner model="loading"></gt-spinner>-->
 
 </div>

@@ -25,11 +25,11 @@
                 <span style="position: relative" class="icon-gender icon-female" ng-model="model.isMale" btn-radio="false" uncheckable ng-class="{on: model.isMale === false}"/>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-click="openDateModal()">
             <label>{{'Date of Birth' | translate}}</label>
             <!--<gt-new-date model="model.dateOfBirth" header="'Date of Birth'"/>-->
             <div class="form-input-container">
-                <input  type="text" ng-click="openDateModal()" ng-model="model.dateOfBirth" placeholder="{{'Date of Birth' | translate}}" >
+                <input  type="text"  ng-model="model.dateOfBirth" placeholder="{{'Date of Birth' | translate}}" >
             </div>
         </div>
         <div class="form-group" ng-click="focusThis($event)">

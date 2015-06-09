@@ -52,18 +52,17 @@ exports.sendMail = function (deviceId, email, baseUrl) {
             console.log('sending email');
             console.log('code', code);
             // remove only when try to register
-         /*    return emailSender.send({
+            return emailSender.send({
                 to: email,
                 html: emailTpl({code: code, baseUrl: baseUrl})
             })
                 .then(function () {
                     console.log('completed sending email');
                     return null;
-                }).catch(function(err){
-                     console.log('Cant sending email 1',err);
-                     throw new Error('Cant sending email');
-                 });
-            */
+                }).catch(function (err) {
+                    console.log('Cant sending email 1', err);
+                    throw new Error('Cant sending email');
+                });
         });
 };
 
@@ -90,37 +89,37 @@ exports.confirm = function (deviceId, code) {
 exports.save = function (deviceId, code, model) {
 
     /*var fileName = Date.now() + deviceId;
-    var filePath =  path.join(savedFilesDir, Date.now() + deviceId);
+     var filePath =  path.join(savedFilesDir, Date.now() + deviceId);
 
-    return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
+     return collInvoke('findOne', {_id: deviceId, code: code}).then(function (doc) {
 
-        _.each(model.image, function (value, key) {
-            var base64Data = value.replace(/^data:image\/jpeg;base64,/, "");
-            fs.writeFile(filePath + '_' + key + '.jpg', base64Data, 'base64');
-        });
+     _.each(model.image, function (value, key) {
+     var base64Data = value.replace(/^data:image\/jpeg;base64,/, "");
+     fs.writeFile(filePath + '_' + key + '.jpg', base64Data, 'base64');
+     });
 
-        var gedcomText = gedcom(model, fileName);
+     var gedcomText = gedcom(model, fileName);
 
-        if (!doc) {
-            throw new Error('Invalid code or deviceId.');
-        }
+     if (!doc) {
+     throw new Error('Invalid code or deviceId.');
+     }
 
-        return Q.nfcall(fs.writeFile, filePath + '.ged', gedcomText);
+     return Q.nfcall(fs.writeFile, filePath + '.ged', gedcomText);
 
-    });*/
+     });*/
 };
 
 
 // For Testing
 /*exports.getTreesByDeviceId = function (deviceId) {
-    return collInvoke('findOne', {_id: deviceId}).then(function (doc) {
-        *//*  delete doc.familyTrees;
-         delete doc.queryData;
-         collInvoke('update', {_id: deviceId}, doc).then(function (doc) {
-         });*//*
-        return doc;
-    });
-};*/
+ return collInvoke('findOne', {_id: deviceId}).then(function (doc) {
+ *//*  delete doc.familyTrees;
+ delete doc.queryData;
+ collInvoke('update', {_id: deviceId}, doc).then(function (doc) {
+ });*//*
+ return doc;
+ });
+ };*/
 
 exports.saveTree = function (deviceId, model) {
     return collInvoke('findOne', {_id: deviceId}).then(function (doc) {
@@ -152,7 +151,6 @@ exports.saveTree = function (deviceId, model) {
         return null;
     });
 };
-
 
 
 /*

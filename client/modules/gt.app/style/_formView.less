@@ -11,7 +11,7 @@
     height: 50px;
     padding: 5px;
     text-align: center;
-    border-bottom: solid 1px @color6;
+    //    border-bottom: solid 1px @color6;
     background-color: @form-group-background-color;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -53,6 +53,40 @@
         font-size: 30px;
       }
     }
+  }
+
+  .header-progress-bar-section {
+    position: relative;
+    top: 50px;
+    height: 20px;
+    display: flex;
+    background-color: @color8;
+    color: white;
+
+    .header-progress-bar {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      border-left: 1px solid;
+
+      &:last-child {
+        border-left: none;
+      }
+
+      .progress-text {
+        position: absolute;
+        top: 1px;
+        left: 0;
+        right: 0;
+        font-weight: bold;
+      }
+
+      .progress-value {
+        background-color: @color1;
+        height: 20px;
+      }
+    }
+
   }
 
   section {
@@ -303,7 +337,7 @@
 .gender-required-div {
   border: 1px solid #E74C3C;
   height: 40px;
-  width: 60px;
+  width: 76px;
   margin-top: -5px;
   position: absolute;
   left: 15px;

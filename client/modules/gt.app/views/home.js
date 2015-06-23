@@ -27,7 +27,69 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             scrollToTop();
         };
 
+        $scope.progressBarStep = [
+            [
+                {column: 'me', field: ['firstName', 'lastName', 'isMale']}
+            ],
+            [
+                {column: 'mom', field: ['firstName']},
+                {column: 'momsDad', field: ['firstName', 'lastName']},
+                {column: 'momsMom', field: ['firstName']},
+                {column: 'momsBrothers', field: ['firstName', 'lastName', 'isMale']}
+            ],
+            [
+                {column: 'dad', field: ['firstName', 'lastName']},
+                {column: 'dadsDad', field: ['firstName', 'lastName']},
+                {column: 'dadsMom', field: ['firstName']},
+                {column: 'dadsBrothers', field: ['firstName', 'lastName', 'isMale']}
+            ],
+            [
+                {column: 'brothers', field: ['firstName', 'lastName', 'isMale']}
+            ]
+        ];
+
+        $scope.isComplite = [];
+
+        $scope.setProgressBarWidth = function (progress,inedx) {
+
+            var totalField = 0;
+            var validFiled = 0;
+
+            _.each(progress, function (value) {
+                _.each(value.field, function (f) {
+                    if (value.column === 'momsBrothers' || value.column === 'dadsBrothers' || value.column === 'brothers') {
+                        _.each($scope.model[value.column], function (brother) {
+                            //console.log('brother',brother[f])
+                            totalField++;
+                            if (brother[f] || brother[f] === false) {
+                                validFiled++;
+                            }
+                        });
+                    } else {
+                        totalField++;
+                        if ($scope.model[value.column][f] || $scope.model[value.column][f] === false) {
+                            validFiled++;
+                        }
+                    }
+
+                });
+            });
+
+            var width = validFiled / totalField * 100;
+
+            $scope.isComplite[inedx] = validFiled === totalField;
+
+            return {
+                width: width + '%'
+            }
+        };
+
         $scope.disabled = function () {
+
+            var model = _.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation');
+            console.log('model', model)
+
+
             var persons = _.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation')));
             var allValid = _.all(persons, function (p) {
                 return p.isMale != null && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));

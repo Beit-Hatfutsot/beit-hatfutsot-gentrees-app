@@ -3,6 +3,7 @@ var savedFilesDir = process.env.SAVED_FILES_DIR || (__dirname + '/../../'),
     emailTplPath = process.env.EMAIL_BODY_TPL_PATH || (__dirname + '/email/emailTpl.html');
 
 var emailSender = require('./emailSender'),
+    smsSender = require('./smsSender'),
     Q = require('q'),
     gedcom = require('./gedcom'),
     fs = require('fs'),
@@ -72,27 +73,19 @@ function saveDeviceIdAndCode(deviceId,code){
 
 }
 
-exports.sendSMS = function (deviceId) {
+exports.sendSMS = function (deviceId,phoneNum) {
 
-  var filePath =  path.join(savedFilesDir, 'SmsApiKey.txt');
-
-    return Q.nfcall(fs.readFile, filePath, "utf-8").then(function(data) {
-
-        var fileData  =  JSON.parse(data);
-        var code = generateCode(4);
-        return saveDeviceIdAndCode(deviceId,code).then(function () {
-            return{
-                apiKey :fileData.apiKey,
-                apiSecret :fileData.apiSecret ,
-                confirmCode:code
-            };
-        });
-
-    }).fail(function(err) {
-        console.error('Error received:', err);
+    var code = generateCode(4);
+    return saveDeviceIdAndCode(deviceId,code).then(function () {
+        return smsSender.send(code,phoneNum)
+            .then(function (res) {
+                if (res.messages[0].status != 0) {
+                    throw new Error('Cant sending sms');
+                }
+            }).catch(function (err) {
+                throw new Error('Cant sending sms');
+            });
     });
-
-
 };
 
 

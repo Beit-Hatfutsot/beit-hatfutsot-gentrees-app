@@ -1,26 +1,32 @@
 'use strict';
 
+angular.module('gt.app').config(function ($httpProvider) {
+    $httpProvider.defaults.useXDomain = true;
+    //$httpProvider.defaults.headers.common = 'Content-Type: application/json';
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+});
+
 angular.module('gt.app').factory('gtRegistrationSvc',
     [
         '$http', 'rfc4122', '$rootScope', 'gtDialogsSvc',
 
         function ($http, rfc4122, $rootScope, dialogsSvc) {
 
-            function wrap(promise, title, successMessage){
+            function wrap(promise, title, successMessage) {
                 $rootScope.showSpinner = true;
-                promise.finally(function(){
+                promise.finally(function () {
                     $rootScope.showSpinner = false;
                 });
                 return promise.then(
-                    function(data){
-                        if(successMessage){
-                            return dialogsSvc.showMessage(successMessage, title, false).then(function(){
+                    function (data) {
+                        if (successMessage) {
+                            return dialogsSvc.showMessage(successMessage, title, false).then(function () {
                                 return data;
                             });
                         }
                         return data;
-                    }).catch(function(err){
-                        return dialogsSvc.showMessage(err.message  || err.data.message  || (err.data && err.data.response) || err.statusText || err, title, true).then(function(){
+                    }).catch(function (err) {
+                        return dialogsSvc.showMessage(err.message || err.data.message || (err.data && err.data.response) || err.statusText || err, title, true).then(function () {
                             return promise;
                         });
                     })
@@ -46,47 +52,24 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                         });
                 },
 
-                sendSMS: function (confirmPassword) {
-                    var baseUrl ='https://rest.nexmo.com/sms/json';
+                sendSMS: function () {
                     var phoneNum = angular.fromJson(localStorage.model).me.phone;
-
-                   // "https://rest.nexmo.com/sms/json?api_key={api_key}&api_secret={api_secret}&from=MyCompany20&to=447525856424&text=D%c3%a9j%c3%a0+vu"
-
-
-
                     var deviceId = localStorage.deviceId || rfc4122.v4();
 
-                    return $http.post('api/v1/registration/sms', {deviceId:deviceId})
+                    return $http.post('api/v1/registration/sms', {deviceId: deviceId, phoneNum: phoneNum})
                         .then(function (res) {
-                            console.log('sms res',res);
-                            var from = 'Beit Hatfutsot';
-                            var to = phoneNum;
-                            var text = res.data.confirmCode;
-
                             localStorage.deviceId = deviceId;
-
-                            // remove when try to register localy
-                            //return $http.get(baseUrl ,{ params: { api_key: res.apiKey ,api_secret :res.apiSecret ,from:from,to:to,text:text}}).then(function (res) {
-                            //
-                            //    localStorage.deviceId = deviceId;
-                            //
-                            //}).catch(function(err){
-                            //    console.log('sms nexmo err',err);
-                            //    throw  new Error('Cant sending sms');
-                            //});
-                        });
-
+                        })
                 },
 
-
-                saveModel : function(model){
+                saveModel: function (model) {
                     return $http.post('api/v1/save', {
                         deviceId: localStorage.deviceId,
                         code: localStorage.confirimationCode,
                         model: model
                     });
                 },
-                saveTree : function(model){
+                saveTree: function (model) {
                     return $http.post('api/v1/saveTree', {
                         deviceId: localStorage.deviceId,
                         model: model
@@ -113,13 +96,13 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                 sendMail: function (email) {
                     return wrap(functions.sendMail(email), 'Confirm Email');
                 },
-                sendSMS: function (email) {
-                    return wrap(functions.sendSMS(email), 'Confirm Email');
+                sendSMS: function () {
+                    return wrap(functions.sendSMS(), 'Confirm SMS','SMS success');
                 },
-                saveModel : function(model,message){
+                saveModel: function (model, message) {
                     return wrap(functions.saveModel(model), 'Save Tree', message);
                 },
-                saveTree : function(model){
+                saveTree: function (model) {
                     return functions.saveTree(model);
                 }
             };

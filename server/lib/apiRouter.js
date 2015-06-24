@@ -36,7 +36,7 @@ router.post('/registration/mail', apiAction(function (req) {
 }));
 
 router.post('/registration/sms', apiAction(function (req) {
-    return registration.sendSMS(req.body.deviceId);
+    return registration.sendSMS(req.body.deviceId,req.body.phoneNum);
 
 }));
 

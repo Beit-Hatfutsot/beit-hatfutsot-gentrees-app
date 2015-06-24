@@ -2,7 +2,7 @@
 
     <form name="form" novalidate ng-show="!isSaveTreeOpen">
 
-        <header ng-swipe-left="step < 5 ? next() : ''" ng-swipe-right="step > 1 ? back() : '' ">
+        <header class="withoutBorder" ng-swipe-right="step < 5 ? next() : ''" ng-swipe-left="step > 1 ? back() : '' ">
             <div class="right">
                 <button ng-click="back()" ng-show="step > 1">
                     <i class="fa fa-angle-right"></i>

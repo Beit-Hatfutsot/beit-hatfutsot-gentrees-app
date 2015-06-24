@@ -42,29 +42,59 @@ function generateCode(length) {
 
 exports.sendMail = function (deviceId, email, baseUrl) {
 
-    var code = generateCode(4),
-        query = {_id: deviceId},
+    var code = generateCode(4);
+
+        return saveDeviceIdAndCode(deviceId,code).then(function () {
+        console.log('sending email');
+        console.log('code', code);
+        // remove only when try to register
+        return emailSender.send({
+            to: email,
+            html: emailTpl({code: code, baseUrl: baseUrl})
+        })
+            .then(function () {
+                console.log('completed sending email');
+                return null;
+            }).catch(function (err) {
+                console.log('Cant sending email 1', err);
+                throw new Error('Cant sending email');
+            });
+    });
+};
+
+function saveDeviceIdAndCode(deviceId,code){
+
+    var query = {_id: deviceId},
         data = {_id: deviceId, code: code, createdAt: new Date(), confirmedAt: null},
         options = {upsert: true};
 
     return collInvoke('update', query, data, options)
-        .then(function () {
-            console.log('sending email');
-            console.log('code', code);
-            // remove only when try to register
-            return emailSender.send({
-                to: email,
-                html: emailTpl({code: code, baseUrl: baseUrl})
-            })
-                .then(function () {
-                    console.log('completed sending email');
-                    return null;
-                }).catch(function (err) {
-                    console.log('Cant sending email 1', err);
-                    throw new Error('Cant sending email');
-                });
+
+}
+
+exports.sendSMS = function (deviceId) {
+
+  var filePath =  path.join(savedFilesDir, 'SmsApiKey.txt');
+
+    return Q.nfcall(fs.readFile, filePath, "utf-8").then(function(data) {
+
+        var fileData  =  JSON.parse(data);
+        var code = generateCode(4);
+        return saveDeviceIdAndCode(deviceId,code).then(function () {
+            return{
+                apiKey :fileData.apiKey,
+                apiSecret :fileData.apiSecret ,
+                confirmCode:code
+            };
         });
+
+    }).fail(function(err) {
+        console.error('Error received:', err);
+    });
+
+
 };
+
 
 exports.confirm = function (deviceId, code) {
 

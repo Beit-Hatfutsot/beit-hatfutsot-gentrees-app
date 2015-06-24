@@ -1,0 +1,65 @@
+
+.saved-tree {
+  background-color: @color1 !important;
+  position: absolute;
+  font-size: 17px;
+
+  .saved-tree-body {
+    text-align: right;
+
+    .saved-tree-text {
+      padding: 10px 20px;
+    }
+
+    p {
+      color: white;
+      text-align: right;
+      padding: 0;
+
+      a {
+        color: white;
+        text-decoration: underline;
+      }
+    }
+
+  }
+
+  .saved-tree-footer {
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    background-color: rgb(243,243,243);
+    margin: 0;
+
+    .triangle {
+      position: absolute;
+      bottom: 100px;
+      height: 50px;
+      width: 100%;
+
+      img{
+        width: 100%;
+        height: 50px;
+      }
+    }
+
+    .idf-logo {
+      height: 100%;
+      width: (157px/2);
+      margin-left: 10px;
+      float: left;
+      background: transparent url("@{assets}/logo.idf.png") left center no-repeat;
+      background-size: (157px/2) (136px/2);
+    }
+
+    .logo {
+      height: 100%;
+      width: (296px/1.6);
+      float: right;
+      margin-right: 10px;
+      background: transparent url("@{assets}/logo.png") right center no-repeat;
+      background-size: (296px/1.6) (133px/1.6);
+    }
+
+  }
+}

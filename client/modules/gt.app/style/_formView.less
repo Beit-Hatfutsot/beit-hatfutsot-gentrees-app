@@ -11,7 +11,7 @@
     height: 50px;
     padding: 5px;
     text-align: center;
-    //    border-bottom: solid 1px @color6;
+     border-bottom: solid 1px @color6;
     background-color: @form-group-background-color;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -21,6 +21,11 @@
     width: 100%;
     top: 0;
     z-index: 1;
+
+    &.withoutBorder{
+      border-bottom: none;
+    }
+
 
     div {
       width: 50px;

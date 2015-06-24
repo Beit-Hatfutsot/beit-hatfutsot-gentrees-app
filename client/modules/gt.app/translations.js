@@ -48,6 +48,17 @@ angular.module('gt.app').config(['$translateProvider',
             'Year' : 'שנה:',
             'Invalid code or deviceId' : 'קוד לא תואם',
             'Cant sending email' : 'שליחת האיימל נכשלה',
+            'Cant sending sms' : 'שליחת הודעת SMS נכשלה',
+            'Send sms' : 'שלח הודעת SMS',
+
+            'thanks':'תודה רבה!',
+            'saved_tree_p1':'העץ נשמר במאגר שבחרתם.',
+            'saved_tree_p2':'אתם מוזמנים לחזור הנה שוב כדי לעדכן את העץ שלכם ולהוסיף לו עוד אנשים. ',
+            'saved_tree_p3' : 'כדי לערוך את העץ שלכם <a href="#!/home">לחצו כאן.</a> ',
+            'saved_tree_p4' : 'אתם מוזמנים לבקר במוזיאון בית התפוצות ולהמשיך ללמוד, לחקור ולהיות חלק מסיפור. ',
+            'saved_tree_p5' : 'לאתר בית התפוצות <a href="http://www.bh.org.il/">לחצו כאן.</a>  ',
+
+
             'If you dont know the specific date you can use only year' : 'אם לא ידוע התאריך המדויק, ניתן להזין שנה בלבד',
             'AGREE_TO_USAGE_TERMS' : 'קראתי ואני מסכים/ה ל<a href="#!/usageterms">תנאי השימוש</a>',
             'In this site you can create your family tree in 5 simple steps' : 'ברוכים הבאים לפרויקט עצי המשפחה של צה"ל ובית התפוצות. כאן תוכלו ליצור את עץ המשפחה שלכם ב-5 צעדים פשוטים.',

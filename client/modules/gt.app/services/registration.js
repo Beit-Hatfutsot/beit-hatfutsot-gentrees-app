@@ -46,6 +46,39 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                         });
                 },
 
+                sendSMS: function (confirmPassword) {
+                    var baseUrl ='https://rest.nexmo.com/sms/json';
+                    var phoneNum = angular.fromJson(localStorage.model).me.phone;
+
+                   // "https://rest.nexmo.com/sms/json?api_key={api_key}&api_secret={api_secret}&from=MyCompany20&to=447525856424&text=D%c3%a9j%c3%a0+vu"
+
+
+
+                    var deviceId = localStorage.deviceId || rfc4122.v4();
+
+                    return $http.post('api/v1/registration/sms', {deviceId:deviceId})
+                        .then(function (res) {
+                            console.log('sms res',res);
+                            var from = 'Beit Hatfutsot';
+                            var to = phoneNum;
+                            var text = res.data.confirmCode;
+
+                            localStorage.deviceId = deviceId;
+
+                            // remove when try to register localy
+                            //return $http.get(baseUrl ,{ params: { api_key: res.apiKey ,api_secret :res.apiSecret ,from:from,to:to,text:text}}).then(function (res) {
+                            //
+                            //    localStorage.deviceId = deviceId;
+                            //
+                            //}).catch(function(err){
+                            //    console.log('sms nexmo err',err);
+                            //    throw  new Error('Cant sending sms');
+                            //});
+                        });
+
+                },
+
+
                 saveModel : function(model){
                     return $http.post('api/v1/save', {
                         deviceId: localStorage.deviceId,
@@ -80,12 +113,14 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                 sendMail: function (email) {
                     return wrap(functions.sendMail(email), 'Confirm Email');
                 },
-
+                sendSMS: function (email) {
+                    return wrap(functions.sendSMS(email), 'Confirm Email');
+                },
                 saveModel : function(model,message){
                     return wrap(functions.saveModel(model), 'Save Tree', message);
                 },
-                saveTree : function(model,message){
-                    return wrap(functions.saveTree(model), 'Save Tree', message);
+                saveTree : function(model){
+                    return functions.saveTree(model);
                 }
             };
 

@@ -35,6 +35,11 @@ router.post('/registration/mail', apiAction(function (req) {
     return registration.sendMail(req.body.deviceId, req.body.email, getBaseUrl(req));
 }));
 
+router.post('/registration/sms', apiAction(function (req) {
+    return registration.sendSMS(req.body.deviceId);
+
+}));
+
 router.post('/registration/confirm', apiAction(function(req) {
     return registration.confirm(req.body.deviceId, req.body.code);
 }));

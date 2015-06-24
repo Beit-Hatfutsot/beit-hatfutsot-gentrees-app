@@ -52,13 +52,13 @@ angular.module('gt.app').controller('gtSavingTreeCtrl', [
                 }
             });
 
-            var successMessage = 'Your data has been successfully saved ';
-            successMessage += $scope.model.savingLocation == 'beitHatfutsot' ? 'Beit Hatfutsot' : 'Other';
+            //var successMessage = 'Your data has been successfully saved ';
+            //successMessage += $scope.model.savingLocation == 'beitHatfutsot' ? 'Beit Hatfutsot' : 'Other';
 
-            regSvc.saveTree($scope.model,successMessage).then(
+            regSvc.saveTree($scope.model).then(
                 function () {
                     $timeout(function () {
-                         $state.go('home');
+                         $state.go('savedTree');
                     }, 100);
                 }).finally(function () {
                     $scope.loading = false;

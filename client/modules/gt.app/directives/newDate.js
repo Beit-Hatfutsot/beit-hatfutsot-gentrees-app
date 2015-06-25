@@ -12,7 +12,6 @@ angular.module('gt.app').directive('gtNewDate',
             },
             templateUrl: 'modules/gt.app/directives/newDate.html',
             link: function (scope, element, attrs) {
-
                 scope.isOpen = false;
                 scope.date ={};
                 if(scope.model)

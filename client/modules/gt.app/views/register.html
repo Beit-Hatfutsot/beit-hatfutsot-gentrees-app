@@ -19,7 +19,7 @@
             <div class="form-group" ng-click="focusThis($event)">
                 <label>{{'CellPhone' | translate}}</label>
                 <div class="form-input-container">
-                    <input type="text" ng-pattern="{{phoneFormat}}" required ng-model="model.me.phone" ng-class="{overwriteDirty: thisWasBluered}" ui-event="{ blur : 'blurEv()' }" placeholder="{{'Enter Value' | translate}}" name="phone">
+                    <input type="tel" ng-pattern="{{phoneFormat}}" required ng-model="model.me.phone" ng-class="{overwriteDirty: thisWasBluered}" ui-event="{ blur : 'blurEv()' }" placeholder="{{'Enter Value' | translate}}" name="phone">
                 </div>
             </div>
 

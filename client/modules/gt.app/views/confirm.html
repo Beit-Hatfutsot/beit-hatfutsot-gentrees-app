@@ -10,7 +10,7 @@
             <div class="form-group" ng-click="focusThis($event)">
                 <label>{{'Confirmation Code' | translate}}</label>
                 <div class="form-input-container">
-                    <input type="text" ng-class="{overwriteDirty: thisWasBluered}" ui-event="{ blur : 'blurEv()' }" placeholder="{{'Enter Value' | translate}}" required ng-minlength="4" ng-maxlength="4" ng-model="code" name="code">
+                    <input type="tel" ng-class="{overwriteDirty: thisWasBluered}" ui-event="{ blur : 'blurEv()' }" placeholder="{{'Enter Value' | translate}}" required ng-minlength="4" ng-maxlength="4" ng-model="code" name="code">
                 </div>
             </div>
 

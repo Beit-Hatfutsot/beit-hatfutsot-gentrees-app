@@ -4,7 +4,8 @@ angular.module('gt.app').controller('gtConfirmCtrl',
     ['$scope', '$state', 'gtRegistrationSvc', function ($scope, $state, regSvc) {
 
         $scope.resend = function(){
-            regSvc.sendMail($scope.model.me.email);
+            regSvc.sendSMS();
+            //regSvc.sendMail($scope.model.me.email);
         };
 
         $scope.confirm = function () {

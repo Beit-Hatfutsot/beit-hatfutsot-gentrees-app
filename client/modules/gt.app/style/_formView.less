@@ -163,6 +163,7 @@
       }
     }
 
+
     input[type=number] {
       text-align: left;
     }
@@ -240,7 +241,12 @@
       color: @form-error-font-color;
     }
   }
-
+  input{
+    &.ng-invalid::-webkit-input-placeholder { color: @form-error-font-color; }
+    &.ng-invalid:-moz-placeholder { color: @form-error-font-color; }
+    &.ng-invalid::moz-placeholder { color: @form-error-font-color; }
+    &.ng-invalid:-ms-input-placeholder { color: @form-error-font-color; }
+  }
   div {
     &.ng-invalid, &.ng-invalid-required, {
       input {

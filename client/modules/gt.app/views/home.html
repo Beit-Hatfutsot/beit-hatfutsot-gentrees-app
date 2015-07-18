@@ -23,17 +23,17 @@
             <!--<button ng-click="clear()" style="display: block">Clear</button>-->
 
         </header>
-        <div class="header-progress-bar-section">
-            <div class="header-progress-bar" ng-repeat="progress in progressBarStep">
+        <!--<div class="header-progress-bar-section">-->
+            <!--<div class="header-progress-bar" ng-repeat="progress in progressBarStep">-->
 
-                <div class="progress-value" ng-style="setProgressBarWidth(progress,$index)"></div>
-                <span class="progress-text">
-                    <span ng-if="!isComplite[$index]">{{$index + 1}}</span>
-                    <i class="fa fa-check" ng-if="isComplite[$index]"></i>
-                </span>
+                <!--<div class="progress-value" ng-style="setProgressBarWidth(progress,$index)"></div>-->
+                <!--<span class="progress-text">-->
+                    <!--<span ng-if="!isComplite[$index]">{{$index + 1}}</span>-->
+                    <!--<i class="fa fa-check" ng-if="isComplite[$index]"></i>-->
+                <!--</span>-->
 
-            </div>
-        </div>
+            <!--</div>-->
+        <!--</div>-->
         <section>
             <div class="body-wrapper" ng-class="{'last-step' : step === stepCount}">
                 <div ng-show="step == stepCount">

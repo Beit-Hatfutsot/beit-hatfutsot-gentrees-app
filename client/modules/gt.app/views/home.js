@@ -20,11 +20,26 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
         $scope.stepCount = 5;
 
-        $scope.next = function () {
-            if ($scope.step === $scope.stepCount) {
+        $scope.save = function(){
+
+            var persons = _.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation')));
+            var allValid = _.all(persons, function (p) {
+                return p.isMale != null && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
+            });
+
+            if(!allValid){
+                var element = $('input.ng-invalid:first');
+                var scrollDest = element.offset().top - 40;
+                $('body').stop().animate({scrollTop:scrollDest}, '300');
+
+            }else{
+                // if true do this
                 $state.go('savingTree');
-                return;
             }
+        };
+
+        $scope.next = function () {
+
             $scope.step++;
 
             if($scope.step > 4){
@@ -103,7 +118,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         $scope.disabled = function () {
 
             var model = _.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation');
-            console.log('model', model)
+            //console.log('model', model)
 
 
             var persons = _.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation')));

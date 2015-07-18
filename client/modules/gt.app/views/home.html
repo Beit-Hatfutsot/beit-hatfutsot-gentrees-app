@@ -99,9 +99,15 @@
                              ng-disabled="disabled()"
                              ng-click="next()">{{(step == stepCount ? 'Save' : 'Continue') | translate}}
                      </button>-->
-                    <button class="btn btn-inverse"
+                    <button ng-if="step < stepCount"
+                            class="btn btn-inverse"
                             ng-disabled="disabled()"
-                            ng-click="next()">{{(step == stepCount ? 'Save' : 'Continue') | translate}}
+                            ng-click="next()">{{'Continue' | translate}}
+                    </button>
+
+                    <button ng-if="step == stepCount"
+                            class="btn btn-inverse"
+                            ng-click="save()">{{'Save' | translate}}
                     </button>
 
                 </div>

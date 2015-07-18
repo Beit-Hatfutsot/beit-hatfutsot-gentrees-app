@@ -7,6 +7,8 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             $anchorScroll();
         };
 
+        var brothersViewWasVisited = false;
+
         $scope.focusThis = function ($event) {
             angular.element($event.currentTarget).find("input:first").focus();
             angular.element($event.currentTarget).find("input:first").select();
@@ -24,6 +26,11 @@ angular.module('gt.app').controller('gtHomeCtrl', [
                 return;
             }
             $scope.step++;
+
+            if($scope.step > 4){
+                brothersViewWasVisited = true;
+
+            }
             scrollToTop();
         };
 
@@ -50,6 +57,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
         $scope.isComplite = [];
 
+
         $scope.setProgressBarWidth = function (progress,inedx) {
 
             var totalField = 0;
@@ -58,13 +66,21 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             _.each(progress, function (value) {
                 _.each(value.field, function (f) {
                     if (value.column === 'momsBrothers' || value.column === 'dadsBrothers' || value.column === 'brothers') {
-                        _.each($scope.model[value.column], function (brother) {
-                            //console.log('brother',brother[f])
-                            totalField++;
-                            if (brother[f] || brother[f] === false) {
-                                validFiled++;
-                            }
-                        });
+
+                        if(value.column === 'brothers' && !brothersViewWasVisited){
+                            totalField = 1;
+                            validFiled = 0;
+                        }else{
+                            _.each($scope.model[value.column], function (brother) {
+                                //console.log('brother',brother[f])
+                                totalField++;
+                                if (brother[f] || brother[f] === false) {
+                                    validFiled++;
+                                }
+                            });
+
+                        }
+
                     } else {
                         totalField++;
                         if ($scope.model[value.column][f] || $scope.model[value.column][f] === false) {

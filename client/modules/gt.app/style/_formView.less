@@ -157,8 +157,9 @@
 
     input {
       &.ng-invalid.ng-dirty, &.ng-invalid-required.ng-dirty, {
-        border: solid 1px @form-error-color;
-        color: @form-error-color;
+        //border: solid 1px @form-error-color;
+        background-color: @form-error-bg-color;
+        color: @form-error-font-color;
       }
     }
 
@@ -169,8 +170,8 @@
     div {
       &.ng-invalid.ng-dirty, &.ng-invalid-required.ng-dirty, {
         input {
-          border: solid 1px @form-error-color;
-          color: @form-error-color;
+          background-color: @form-error-bg-color;
+          color: @form-error-font-color;
         }
       }
     }
@@ -235,16 +236,16 @@
 .last-step {
   input {
     &.ng-invalid, &.ng-invalid-required, {
-      border: solid 1px @form-error-color;
-      color: @form-error-color;
+      background-color: @form-error-bg-color;
+      color: @form-error-font-color;
     }
   }
 
   div {
     &.ng-invalid, &.ng-invalid-required, {
       input {
-        border: solid 1px @form-error-color;
-        color: @form-error-color;
+        background-color: @form-error-bg-color;
+        color: @form-error-font-color;
       }
     }
   }

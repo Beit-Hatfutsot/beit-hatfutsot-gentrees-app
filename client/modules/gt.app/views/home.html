@@ -9,9 +9,10 @@
                 </button>
             </div>
             <span>
-                <span class="steps">{{step}}/{{stepCount}}</span>
+                <span class="steps" ng-show="step < 5">{{step}}/{{stepCount - 1}}</span>
                 <span ng-if="step == 2">{{"Mother's side" | translate}}</span>
                 <span ng-if="step == 3">{{"Father's side" | translate}}</span>
+                <span ng-if="step == 5">{{"Data Validation" | translate}}</span>
             </span>
 
             <div class="left">

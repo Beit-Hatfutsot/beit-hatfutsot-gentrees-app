@@ -7,7 +7,7 @@ var MongoClient = require('mongodb').MongoClient,
 
 //  node export.js --output C:\Users\ofermusaipd\WebstormProjects\beithatfutsot\export\gedcom
 //  node export.js --query_file query.json 
-//  node export.js --db_name gentreeDb 
+//  node export.js --db_name
 //  node export.js 
 //  node export.js --db_name gentreeDb  --users ofer
 
@@ -110,8 +110,15 @@ function getDataFromDB(query) {
         var collection = db.collection('registrations');
 
         collection.find(query).toArray(function (err, docs) {
-            createReport(docs, db);
-            createGedcom(docs, db);
+
+            if (docs.length > 0) {
+                createReport(docs, db);
+                createGedcom(docs, db);
+            } else {
+                console.log('No match found');
+                db.close();
+            }
+
         });
     });
 }

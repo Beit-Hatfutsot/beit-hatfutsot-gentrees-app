@@ -14,7 +14,8 @@
     "q": "^1.0.1",
     "request": "^2.39.0",
     "nedb": "^0.11.1",
-    "mongodb": "^1.4.18"
+    "mongodb": "^1.4.18",
+    "csv-write-stream": "1.0.0"
   },
   "devDependencies": {
     "gulp-angular-filesort": "^1.0.4",

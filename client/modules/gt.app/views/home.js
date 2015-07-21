@@ -93,7 +93,6 @@ angular.module('gt.app').controller('gtHomeCtrl', [
                                     validFiled++;
                                 }
                             });
-
                         }
 
                     } else {

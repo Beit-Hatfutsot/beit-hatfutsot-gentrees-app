@@ -45,7 +45,7 @@ exports.sendMail = function (deviceId, email, baseUrl) {
 
     var code = generateCode(4);
 
-        return saveDeviceIdAndCode(deviceId,code).then(function () {
+    return saveDeviceIdAndCode(deviceId, code).then(function () {
         console.log('sending email');
         console.log('code', code);
         // remove only when try to register
@@ -63,21 +63,33 @@ exports.sendMail = function (deviceId, email, baseUrl) {
     });
 };
 
-function saveDeviceIdAndCode(deviceId,code){
+function saveDeviceIdAndCode(deviceId, code) {
 
-    var query = {_id: deviceId},
-        data = {_id: deviceId, code: code, createdAt: new Date(), confirmedAt: null},
-        options = {upsert: true};
+    return collInvoke('findOne', {_id: deviceId}).then(function (doc) {
 
-    return collInvoke('update', query, data, options)
+        if (doc.smsSendingCount >= 10) {
+            throw new Error('Cant sending sms more than 10 times');
+        }
+
+        var query = {_id: deviceId},
+            data = {
+                _id: deviceId,
+                code: code,
+                createdAt: new Date(),
+                confirmedAt: null,
+                smsSendingCount: doc ? doc.smsSendingCount + 1 : 0
+            },
+            options = {upsert: true};
+
+        return collInvoke('update', query, data, options)
+    });
 
 }
-
-exports.sendSMS = function (deviceId,phoneNum) {
+exports.sendSMS = function (deviceId, phoneNum) {
 
     var code = generateCode(4);
-    return saveDeviceIdAndCode(deviceId,code).then(function () {
-        return smsSender.send(code,phoneNum)
+    return saveDeviceIdAndCode(deviceId, code).then(function () {
+        return smsSender.send(code, phoneNum)
             .then(function (res) {
                 if (res.messages[0].status != 0) {
                     throw new Error('Cant sending sms');

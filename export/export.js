@@ -71,21 +71,31 @@ function getQueryFromFile() {
 }
 
 function getQueryFromParam() {
-    var userQuery = {};
+    var userQuery;
     if (userNames) {
         userQuery = [
             //{"queryData.me.firstName": userNames},
             {"queryData.me.phone": userNames},
             {"queryData.me.email": userNames}
-        ]
+        ];
+
+        return {
+            $or: userQuery,
+            "queryData.dateUpdate": {
+                $gte: convertDateFromTimestamp(dateStart),
+                $lt: convertDateFromTimestamp(dateEnd)
+            }
+        };
+
+    } else {
+        return {
+            "queryData.dateUpdate": {
+                $gte: convertDateFromTimestamp(dateStart),
+                $lt: convertDateFromTimestamp(dateEnd)
+            }
+        };
     }
-    return {
-        $or: userQuery || [],
-        "queryData.dateUpdate": {
-            $gte: convertDateFromTimestamp(dateStart),
-            $lt: convertDateFromTimestamp(dateEnd)
-        }
-    };
+
 }
 
 function convertDateFromTimestamp(date) {
@@ -95,7 +105,10 @@ function convertDateFromTimestamp(date) {
 function getDataFromDB(query) {
 
     MongoClient.connect(mongoURL, function (err, db) {
+
+
         var collection = db.collection('registrations');
+
         collection.find(query).toArray(function (err, docs) {
             createReport(docs, db);
             createGedcom(docs, db);

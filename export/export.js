@@ -149,14 +149,17 @@ function createReport(docs, db) {
         return v.queryData.savingLocation
     });
 
-    _.each(data, function (locations, key) {
+    _.each(data, function (locations, nation) {
+
         var writerCsv = csvWriter({headers: header});
         var fileName = '_report';
-        writerCsv.pipe(createFileStream(fileName, key));
+        nation = checkNationality(nation,fileName);
+
+        writerCsv.pipe(createFileStream(fileName, nation));
 
         _.each(locations, function (value) {
             var dataToWrite = {};
-            setCalculatedDataProperty(value, key);
+            setCalculatedDataProperty(value, nation);
             _.each(headerList, function (v, k) {
                 dataToWrite[v] = value.queryData[k] || value.queryData.me[k];
             });
@@ -172,12 +175,6 @@ function createReport(docs, db) {
 
 function createFileStream(fileName, dir) {
 
-    if(!dir || dir =='false'){
-        console.log('Cant find file nationality, File Name:', fileName);
-        console.log('Use default /"beitHatfutsot/"');
-        dir = 'beitHatfutsot';
-    }
-
     var filePath = path.join(outputPath, dir);
 
     if (!fs.existsSync(filePath)) {
@@ -186,9 +183,9 @@ function createFileStream(fileName, dir) {
     return fs.createWriteStream(path.join(filePath, dateNow + fileName + '.csv'));
 }
 
-function setCalculatedDataProperty(value, key) {
+function setCalculatedDataProperty(value, nation) {
     value.queryData.numOfNewPersons = calculateNumOfNewPersons(value);
-    value.queryData.gedcomLink = path.join(path.join(outputPath, key), dateNow + value._id + '.ged');
+    value.queryData.gedcomLink = path.join(path.join(outputPath, nation), dateNow + value._id + '.ged');
     value.queryData.isNewFolder = value.queryData.dateAdded == value.queryData.dateUpdate ? ' 1' : ' 0';
 }
 
@@ -360,7 +357,7 @@ function createGedcom(docs, db) {
             var fileName = v._id + '.ged';
             var gedcomText = gedcomFromModel(model, fileName);
 
-            var dir = model.savingLocation;
+            var dir = checkNationality(model.savingLocation,fileName);
             saveFile(fileName, dir, gedcomText);
         }
     });
@@ -369,12 +366,6 @@ function createGedcom(docs, db) {
 }
 
 function saveFile(fileName, dir, data) {
-
-    if(!dir || dir =='false'){
-        console.log('Cant find file nationality, File Name:', fileName);
-        console.log('Use default /"beitHatfutsot/"');
-        dir = 'beitHatfutsot';
-    }
 
     var filePath = path.join(outputPath, dir);
 
@@ -385,6 +376,16 @@ function saveFile(fileName, dir, data) {
     fs.writeFile(path.join(filePath, dateNow + fileName), data, function () {
         console.log('Saving Succeed', fileName);
     });
+}
+
+
+function checkNationality(dir,fileName){
+    if(!dir || dir =='false'){
+        console.log('Cant find file nationality, File Name:', fileName);
+        console.log('Use default /"beitHatfutsot/"');
+        dir = 'beitHatfutsot';
+    }
+    return dir;
 }
 
 

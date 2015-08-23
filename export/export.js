@@ -156,7 +156,7 @@ function createReport(docs, db) {
 
         _.each(locations, function (value) {
             var dataToWrite = {};
-            setCalculatedDataProperty(value, key, fileName);
+            setCalculatedDataProperty(value, key);
             _.each(headerList, function (v, k) {
                 dataToWrite[v] = value.queryData[k] || value.queryData.me[k];
             });
@@ -179,9 +179,9 @@ function createFileStream(fileName, dir) {
     return fs.createWriteStream(path.join(filePath, dateNow + fileName + '.csv'));
 }
 
-function setCalculatedDataProperty(value, key, fileName) {
+function setCalculatedDataProperty(value, key) {
     value.queryData.numOfNewPersons = calculateNumOfNewPersons(value);
-    value.queryData.gedcomLink = outputPath + key + '/' + dateNow + fileName + '.ged';
+    value.queryData.gedcomLink = path.join(path.join(outputPath, key), dateNow + value._id + '.ged');//  outputPath + key + '/' + dateNow + fileName + '.ged';
     value.queryData.isNewFolder = value.queryData.dateAdded == value.queryData.dateUpdate ? ' 1' : ' 0';
 }
 

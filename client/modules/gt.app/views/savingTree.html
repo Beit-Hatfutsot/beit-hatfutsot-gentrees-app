@@ -17,8 +17,8 @@
                 <div class="form-group" ng-repeat="location in savingTreeLocationList">
                     <div>
                         <label class="full">
-                            <span class="icon-checkbox" ng-model="model.savingLocation" btn-checkbox btn-checkbox-true="location.value" ng-class="{on: model.savingLocation == location.value}"></span>
-                            <span ng-model="model.savingLocation" btn-checkbox btn-checkbox-true="location.value" btn-checkbox-false="false" class="full" ng-bind-html="location.title | translate"></span>
+                            <span class="icon-checkbox" ng-model="model.savingLocation" btn-checkbox btn-checkbox-true="location.value" btn-checkbox-false="location.value" ng-class="{on: model.savingLocation == location.value}"></span>
+                            <span ng-model="model.savingLocation" btn-checkbox btn-checkbox-true="location.value" btn-checkbox-false="location.value" class="full" ng-bind-html="location.title | translate"></span>
                         </label>
                     </div>
                 </div>

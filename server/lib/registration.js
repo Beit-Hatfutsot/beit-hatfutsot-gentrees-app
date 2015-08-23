@@ -67,7 +67,7 @@ function saveDeviceIdAndCode(deviceId, code) {
 
     return collInvoke('findOne', {_id: deviceId}).then(function (doc) {
 
-        if (doc.smsSendingCount >= 10) {
+        if (doc && doc.smsSendingCount >= 10) {
             throw new Error('Cant sending sms more than 10 times');
         }
 
@@ -85,6 +85,7 @@ function saveDeviceIdAndCode(deviceId, code) {
     });
 
 }
+
 exports.sendSMS = function (deviceId, phoneNum) {
 
     var code = generateCode(4);

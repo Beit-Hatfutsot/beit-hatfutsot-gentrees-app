@@ -181,7 +181,7 @@ function createFileStream(fileName, dir) {
 
 function setCalculatedDataProperty(value, key) {
     value.queryData.numOfNewPersons = calculateNumOfNewPersons(value);
-    value.queryData.gedcomLink = path.join(path.join(outputPath, key), dateNow + value._id + '.ged');//  outputPath + key + '/' + dateNow + fileName + '.ged';
+    value.queryData.gedcomLink = path.join(path.join(outputPath, key), dateNow + value._id + '.ged');
     value.queryData.isNewFolder = value.queryData.dateAdded == value.queryData.dateUpdate ? ' 1' : ' 0';
 }
 

@@ -171,6 +171,13 @@ function createReport(docs, db) {
 
 
 function createFileStream(fileName, dir) {
+
+    if(!dir || dir =='false'){
+        console.log('Cant find file nationality, File Name:', fileName);
+        console.log('Use default /"beitHatfutsot/"');
+        dir = 'beitHatfutsot';
+    }
+
     var filePath = path.join(outputPath, dir);
 
     if (!fs.existsSync(filePath)) {
@@ -354,7 +361,6 @@ function createGedcom(docs, db) {
             var gedcomText = gedcomFromModel(model, fileName);
 
             var dir = model.savingLocation;
-
             saveFile(fileName, dir, gedcomText);
         }
     });
@@ -363,6 +369,12 @@ function createGedcom(docs, db) {
 }
 
 function saveFile(fileName, dir, data) {
+
+    if(!dir || dir =='false'){
+        console.log('Cant find file nationality, File Name:', fileName);
+        console.log('Use default /"beitHatfutsot/"');
+        dir = 'beitHatfutsot';
+    }
 
     var filePath = path.join(outputPath, dir);
 

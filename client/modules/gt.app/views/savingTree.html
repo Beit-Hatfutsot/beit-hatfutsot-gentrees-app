@@ -1,4 +1,4 @@
-    <div class="gt-view gt-form-view gt-view-home">
+<div class="gt-view gt-form-view gt-view-home">
 
     <header ng-swipe-right="back()">
         <div class="right" style="width: 0px;">
@@ -11,14 +11,14 @@
             </span>
     </header>
     <section>
-        <div class="body-wrapper" >
+        <div class="body-wrapper">
             <h3>{{'Where do you want to save the tree' | translate}}</h3>
             <ng-form>
                 <div class="form-group" ng-repeat="location in savingTreeLocationList">
                     <div>
-                        <label class="full">
-                            <span class="icon-checkbox" ng-model="model.savingLocation" btn-checkbox btn-checkbox-true="location.value" btn-checkbox-false="location.value" ng-class="{on: model.savingLocation == location.value}"></span>
-                            <span ng-model="model.savingLocation" btn-checkbox btn-checkbox-true="location.value" btn-checkbox-false="location.value" class="full" ng-bind-html="location.title | translate"></span>
+                        <label class="full" ng-model="model.savingLocation" btn-radio="location.value">
+                            <span class="icon-checkbox" ng-class="{on: model.savingLocation == location.value}"></span>
+                            <span class="full" ng-bind-html="location.title | translate"></span>
                         </label>
                     </div>
                 </div>

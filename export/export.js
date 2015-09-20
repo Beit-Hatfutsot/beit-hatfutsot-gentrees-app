@@ -4,6 +4,7 @@ var MongoClient = require('mongodb').MongoClient,
     path = require('path'),
     csvWriter = require('csv-write-stream');
 
+const UTF8_BOM = '\uFEFF';
 
 //  node export.js --output C:\Users\ofermusaipd\WebstormProjects\beithatfutsot\export\gedcom
 //  node export.js --query_file query.json 
@@ -173,6 +174,7 @@ function createReport(docs, db) {
 }
 
 
+
 function createFileStream(fileName, dir) {
 
     var filePath = path.join(outputPath, dir);
@@ -180,12 +182,14 @@ function createFileStream(fileName, dir) {
     if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath);
     }
-    return fs.createWriteStream(path.join(filePath, dateNow + fileName + '.csv'));
+    var stream = fs.createWriteStream(path.join(filePath, dateNow + fileName + '.csv'));
+    stream.write(UTF8_BOM);
+    return stream;
 }
 
 function setCalculatedDataProperty(value, nation) {
     value.queryData.numOfNewPersons = calculateNumOfNewPersons(value);
-    value.queryData.gedcomLink = path.join(path.join(outputPath, nation), dateNow + value._id + '.ged');
+    value.queryData.gedcomLink = 'file://./' + path.join(path.join(outputPath, nation), dateNow + value._id + '.ged');
     value.queryData.isNewFolder = value.queryData.dateAdded == value.queryData.dateUpdate ? ' 1' : ' 0';
 }
 

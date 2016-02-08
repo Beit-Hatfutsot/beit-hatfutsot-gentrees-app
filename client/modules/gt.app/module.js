@@ -24,7 +24,7 @@
         };
     }
 
-    angular.module('gt.app', ['uuid', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils', 'pascalprecht.translate']);
+    angular.module('gt.app', ['uuid','ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils', 'pascalprecht.translate']);
 
     angular.element(document).ready(function () {
         angular.bootstrap(document, ['gt.app']);

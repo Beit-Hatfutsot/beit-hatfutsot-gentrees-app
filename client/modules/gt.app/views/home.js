@@ -1,53 +1,24 @@
 'use strict';
+
+
 angular.module('gt.app').controller('gtHomeCtrl', [
     '$scope', '$filter', 'gtRegistrationSvc', '$state', '$timeout', '$location', '$anchorScroll', function ($scope, $filter, regSvc, $state, $timeout, $location, $anchorScroll) {
+
+        $scope.step = 1;
+        $scope.stepCount = 5;
+        $scope.isComplite = [];
+        $scope.registrationCode = undefined;
+
+        var brothersViewWasVisited = false;
 
         var scrollToTop = function () {
             $location.hash('top');
             $anchorScroll();
         };
 
-        var brothersViewWasVisited = false;
-
         $scope.focusThis = function ($event) {
             angular.element($event.currentTarget).find("input:first").focus();
             angular.element($event.currentTarget).find("input:first").select();
-        };
-
-        $scope.registrationCode = undefined;
-
-
-        $scope.step = 1;
-
-        $scope.stepCount = 5;
-
-        $scope.save = function(){
-
-            var persons = _.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation')));
-            var allValid = _.all(persons, function (p) {
-                return p.isMale != null && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
-            });
-
-            if(!allValid){
-                var element = $('input.ng-invalid:first');
-                var scrollDest = element.offset().top - 40;
-                $('body').stop().animate({scrollTop:scrollDest}, '300');
-
-            }else{
-                // if true do this
-                $state.go('savingTree');
-            }
-        };
-
-        $scope.next = function () {
-
-            $scope.step++;
-
-            if($scope.step > 4){
-                brothersViewWasVisited = true;
-
-            }
-            scrollToTop();
         };
 
         $scope.progressBarStep = [
@@ -71,10 +42,35 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             ]
         ];
 
-        $scope.isComplite = [];
+        $scope.save = function () {
 
+            var persons = _.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation')));
+            var allValid = _.all(persons, function (p) {
+                return p.isMale != null && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
+            });
 
-        $scope.setProgressBarWidth = function (progress,inedx) {
+            if (!allValid) {
+                var element = $('input.ng-invalid:first');
+                var scrollDest = element.offset().top - 40;
+                $('body').stop().animate({scrollTop: scrollDest}, '300');
+
+            } else {
+                // if true do this
+                $state.go('savingTree');
+            }
+        };
+
+        $scope.next = function () {
+            $scope.step++;
+
+            if ($scope.step > 4) {
+                brothersViewWasVisited = true;
+
+            }
+            scrollToTop();
+        };
+
+        $scope.setProgressBarWidth = function (progress, inedx) {
 
             var totalField = 0;
             var validFiled = 0;
@@ -83,10 +79,10 @@ angular.module('gt.app').controller('gtHomeCtrl', [
                 _.each(value.field, function (f) {
                     if (value.column === 'momsBrothers' || value.column === 'dadsBrothers' || value.column === 'brothers') {
 
-                        if(value.column === 'brothers' && !brothersViewWasVisited){
+                        if (value.column === 'brothers' && !brothersViewWasVisited) {
                             totalField = 1;
                             validFiled = 0;
-                        }else{
+                        } else {
                             _.each($scope.model[value.column], function (brother) {
                                 //console.log('brother',brother[f])
                                 totalField++;

@@ -1,12 +1,6 @@
 'use strict';
 
+angular.module('gt.app').controller('gtSavedTreeCtrl', ['$scope', '$state', function ($scope, $timeout) {
 
 
-
-
-
-
-     angular.module('gt.app').controller('gtSavedTreeCtrl', ['$scope','$state', function ($scope,$state) {
-
-
-    }]);
+}]);

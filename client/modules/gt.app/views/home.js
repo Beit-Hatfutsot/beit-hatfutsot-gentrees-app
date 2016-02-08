@@ -16,6 +16,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
         $scope.registrationCode = undefined;
 
+
         $scope.step = 1;
 
         $scope.stepCount = 5;

@@ -1,10 +1,10 @@
 <div class="gt-view gt-form-view gt-view-home">
 
-    <form name="form" novalidate ng-show="!isSaveTreeOpen">
+    <form name="form" novalidate ng-show="!isSaveTreeOpen" gt-analytics-events="startCreateTree" analytics-events-type="load">
 
         <header class="withoutBorder" ng-swipe-right="step < 5 ? next() : ''" ng-swipe-left="step > 1 ? back() : '' ">
             <div class="right">
-                <button ng-click="back()" ng-show="step > 1">
+                <button ng-click="back()" ng-show="step > 1" gt-analytics-events="step{{step}}" analytics-events-type="click">
                     <i class="fa fa-angle-right"></i>
                 </button>
             </div>
@@ -15,8 +15,8 @@
                 <span ng-if="step == 5">{{"Data Validation" | translate}}</span>
             </span>
 
-            <div class="left">
-                <button ng-click="next()" ng-show="step < stepCount">
+            <div class="left" >
+                <button ng-click="next()" ng-show="step < stepCount" gt-analytics-events="step{{step}}" analytics-events-type="click">
                     <i class="fa fa-angle-left"></i>
                 </button>
             </div>
@@ -75,7 +75,7 @@
                     </gt-brother>
                 </div>
 
-                <div ng-show="step == 4 || step == stepCount">
+                <div ng-show="step == 4 || step == stepCount"  >
 
                     <h3 ng-show="step != 5">{{'Brothers' | translate}}</h3>
                     <gt-brother brother="model.brothers" number="model.numBrothers" title="'Brother'"
@@ -109,6 +109,7 @@
 
                     <button ng-if="step == stepCount"
                             class="btn btn-inverse"
+                            ng-disabled="disabled()"
                             ng-click="save()">{{'Save' | translate}}
                     </button>
 

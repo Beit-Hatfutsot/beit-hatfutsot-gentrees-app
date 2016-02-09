@@ -26,7 +26,7 @@ angular.module('gt.app').directive('gtImageStepProgressing', function ($timeout)
 
                     $timeout.cancel(imageStepProgressingTimeout);
                     imageStepProgressingTimeout = $timeout(function () {
-                        scope.imageStepProgressing = false;
+                       scope.imageStepProgressing = false;
                     }, HideImageStepProgressingTime)
                 }
 

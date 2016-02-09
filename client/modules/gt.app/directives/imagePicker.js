@@ -20,7 +20,7 @@ angular.module('gt.app').directive('gtImagePicker',
 
                 scope.chooseFile = function(e){
                     setModelCount();
-                    imageInput.click()
+                    imageInput.click();
                 };
 
                 scope.createImage = function(src){
@@ -59,7 +59,7 @@ angular.module('gt.app').directive('gtImagePicker',
                             canvas.width = width;
                             canvas.height =  height;
                             ctx.drawImage(image, 0, 0, width, height);
-                            localStorage.setItem('image'+scope.model,canvas.toDataURL("image/jpeg", 0.5));
+                            localStorage.setItem('image'+scope.model,canvas.toDataURL('image/jpeg', 0.5));
 
                             //localStorage.setItem('image'+scope.model,e.target.result);
                             scope.createImage(e.target.result);
@@ -71,8 +71,7 @@ angular.module('gt.app').directive('gtImagePicker',
                 scope.removeImage = function(){
                     $(image).empty();
                     scope.isUploadImage = false;
-                    console.log('scope.model',scope.model)
-                    localStorage.removeItem('image'+scope.model);
+                     localStorage.removeItem('image'+scope.model);
                     scope.model = undefined;
 
                 };

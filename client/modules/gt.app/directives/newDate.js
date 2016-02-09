@@ -17,21 +17,21 @@ angular.module('gt.app').directive('gtNewDate',
                 if(scope.model)
                 {
                     var temp = scope.model.split('/');
-                    scope.date['day'] = temp[0] * 1;
-                    scope.date['mounth'] = temp[1] * 1;
-                    scope.date['year'] = temp[2] * 1;
+                    scope.date.day = temp[0] * 1;
+                    scope.date.mounth = temp[1] * 1;
+                    scope.date.year = temp[2] * 1;
                 }
                 scope.save = function(){
-                    if(!scope.date['year'])
+                    if(!scope.date.year)
                         return;
 
-                    if(!scope.date['day'])
-                        scope.date['day'] = 0;
+                    if(!scope.date.day)
+                        scope.date.day = 0;
 
-                    if(!scope.date['mounth'])
-                        scope.date['mounth'] = 0;
+                    if(!scope.date.mounth)
+                        scope.date.mounth = 0;
 
-                    scope.model = scope.date['day'] +'/' + scope.date['mounth'] +'/' + scope.date['year'];
+                    scope.model = scope.date.day +'/' + scope.date.mounth +'/' + scope.date.year;
                     scope.isOpen = false;
                 };
 

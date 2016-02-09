@@ -1,3 +1,3 @@
-<div class="image-step-progressing" ng-show="imageStepProgressing">
-    <img src="modules/gt.app/style/assets/IDF-{{step}}.png">
+<div class="image-step-progressing" ng-show="imageStepProgressing" ng-click="close()">
+    <img src="modules/gt.app/style/assets/IDF-{{step}}.png" ng-class="isLandscape ? 'landscape' : 'portrait'">
 </div>

@@ -8,17 +8,27 @@
   right: 0;
   bottom: 0;
   text-align: center;
-  -webkit-transition:all linear 0.5s;
-  transition:all linear 0.5s;
+  -webkit-transition:all linear 0.3s;
+  transition:all linear 0.3s;
 
   img{
-    width: 90%;
+    max-width: 400px;
     position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
     margin: auto;
+
+    &.landscape{
+      width: 90%;
+    }
+
+    &.portrait{
+      height: 90%;
+    }
+
+
   }
 }
 

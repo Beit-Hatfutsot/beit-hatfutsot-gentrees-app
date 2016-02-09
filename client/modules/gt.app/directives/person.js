@@ -14,14 +14,14 @@ angular.module('gt.app').directive('gtPerson',
             controller: ['$scope', 'gtDialogsSvc', function ($scope, dialogsSvc) {
 
                 $scope.focusThis = function ($event) {
-                    angular.element($event.currentTarget).find("input:first").focus();
+                    angular.element($event.currentTarget).find('input:first').focus();
                 };
 
                 $scope.openDateModal = function (date) {
                     dialogsSvc.openDateDialog('Date of Birth', $scope.model.dateOfBirth).then(function (data) {
                         data === 'delete' ? $scope.model.dateOfBirth = '' : $scope.model.dateOfBirth = data || $scope.model.dateOfBirth;
                     });
-                }
+                };
 
             }]
         };

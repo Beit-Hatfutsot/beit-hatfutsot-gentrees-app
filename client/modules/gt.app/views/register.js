@@ -18,7 +18,7 @@ angular.module('gt.app').controller('gtRegisterCtrl',
 
         $scope.focusThis = function ($event) {
             $scope.thisWasBluered = true;
-            angular.element($event.currentTarget).find("input:first").focus();
+            angular.element($event.currentTarget).find('input:first').focus();
         };
 
         $scope.blurEv = function () {

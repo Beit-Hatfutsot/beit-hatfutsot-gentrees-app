@@ -21,7 +21,8 @@
 		"jasmine": true,
         "_" : true,
 		"angular": true,
-		"jQuery": true
+		"jQuery": true,
+		"$": true
 	},
 	"predef": [ // Extra globals.
 		"define",

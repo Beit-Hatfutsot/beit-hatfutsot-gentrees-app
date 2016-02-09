@@ -21,14 +21,28 @@ angular.module('gt.app').directive('gtImageStepProgressing', function ($timeout)
                     }
                 });
 
+                scope.close = function(){
+                    $timeout.cancel(imageStepProgressingTimeout);
+                    scope.imageStepProgressing = false;
+                };
+
                 function openImageStepProgressing() {
                     scope.imageStepProgressing = true;
 
                     $timeout.cancel(imageStepProgressingTimeout);
                     imageStepProgressingTimeout = $timeout(function () {
                        scope.imageStepProgressing = false;
-                    }, HideImageStepProgressingTime)
+                    }, HideImageStepProgressingTime);
                 }
+
+                function checkOrientation(){
+                    scope.isLandscape =  window.orientation === 0 ;
+                }
+                checkOrientation();
+
+                window.addEventListener('orientationchange', function() {
+                    checkOrientation();
+                }, false);
 
 
             }

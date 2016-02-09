@@ -29,7 +29,7 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                         return dialogsSvc.showMessage(err.message || err.data.message || (err.data && err.data.response) || err.statusText || err, title, true).then(function () {
                             return promise;
                         });
-                    })
+                    });
             }
 
             var functions = {
@@ -59,7 +59,7 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                     return $http.post('api/v1/registration/sms', {deviceId: deviceId, phoneNum: phoneNum})
                         .then(function (res) {
                             localStorage.deviceId = deviceId;
-                        })
+                        });
                 },
 
                 saveModel: function (model) {

@@ -17,8 +17,8 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         };
 
         $scope.focusThis = function ($event) {
-            angular.element($event.currentTarget).find("input:first").focus();
-            angular.element($event.currentTarget).find("input:first").select();
+            angular.element($event.currentTarget).find('input:first').focus();
+            angular.element($event.currentTarget).find('input:first').select();
         };
 
         $scope.progressBarStep = [
@@ -46,7 +46,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
             var persons = _.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation')));
             var allValid = _.all(persons, function (p) {
-                return p.isMale != null && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
+                return (p.isMale === false || p.isMale === true) && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
             });
 
             if (!allValid) {
@@ -108,7 +108,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
             return {
                 width: width + '%'
-            }
+            };
         };
 
         $scope.disabled = function () {
@@ -119,7 +119,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
             var persons = _.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation')));
             var allValid = _.all(persons, function (p) {
-                return p.isMale != null && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
+                return (p.isMale === false || p.isMale === true) && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
             });
 
 

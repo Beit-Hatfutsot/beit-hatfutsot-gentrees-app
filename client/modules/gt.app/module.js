@@ -31,10 +31,8 @@
     });
 
     angular.module('gt.app').config(function (AnalyticsProvider) {
-     //   AnalyticsProvider.useAnalytics(false);
-        AnalyticsProvider.logAllCalls(true);
-        AnalyticsProvider.setAccount('UA-XXXXX-xx');
-        AnalyticsProvider.enterDebugMode(true);
+        AnalyticsProvider.setAccount('UA-8676522-3');
+        //AnalyticsProvider.enterDebugMode(true);
     });
 
     angular.module('gt.app').run(['$templateCache', '$state', '$rootScope', 'gtRegistrationSvc',

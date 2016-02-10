@@ -81,7 +81,6 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
             }
             scrollToTop();
-            console.log('Analytics');
             Analytics.trackEvent('IDFtrees', analyticsKeys[$scope.step]);
         };
 
@@ -99,7 +98,6 @@ angular.module('gt.app').controller('gtHomeCtrl', [
                             validFiled = 0;
                         } else {
                             _.each($scope.model[value.column], function (brother) {
-                                //console.log('brother',brother[f])
                                 totalField++;
                                 if (brother[f] || brother[f] === false) {
                                     validFiled++;
@@ -172,7 +170,6 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         }
 
         function init() {
-            console.log('init');
             publishStartDate = new Date();
 
             var analyticsKey = 1;

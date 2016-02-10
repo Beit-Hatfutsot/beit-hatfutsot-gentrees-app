@@ -7,19 +7,27 @@ angular.module('gt.app').config(['$stateProvider', '$urlRouterProvider', '$locat
 
         $urlRouterProvider.otherwise('/welcome');
 
-       // var states = {'welcome':['init'], 'register':['init', 'pending'],'usageterms':['init', 'pending'], 'confirm':['pending'], 'savingTree':['confirmed'], 'savedTree':['confirmed'], 'home':[,'confirmed']};
-        var states = {'welcome':['init'], 'register':['init', 'pending'],'usageterms':['init', 'pending'], 'confirm':['pending'], 'savingTree':['init','confirmed'], 'savedTree':['init','confirmed'], 'home':['init','confirmed']};
+        var states = {
+            'welcome': ['init'],
+            'register': ['init', 'pending'],
+            'usageterms': ['init', 'pending'],
+            'confirm': ['pending'],
+            'savingTree': ['confirmed'],
+            'savedTree': ['confirmed'],
+            'home': ['confirmed']
+        };
 
-        _.each(states, function(statuses, stateName){
-                $stateProvider.
-                state(stateName, {
-                    url: '/' + stateName ,
-                    templateUrl: 'modules/gt.app/views/'+ stateName +'.html',
-                    controller: 'gt' + stateName.substr(0,1).toUpperCase() + stateName.substr(1) + 'Ctrl',
-                    data: {
-                        allowedStatuses: statuses
-                    }
-                });
+        _.each(states, function (statuses, stateName) {
+            $stateProvider.state(stateName, {
+                url: '/' + stateName,
+                templateUrl: 'modules/gt.app/views/' + stateName + '.html',
+                controller: 'gt' + stateName.substr(0, 1).toUpperCase() + stateName.substr(1) + 'Ctrl',
+                data: {
+                    allowedStatuses: statuses
+                },
+                params: { publishStartDate: null}
+
+            });
         });
     }
 ]);

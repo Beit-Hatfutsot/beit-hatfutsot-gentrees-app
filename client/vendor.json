@@ -11,6 +11,7 @@
         "lib/angular-ui-utils/ui-utils.js",
         "lib/angular-translate/angular-translate.js",
         "lib/angular-uuid-service/uuid-svc.js",
+        "lib/angular-google-analytics/dist/angular-google-analytics.js",
 
         "lib/bootstrap/dist/js/bootstrap.js",
         "lib/angular-bootstrap/ui-bootstrap-tpls.js",

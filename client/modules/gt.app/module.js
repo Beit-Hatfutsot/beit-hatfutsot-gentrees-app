@@ -24,10 +24,17 @@
         };
     }
 
-    angular.module('gt.app', ['uuid','ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils', 'pascalprecht.translate']);
+    angular.module('gt.app', ['uuid','ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils', 'pascalprecht.translate','angular-google-analytics']);
 
     angular.element(document).ready(function () {
         angular.bootstrap(document, ['gt.app']);
+    });
+
+    angular.module('gt.app').config(function (AnalyticsProvider) {
+     //   AnalyticsProvider.useAnalytics(false);
+        AnalyticsProvider.logAllCalls(true);
+        AnalyticsProvider.setAccount('UA-XXXXX-xx');
+        AnalyticsProvider.enterDebugMode(true);
     });
 
     angular.module('gt.app').run(['$templateCache', '$state', '$rootScope', 'gtRegistrationSvc',

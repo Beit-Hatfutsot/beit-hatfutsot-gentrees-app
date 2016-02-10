@@ -2,7 +2,7 @@
 
 
 angular.module('gt.app').controller('gtHomeCtrl', [
-    '$scope', '$filter', 'gtRegistrationSvc', '$state', '$timeout', '$location', '$anchorScroll', function ($scope, $filter, regSvc, $state, $timeout, $location, $anchorScroll) {
+    '$scope', '$filter', 'gtRegistrationSvc', '$state', '$timeout', '$location', '$anchorScroll', 'Analytics', function ($scope, $filter, regSvc, $state, $timeout, $location, $anchorScroll, Analytics) {
 
         $scope.step = 1;
         $scope.stepCount = 5;
@@ -10,6 +10,15 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         $scope.registrationCode = undefined;
 
         var brothersViewWasVisited = false;
+        var publishStartDate;
+        var analyticsKeys = {
+            0: 'Sign up',
+            1: 'Update events',
+            2: 'Add Personal Details',
+            3: 'Mother\'s side',
+            4: 'Father\'s side',
+            5: 'Siblings'
+        };
 
         var scrollToTop = function () {
             $location.hash('top');
@@ -44,10 +53,13 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
         $scope.save = function () {
 
+
             var persons = _.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation')));
+
             var allValid = _.all(persons, function (p) {
                 return (p.isMale === false || p.isMale === true) && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
             });
+
 
             if (!allValid) {
                 var element = $('input.ng-invalid:first');
@@ -56,7 +68,8 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
             } else {
                 // if true do this
-                $state.go('savingTree');
+                Analytics.trackEvent('IDFtrees', 'Review Details', countInputWithValue(persons));
+                $state.go('savingTree',{publishStartDate:publishStartDate});
             }
         };
 
@@ -68,6 +81,8 @@ angular.module('gt.app').controller('gtHomeCtrl', [
 
             }
             scrollToTop();
+            console.log('Analytics');
+            Analytics.trackEvent('IDFtrees', analyticsKeys[$scope.step]);
         };
 
         $scope.setProgressBarWidth = function (progress, inedx) {
@@ -114,14 +129,11 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         $scope.disabled = function () {
 
             var model = _.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation');
-            //console.log('model', model)
-
 
             var persons = _.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation')));
             var allValid = _.all(persons, function (p) {
                 return (p.isMale === false || p.isMale === true) && !_.isEmpty(p.firstName) && (p.isWife || !_.isEmpty(p.lastName));
             });
-
 
             return $scope.step === $scope.stepCount && !allValid;
         };
@@ -142,6 +154,37 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         $scope.confirmRegistration = function () {
             regSvc.confirm($scope.registrationCode);
         };
+
+        function countInputWithValue(persons) {
+            var count = 0;
+            var ignoreInput = ['isWife', 'isAliveNotEditable', 'isMaleNotEditable', 'image'];
+            _.each(persons, function (person) {
+                _.each(person, function (value, name) {
+                    if (ignoreInput.indexOf(name) === -1) {
+                        count++;
+                    }
+                    if (name === 'image' && localStorage.getItem('image' + value)) {
+                        count++;
+                    }
+                });
+            });
+            return count;
+        }
+
+        function init() {
+            console.log('init');
+            publishStartDate = new Date();
+
+            var analyticsKey = 1;
+            if(!localStorage.getItem('isNotFirstTime')){
+                localStorage.setItem('isNotFirstTime',true);
+                analyticsKey = 0;
+            }
+
+            Analytics.trackEvent('IDFtrees', analyticsKeys[analyticsKey]);
+        }
+
+        init();
 
 
     }]);

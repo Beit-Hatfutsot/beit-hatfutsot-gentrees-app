@@ -1,8 +1,8 @@
 'use strict';
 angular.module('gt.app').controller('gtSavingTreeCtrl', [
-    '$scope','$state','gtRegistrationSvc','$timeout', function ($scope,$state,regSvc,$timeout) {
+    '$scope', '$stateParams', '$state', 'gtRegistrationSvc', '$timeout', 'Analytics', function ($scope, $stateParams, $state, regSvc, $timeout, Analytics) {
 
-        $scope.back = function(){
+        $scope.back = function () {
             $state.go('home');
         };
 
@@ -34,6 +34,7 @@ angular.module('gt.app').controller('gtSavingTreeCtrl', [
         ];
         $scope.model.savingLocation = $scope.savingTreeLocationList[0].value;
 
+
         $scope.save = function () {
             $scope.loading = true;
 
@@ -54,15 +55,17 @@ angular.module('gt.app').controller('gtSavingTreeCtrl', [
 
             //var successMessage = 'Your data has been successfully saved ';
             //successMessage += $scope.model.savingLocation == 'beitHatfutsot' ? 'Beit Hatfutsot' : 'Other';
+            regSvc.saveTree($scope.model).then(function () {
+                var endTime = new Date().getTime();
+                var timeSpentInSecond = (endTime - $stateParams.publishStartDate.getTime()) / 1000;
 
-            regSvc.saveTree($scope.model).then(
-                function () {
-                    $timeout(function () {
-                         $state.go('savedTree');
-                    }, 100);
-                }).finally(function () {
-                    $scope.loading = false;
-                });
+                $timeout(function () {
+                    Analytics.trackEvent('IDFtrees', 'Publish ', $scope.model.savingLocation, timeSpentInSecond);
+                    $state.go('savedTree');
+                }, 100);
+            }).finally(function () {
+                $scope.loading = false;
+            });
 
         };
 

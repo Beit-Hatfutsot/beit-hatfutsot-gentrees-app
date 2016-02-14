@@ -73,7 +73,6 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         };
 
         $scope.next = function () {
-
             $scope.step++;
 
             if ($scope.step > 4) {

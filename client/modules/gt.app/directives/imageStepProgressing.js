@@ -35,15 +35,14 @@ angular.module('gt.app').directive('gtImageStepProgressing', function ($timeout)
                     }, HideImageStepProgressingTime);
                 }
 
-                function checkOrientation(){
-                    scope.isLandscape =  window.orientation === 0 ;
-                }
-                checkOrientation();
-
-                window.addEventListener('orientationchange', function() {
-                    checkOrientation();
-                }, false);
-
+                //function checkOrientation(){
+                //    scope.isLandscape =  window.orientation === 0 ;
+                //}
+                //checkOrientation();
+                //
+                //window.addEventListener('orientationchange', function() {
+                //    checkOrientation();
+                //}, false);
 
             }
         };

@@ -25,11 +25,6 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             $anchorScroll();
         };
 
-        $scope.focusThis = function ($event) {
-            angular.element($event.currentTarget).find('input:first').focus();
-            angular.element($event.currentTarget).find('input:first').select();
-        };
-
         $scope.progressBarStep = [
             [
                 {column: 'me', field: ['firstName', 'lastName', 'isMale']}
@@ -51,8 +46,12 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             ]
         ];
 
-        $scope.save = function () {
+        $scope.focusThis = function ($event) {
+            angular.element($event.currentTarget).find('input:first').focus();
+            angular.element($event.currentTarget).find('input:first').select();
+        };
 
+        $scope.save = function () {
 
             var persons = _.flatten(_.values(_.omit($scope.model, 'numBrothers', 'numMomsBrothers', 'numDadsBrothers', 'image', 'savingLocation')));
 
@@ -74,6 +73,7 @@ angular.module('gt.app').controller('gtHomeCtrl', [
         };
 
         $scope.next = function () {
+
             $scope.step++;
 
             if ($scope.step > 4) {
@@ -82,6 +82,11 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             }
             scrollToTop();
             Analytics.trackEvent('IDFtrees', analyticsKeys[$scope.step]);
+        };
+
+        $scope.back = function () {
+            $scope.step--;
+            scrollToTop();
         };
 
         $scope.setProgressBarWidth = function (progress, inedx) {
@@ -136,10 +141,6 @@ angular.module('gt.app').controller('gtHomeCtrl', [
             return $scope.step === $scope.stepCount && !allValid;
         };
 
-        $scope.back = function () {
-            $scope.step--;
-            scrollToTop();
-        };
 
         $scope.isRegistrationConfirmed = function () {
             return regSvc.confirmed;

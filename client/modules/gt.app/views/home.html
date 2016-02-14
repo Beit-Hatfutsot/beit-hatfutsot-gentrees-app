@@ -1,14 +1,11 @@
 <div class="gt-view gt-form-view gt-view-home">
 
-    <form name="form" novalidate ng-show="!isSaveTreeOpen"
-          analytics-events-type="load">
-
-        <header class="withoutBorder" ng-swipe-right="step < 5 ? next() : ''" ng-swipe-left="step > 1 ? back() : '' ">
-            <div class="right">
-                <button ng-click="back()" ng-show="step > 1" >
-                    <i class="fa fa-angle-right"></i>
-                </button>
-            </div>
+    <header class="withoutBorder" ng-swipe-right="step < 5 ? next() : ''" ng-swipe-left="step > 1 ? back() : '' ">
+        <div class="right">
+            <button ng-click="back()" ng-show="step > 1" >
+                <i class="fa fa-angle-right"></i>
+            </button>
+        </div>
             <span>
                 <span class="steps" ng-show="step < 5">{{step}}/{{stepCount - 1}}</span>
                 <span ng-if="step == 2">{{"Mother's side" | translate}}</span>
@@ -16,14 +13,16 @@
                 <span ng-if="step == 5">{{"Data Validation" | translate}}</span>
             </span>
 
-            <div class="left">
-                <button ng-click="next()" ng-show="step < stepCount">
-                    <i class="fa fa-angle-left"></i>
-                </button>
-            </div>
-            <!--<button ng-click="clear()" style="display: block">Clear</button>-->
+        <div class="left">
+            <button ng-click="next()" ng-show="step < stepCount">
+                <i class="fa fa-angle-left"></i>
+            </button>
+        </div>
 
-        </header>
+    </header>
+
+    <form name="form" novalidate ng-show="!isSaveTreeOpen" ng-submit="step < stepCount ? next() : save()" >
+
         <div class="header-progress-bar-section">
             <div class="header-progress-bar" ng-repeat="progress in progressBarStep">
 
@@ -42,9 +41,6 @@
                         <span>{{'Please check all info entered by you is OK.1' | translate}}</span>
                         <span class="mark-invalid">{{'Please check all info entered by you is OK.2' | translate}}</span>
                         <span>{{'Please check all info entered by you is OK.3' | translate}}</span>
-                        <!--<span class="error" ng-if="disabled()">-->
-                        <!--<br>{{'Please correct all the invalid fields.' | translate}}-->
-                        <!--</span>-->
                     </p>
                 </div>
 
@@ -82,38 +78,16 @@
                     <gt-brother brother="model.brothers" number="model.numBrothers" title="'Brother'"
                                 label-text="'How many brothers you have ?'"/>
                     </gt-brother>
-                    <!--  <div>
-                            <div class="form-group" ng-click="focusThis($event)">
-                                <label>{{'How many brothers you have ?' | translate}}</label>
-                                <div class="form-input-container">
-                                    <input type="number" ng-model="model.numBrothers" min="0" max="50" >
-                                </div>
-                            </div>
-                        </div>
 
-                        <div ng-repeat="brother in model.brothers">
-                            <gt-person model="brother" title="{{'Brother' | translate}}" counter="{{ $index + 1 }}/{{ model.brothers.length }}"></gt-person>
-                        </div>-->
                 </div>
 
 
                 <div class="btn-field">
-                    <!-- <button class="btn btn-inverse"
-                             ng-disabled="disabled()"
-                             ng-click="next()">{{(step == stepCount ? 'Save' : 'Continue') | translate}}
-                     </button>-->
-                    <button ng-if="step < stepCount"
+                    <button type="submit"
                             class="btn btn-inverse"
-                            ng-disabled="disabled()"
-                            ng-click="next()">{{'Continue' | translate}}
+                            ng-disabled="disabled()">
+                        {{step < stepCount ? 'Continue' : 'Save' | translate}}
                     </button>
-
-                    <button ng-if="step == stepCount"
-                            class="btn btn-inverse"
-                            ng-disabled="disabled()"
-                            ng-click="save()">{{'Save' | translate}}
-                    </button>
-
                 </div>
 
             </div>

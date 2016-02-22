@@ -33,6 +33,11 @@ angular.module('gt.app').factory('gtRegistrationSvc',
             }
 
             var functions = {
+                getConfigData: function () {
+                    return $http.get('api/v1/config').then(function(res){
+                        return res.data;
+                    });
+                },
                 confirm: function (code) {
                     return $http.post('api/v1/registration/confirm', {code: code, deviceId: localStorage.deviceId})
                         .then(function (result) {
@@ -43,7 +48,6 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                             return false;
                         });
                 },
-
                 sendMail: function (email) {
                     var deviceId = localStorage.deviceId || rfc4122.v4();
                     return $http.post('api/v1/registration/mail', {deviceId: deviceId, email: email})
@@ -87,6 +91,10 @@ angular.module('gt.app').factory('gtRegistrationSvc',
                         return 'pending';
                     }
                     return 'init';
+                },
+
+                getConfigData: function () {
+                    return wrap(functions.getConfigData());
                 },
 
                 confirm: function (code) {

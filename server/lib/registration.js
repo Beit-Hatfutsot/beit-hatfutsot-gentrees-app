@@ -7,8 +7,8 @@ var emailSender = require('./emailSender'),
     Q = require('q'),
     gedcom = require('./gedcom'),
     fs = require('fs'),
-    _ = require('lodash')
-path = require('path'),
+    _ = require('lodash'),
+    path = require('path'),
     MongoClient = require('mongodb').MongoClient;
 
 
@@ -99,6 +99,12 @@ exports.sendSMS = function (deviceId, phoneNum) {
                 throw new Error('Cant sending sms');
             });
     });
+};
+
+
+exports.config = function () {
+    var data = fs.readFileSync('appConfig.json', 'utf-8');
+    return JSON.parse(data);
 };
 
 

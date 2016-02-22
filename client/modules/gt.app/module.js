@@ -55,6 +55,11 @@
               $state.go('welcome');
             };
 
+            regSvc.getConfigData().then(function(res){
+                $rootScope.configOption = res;
+            });
+
+
             $rootScope.$on('$stateChangeStart', function (event, toState) {
 
                 var status = regSvc.status,

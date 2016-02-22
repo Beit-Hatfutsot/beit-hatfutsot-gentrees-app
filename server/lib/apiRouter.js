@@ -31,6 +31,10 @@ var getBaseUrl = function(req){
     return protocol  + '://' + req.get('host');
 };
 
+router.get('/config', apiAction(function (req) {
+    return registration.config();
+}));
+
 router.post('/registration/mail', apiAction(function (req) {
     return registration.sendMail(req.body.deviceId, req.body.email, getBaseUrl(req));
 }));

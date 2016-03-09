@@ -86,11 +86,17 @@ function saveDeviceIdAndCode(deviceId, code) {
 
 }
 
+function removeDashes(phoneNum){
+    return phoneNum.replace('-','');
+}
+
 exports.sendSMS = function (deviceId, phoneNum) {
 
     var code = generateCode(4);
     return saveDeviceIdAndCode(deviceId, code).then(function () {
-        return smsSender.send(code, phoneNum)
+
+        var phoneNumWithoutDashes = removeDashes(phoneNum);
+        return smsSender.send(code, phoneNumWithoutDashes)
             .then(function (res) {
                 if (res.messages[0].status != 0) {
                     throw new Error('Cant sending sms');

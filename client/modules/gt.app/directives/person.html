@@ -25,12 +25,12 @@
                 <span style="position: relative" class="icon-gender icon-female" ng-model="model.isMale" btn-radio="false" uncheckable ng-class="{on: model.isMale === false}"/>
             </div>
         </div>
-        <div class="form-group"  >
+        <div class="form-group"  ng-click="openDateModal()">
             <label>{{'Date of Birth' | translate}}</label>
-            <div class="form-input-container" style="direction: ltr">
+            <div class="form-input-container" style="direction: ltr" >
                 <input  type="text"  style="  width: 80px; margin-right: 8px;"
-                        ng-model="model.dateOfBirth" placeholder="{{'Date of Birth' | translate}}" ng-click="openDateModal()">
-                <div class="remove-btn"  style="margin-top: 4px;" ng-show="model.dateOfBirth" ng-click="model.dateOfBirth = ''">
+                        ng-model="model.dateOfBirth" placeholder="{{'Date of Birth' | translate}}" >
+                <div class="remove-btn"  style="margin-top: 4px;" ng-show="model.dateOfBirth" ng-click="$event.stopPropagation(); model.dateOfBirth = ''">
                     <span>{{'Remove' | translate}}</span>
                     <span>X</span>
                 </div>

@@ -15,6 +15,10 @@ angular.module('gt.app').directive('gtBrother',
             templateUrl: 'modules/gt.app/directives/brother.html',
             link: function (scope,$scope, element, attrs) {
 
+                scope.focusThis = function ($event) {
+                    angular.element($event.currentTarget).find('input:first').focus();
+                };
+
                 if(!scope.number)
                     scope.number = 0;
 

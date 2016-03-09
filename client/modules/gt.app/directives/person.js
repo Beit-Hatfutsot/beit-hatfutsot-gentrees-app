@@ -17,9 +17,9 @@ angular.module('gt.app').directive('gtPerson',
                     angular.element($event.currentTarget).find('input:first').focus();
                 };
 
-                $scope.openDateModal = function (date) {
-                    dialogsSvc.openDateDialog('Date of Birth', $scope.model.dateOfBirth).then(function (data) {
-                        data === 'delete' ? $scope.model.dateOfBirth = '' : $scope.model.dateOfBirth = data || $scope.model.dateOfBirth;
+                $scope.openDateModal = function (title,column) {
+                    dialogsSvc.openDateDialog(title,$scope.model[column]).then(function (result) {
+                        result === 'delete' ?$scope.model[column] = '' :$scope.model[column] = result ||$scope.model[column];
                     });
                 };
 

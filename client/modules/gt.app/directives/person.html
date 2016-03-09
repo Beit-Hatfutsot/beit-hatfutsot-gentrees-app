@@ -8,29 +8,34 @@
         <div class="form-group" ng-click="focusThis($event)">
             <label>{{'First Name' | translate}}</label>
             <div class="form-input-container">
-                <input type="text" placeholder="{{'Click to add' | translate}}" ng-model="model.firstName" required >
+                <input type="text" placeholder="{{'Click to add' | translate}}" ng-model="model.firstName" required>
             </div>
         </div>
         <div class="form-group" ng-click="focusThis($event)">
             <label>{{model.isWife ? 'Maiden Name' : 'Last Name' | translate}}</label>
             <div class="form-input-container">
-                <input type="text" placeholder="{{model.isWife ? 'Name before marriage' : 'Click to add' | translate}}" ng-model="model.lastName" ng-required="!model.isWife">
+                <input type="text" placeholder="{{model.isWife ? 'Name before marriage' : 'Click to add' | translate}}"
+                       ng-model="model.lastName" ng-required="!model.isWife">
             </div>
         </div>
         <div class="form-group gt-gender" ng-show="!model.isMaleNotEditable">
             <label translate="Gender"></label>
-            <div class="form-input-container" >
-                    <div class="gender-required-div" ng-show="model.isMale !== true && model.isMale !== false && ($parent.step == 5 || $parent.$parent.$parent.step == 5 )"></div>
-                <span style="position: relative" class="icon-gender icon-male" ng-model="model.isMale" btn-radio="true" uncheckable ng-class="{on: model.isMale === true}" />
-                <span style="position: relative" class="icon-gender icon-female" ng-model="model.isMale" btn-radio="false" uncheckable ng-class="{on: model.isMale === false}"/>
+            <div class="form-input-container">
+                <div class="gender-required-div"
+                     ng-show="model.isMale !== true && model.isMale !== false && ($parent.step == 5 || $parent.$parent.$parent.step == 5 )"></div>
+                <span style="position: relative" class="icon-gender icon-male" ng-model="model.isMale" btn-radio="true"
+                      uncheckable ng-class="{on: model.isMale === true}"/>
+                <span style="position: relative" class="icon-gender icon-female" ng-model="model.isMale"
+                      btn-radio="false" uncheckable ng-class="{on: model.isMale === false}"/>
             </div>
         </div>
-        <div class="form-group"  ng-click="openDateModal()">
+        <div class="form-group" ng-click="openDateModal('Date of Birth','dateOfBirth')">
             <label>{{'Date of Birth' | translate}}</label>
-            <div class="form-input-container" style="direction: ltr" >
-                <input  type="text"  style="  width: 80px; margin-right: 8px;"
-                        ng-model="model.dateOfBirth" placeholder="{{'Date of Birth' | translate}}" >
-                <div class="remove-btn"  style="margin-top: 4px;" ng-show="model.dateOfBirth" ng-click="$event.stopPropagation(); model.dateOfBirth = ''">
+            <div class="form-input-container" style="direction: ltr">
+                <input type="text" style="width: 90px; margin-right: 8px;"
+                       ng-model="model.dateOfBirth" placeholder="{{'Date of Birth' | translate}}">
+                <div class="remove-btn" style="margin-top: 4px;" ng-show="model.dateOfBirth"
+                     ng-click="$event.stopPropagation(); model.dateOfBirth = ''">
                     <span>{{'Remove' | translate}}</span>
                     <span>X</span>
                 </div>
@@ -39,7 +44,7 @@
         <div class="form-group" ng-click="focusThis($event)">
             <label>{{'Place of Birth' | translate}}</label>
             <div class="form-input-container">
-                <input type="text" ng-model="model.placeOfBirth" placeholder="{{'City and or country' | translate}}" >
+                <input type="text" ng-model="model.placeOfBirth" placeholder="{{'City and or country' | translate}}">
             </div>
         </div>
 
@@ -47,20 +52,30 @@
         <div class="form-group">
             <label>{{'Image' | translate}}</label>
             <div class="form-input-container">
-                <gt-image-picker model="model.image" />
+                <gt-image-picker model="model.image"/>
             </div>
         </div>
 
         <div class="form-group" ng-show="!model.isAliveNotEditable">
-            <label ng-model="model.isAlive"  btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
-                <span class="icon-checkbox" ng-class="{on: model.isAlive}" ></span>
+            <label ng-model="model.isAlive" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+                <span class="icon-checkbox" ng-class="{on: model.isAlive}"></span>
                 &nbsp;
                 {{'Is Alive' | translate}}</label>
         </div>
-        <div class="form-group" ng-show="!model.isAlive">
+
+        <div class="form-group" ng-show="!model.isAlive" ng-click="openDateModal('Date of Death','dateOfDeath')">
             <label>{{'Date of Death' | translate}}</label>
-            <gt-new-date model="model.dateOfDeath" header="'Date of Death'" />
+            <div class="form-input-container" style="direction: ltr">
+                <input type="text" style="width: 90px; margin-right: 8px;" ng-model="model.dateOfDeath"
+                       placeholder="{{'Date of Death' | translate}}">
+                <div class="remove-btn" style="margin-top: 4px;" ng-show="model.dateOfDeath"
+                     ng-click="$event.stopPropagation(); model.dateOfDeath = ''">
+                    <span>{{'Remove' | translate}}</span>
+                    <span>X</span>
+                </div>
+            </div>
         </div>
+
 
     </ng-form>
 

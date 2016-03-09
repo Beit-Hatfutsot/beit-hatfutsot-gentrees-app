@@ -1,6 +1,6 @@
 'use strict';
 
-var HideImageStepProgressingTime = 5000;
+var HideImageStepProgressingTime = 6500;
 
 angular.module('gt.app').directive('gtImageStepProgressing', function ($timeout) {
 

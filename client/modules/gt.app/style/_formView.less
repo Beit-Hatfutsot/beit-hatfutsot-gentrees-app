@@ -156,7 +156,7 @@
     }
 
     input {
-      &.ng-invalid.ng-dirty, &.ng-invalid-required.ng-dirty, {
+      &.ng-invalid.ng-dirty, &.ng-invalid-required.ng-dirty {
         //border: solid 1px @form-error-color;
         background-color: @form-error-bg-color;
         color: @form-error-font-color;
@@ -169,7 +169,7 @@
     }
 
     div {
-      &.ng-invalid.ng-dirty, &.ng-invalid-required.ng-dirty, {
+      &.ng-invalid.ng-dirty, &.ng-invalid-required.ng-dirty {
         input {
           background-color: @form-error-bg-color;
           color: @form-error-font-color;
@@ -236,7 +236,7 @@
 
 .last-step {
   input {
-    &.ng-invalid, &.ng-invalid-required, {
+    &.ng-invalid, &.ng-invalid-required {
       background-color: @form-error-bg-color;
       color: @form-error-font-color;
     }
@@ -244,11 +244,10 @@
   input{
     &.ng-invalid::-webkit-input-placeholder { color: @form-error-font-color; }
     &.ng-invalid:-moz-placeholder { color: @form-error-font-color; }
-    &.ng-invalid::moz-placeholder { color: @form-error-font-color; }
     &.ng-invalid:-ms-input-placeholder { color: @form-error-font-color; }
   }
   div {
-    &.ng-invalid, &.ng-invalid-required, {
+    &.ng-invalid, &.ng-invalid-required {
       input {
         background-color: @form-error-bg-color;
         color: @form-error-font-color;
@@ -258,7 +257,7 @@
 }
 
 .gt-form-view .form-group input.ng-invalid.ng-dirty, .gt-form-view .form-group input.ng-invalid-required.ng-dirty {
- // color: inherit !important;
+  color: inherit !important;
 }
 
 .date-modal {

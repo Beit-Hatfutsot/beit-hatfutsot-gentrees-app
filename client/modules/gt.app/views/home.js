@@ -178,6 +178,10 @@ angular.module('gt.app').controller('gtHomeCtrl', [
                 analyticsKey = 0;
             }
 
+            $scope.isImageStepProgressingSeen = localStorage.getItem('imageStepProgressing');
+
+
+
             Analytics.trackEvent('IDFtrees', analyticsKeys[analyticsKey]);
         }
 

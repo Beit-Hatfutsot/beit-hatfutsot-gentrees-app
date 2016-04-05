@@ -6,6 +6,8 @@ angular.module('gt.app').controller('gtSavingTreeCtrl', [
             $state.go('home');
         };
 
+        $scope.isImageStepProgressingSeen = localStorage.getItem('imageStepProgressing');
+
         $scope.savingTreeLocationList = [
             {
                 title: 'Stockpile Beit Hatfutsot',

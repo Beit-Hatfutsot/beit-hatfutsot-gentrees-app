@@ -47,3 +47,26 @@ To compile and deploy client code into server public dir run run `gulp rebuild-c
 
 The server main file is `server.js`.
 
+Weekly Emails
+-------------
+
+There is a python that sends a summary zip wihich include the gedcom of all the
+added trees and a summary report.  To use the tool you need to install python
+enviornment and hav a `/etc/bhs/config.yml` file with the following fields: 
+`mail_server`, `mail_port`, `mail_username`, `mail_password`
+
+
+    $ virtualenv env
+    $ . env/bin/activate
+    $ pip install -r requirments.txt
+    $ python send-trees.py -h
+
+    usage: send-trees.py [-h] [-t TO] [-s SINCE] [-u UNTIL] [-d DBNAME] [-e EMAIL]
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -t TO, --to TO
+      -s SINCE, --since SINCE
+      -u UNTIL, --until UNTIL
+      -d DBNAME, --dbname DBNAME
+      -e EMAIL, --email EMAIL

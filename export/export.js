@@ -153,7 +153,7 @@ function createReport(docs, db) {
     _.each(data, function (locations, nation) {
 
         var writerCsv = csvWriter({headers: header});
-        var fileName = '_report';
+        var fileName = 'summary_report';
         nation = checkNationality(nation,fileName);
 
         writerCsv.pipe(createFileStream(fileName, nation));
@@ -176,20 +176,21 @@ function createReport(docs, db) {
 
 
 function createFileStream(fileName, dir) {
+	console.log(fileName, dir)
 
     var filePath = path.join(outputPath, dir);
 
     if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath);
     }
-    var stream = fs.createWriteStream(path.join(filePath, dateNow + fileName + '.csv'));
+    var stream = fs.createWriteStream(path.join(filePath, fileName + '.csv'));
     stream.write(UTF8_BOM);
     return stream;
 }
 
 function setCalculatedDataProperty(value, nation) {
     value.queryData.numOfNewPersons = calculateNumOfNewPersons(value);
-    value.queryData.gedcomLink = 'file://./' + path.join(path.join(outputPath, nation), dateNow + value._id + '.ged');
+    value.queryData.gedcomLink = 'file://' + path.join(path.join(outputPath, nation), value._id + '.ged');
     value.queryData.isNewFolder = value.queryData.dateAdded == value.queryData.dateUpdate ? ' 1' : ' 0';
 }
 
@@ -377,7 +378,7 @@ function saveFile(fileName, dir, data) {
         fs.mkdirSync(filePath);
     }
 
-    fs.writeFile(path.join(filePath, dateNow + fileName), data, function () {
+    fs.writeFile(path.join(filePath, fileName), data, function () {
         console.log('Saving Succeed', fileName);
     });
 }

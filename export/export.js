@@ -184,7 +184,7 @@ function createFileStream(fileName, dir) {
         fs.mkdirSync(filePath);
     }
     var stream = fs.createWriteStream(path.join(filePath, fileName + '.csv'));
-    stream.write(UTF8_BOM);
+    // stream.write(UTF8_BOM);
     return stream;
 }
 
@@ -256,73 +256,7 @@ var clearBlankLines = function (str) {
         }).join('\n');
 };
 
-var familyTpl = function (model) {
 
-    var arr = _.flatten([
-        '0 HEAD',
-        '1 GEDC',
-        '2 VERS 5.5.1',
-        '1 CHAR UTF-8',
-        '0 @momsFam@ FAM',
-        '1 HUSB @momsDad@',
-        '1 WIFE @momsMom@',
-        '1 CHIL @mom@',
-        model.momsBrothers && model.momsBrothers.map(function (b, i) {
-            return '1 CHIL @momsBrothers' + (i * 1 + 1) + '@';
-        }),
-        '0 @dadsFam@ FAM',
-        '1 HUSB @dadsDad@',
-        '1 WIFE @dadsMom@',
-        '1 CHIL @dad@',
-        model.dadsBrothers && model.dadsBrothers.map(function (b, i) {
-            return '1 CHIL @dadsBrothers' + (i * 1 + 1) + '@';
-        }),
-        '0 @fam@ FAM',
-        '1 HUSB @dad@',
-        '1 WIFE @mom@',
-        '1 CHIL @me@',
-        model.brothers && model.brothers.map(function (b, i) {
-            return '1 CHIL @brothers' + (i * 1 + 1) + '@';
-        })
-    ]);
-
-    return arr.join('\n') + '\n';
-};
-
-
-var individualTpl = function (id, ind, fam, image, fileName) {
-
-    var line = function (level, prop, value) {
-        if (value === undefined) {
-            return '';
-        }
-        return [level, prop, value].join(' ').trim();
-    };
-
-    return [
-        [0, '@' + id + '@', 'INDI'],
-        [1, 'NAME', ind.firstName + ' ' + (ind.lastName ? '/' + ind.lastName + '/' : '')],
-        [1, 'EMAIL', ind.email],
-        [1, 'PHON', ind.phone ? ind.phone : undefined],
-        [1, 'SEX', ind.isMale ? 'M' : 'F'],
-        [1, 'BIRT', ind.dateOfBirth || ind.placeOfBirth ? '' : undefined],
-        [2, 'DATE', ind.dateOfBirth],
-        [2, 'PLAC', ind.placeOfBirth],
-        [1, 'DEAT', ind.dateOfDeath ? '' : undefined],
-        [2, 'DATE', ind.dateOfDeath],
-        [1, 'FAMC', fam.famc ? '@' + fam.famc + '@' : undefined],
-        [1, 'FAMS', fam.fams ? '@' + fam.fams + '@' : undefined],
-        [1, 'OBJE', image ? '' : undefined],
-        [2, 'FORM', image ? 'jpg' : undefined],
-        [2, 'FILE', image ? fileName + '_' + id + '.jpg' : undefined],
-        [2, 'TITL', image ? fileName + '_' + id + '.jpg' : undefined],
-        [2, '_TYPE', image ? 'PHOTO' : undefined],
-        [2, '_PRIM', image ? 'Y' : undefined]
-    ].map(
-        function (args) {
-            return line.apply(this, args);
-        });
-};
 
 function addCommentToGetcoms(str) {
     return ['1 NOTE ' + str];
@@ -332,6 +266,78 @@ function addCommentToGetcoms(str) {
 var ignoreKeys = ['numBrothers', 'numDadsBrothers', 'numMomsBrothers', 'image', 'savingLocation', 'isNewFolder', 'dateAdded', 'dateUpdate', 'numOfNewPersons'];
 var gedcomFromModel = function (model, fileName) {
 
+	var i = 0, id2i = {},
+		fam2i = {momsFam: '1', dadsFam: '2', fam: '3', famc: '3'};
+
+	function individualTpl(id, ind, fam, image, fileName) {
+
+		i++;
+		id2i[id] = i;
+
+		var line = function (level, prop, value) {
+			if (value === undefined) {
+				return '';
+			}
+			return [level, prop, value].join(' ').trim();
+		};
+
+		return [
+			[0, '@I' + i + '@', 'INDI'],
+			[1, 'NAME', ind.firstName + ' ' + (ind.lastName ? '/' + ind.lastName + '/' : '')],
+			[1, 'EMAIL', ind.email],
+			[1, 'PHON', ind.phone ? ind.phone : undefined],
+			[1, 'SEX', ind.isMale ? 'M' : 'F'],
+			[1, 'BIRT', ind.dateOfBirth || ind.placeOfBirth ? '' : undefined],
+			[2, 'DATE', ind.dateOfBirth],
+			[2, 'PLAC', ind.placeOfBirth],
+			[1, 'DEAT', ind.dateOfDeath ? '' : undefined],
+			[2, 'DATE', ind.dateOfDeath],
+			[1, 'FAMC', fam.famc ? '@F' + fam2i[fam.famc] + '@' : undefined],
+			[1, 'FAMS', fam.fams ? '@F' + fam2i[fam.fams] + '@' : undefined],
+			[1, 'OBJE', image ? '' : undefined],
+			[2, 'FORM', image ? 'jpg' : undefined],
+			[2, 'FILE', image ? fileName + '_' + id + '.jpg' : undefined],
+			[2, 'TITL', image ? fileName + '_' + id + '.jpg' : undefined],
+			[2, '_TYPE', image ? 'PHOTO' : undefined],
+			[2, '_PRIM', image ? 'Y' : undefined]
+		].map(
+			function (args) {
+				return line.apply(this, args);
+			});
+	};
+
+	var familyTpl = function (model) {
+
+		var arr = _.flatten([
+			'0 HEAD',
+			'1 GEDC',
+			'2 VERS 5.5.1',
+			'1 CHAR UTF-8',
+			'0 @F'+fam2i['momsFam']+'@ FAM',
+			'1 HUSB @I'+id2i['momsDad']+'@',
+			'1 WIFE @I'+id2i['momsMom']+'@',
+			'1 CHIL @I'+id2i['mom']+'@',
+			model.momsBrothers && model.momsBrothers.map(function (b, i) {
+				return '1 CHIL @I'+id2i['momsBrothers' + (i * 1 + 1)] + '@';
+			}),
+			'0 @F'+fam2i['dadsFam']+'@ FAM',
+			'1 HUSB @I'+id2i['dadsDad']+'@',
+			'1 WIFE @I'+id2i['dadsMom']+'@',
+			'1 CHIL @I'+id2i['dad']+'@',
+			model.dadsBrothers && model.dadsBrothers.map(function (b, i) {
+				return '1 CHIL @I'+id2i['dadsBrothers' + (i * 1 + 1)] + '@';
+			}),
+			'0 @F'+fam2i['fam']+'@ FAM',
+			'1 HUSB @I'+id2i['dad']+'@',
+			'1 WIFE @I'+id2i['mom']+'@',
+			'1 CHIL @I'+id2i['me']+'@',
+			model.brothers && model.brothers.map(function (b, i) {
+				return '1 CHIL @I'+id2i['brothers' + (i * 1 + 1)] + '@';
+			})
+		]);
+
+		return arr.join('\n') + '\n';
+	};
     var individualsGedcoms = _.flatten(_.map(model, function (v, k) {
             if (k === 'brothers' || k === 'dadsBrothers' || k === 'momsBrothers') {
                 var fam = familyMap[k];
@@ -378,7 +384,8 @@ function saveFile(fileName, dir, data) {
         fs.mkdirSync(filePath);
     }
 
-    fs.writeFile(path.join(filePath, fileName), data, function () {
+    // stream.write(UTF8_BOM);
+    fs.writeFile(path.join(filePath, fileName), UTF8_BOM+data, function () {
         console.log('Saving Succeed', fileName);
     });
 }

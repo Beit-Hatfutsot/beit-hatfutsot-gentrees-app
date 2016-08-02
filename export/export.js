@@ -184,7 +184,7 @@ function createFileStream(fileName, dir) {
         fs.mkdirSync(filePath);
     }
     var stream = fs.createWriteStream(path.join(filePath, fileName + '.csv'));
-    // stream.write(UTF8_BOM);
+    stream.write(UTF8_BOM);
     return stream;
 }
 

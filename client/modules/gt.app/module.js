@@ -5,7 +5,7 @@
     function createModel(){
 
         var mom = {isWife: true, isMale: false, isMaleNotEditable: true, isAlive: true},
-            dad = {isMale: false, isMaleNotEditable: true, isAlive: true};
+            dad = {isMale: true, isMaleNotEditable: true, isAlive: true};
 
         return {
             me : {isAliveNotEditable: true, isAlive: true},

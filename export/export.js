@@ -339,6 +339,9 @@ var gedcomFromModel = function (model, fileName) {
 		return arr.join('\n') + '\n';
 	};
     var individualsGedcoms = _.flatten(_.map(model, function (v, k) {
+            if (k === 'dad' || k === 'dadsDad' || k === 'momsDad')
+				v.isMale = true
+
             if (k === 'brothers' || k === 'dadsBrothers' || k === 'momsBrothers') {
                 var fam = familyMap[k];
                 return _.map(v, function (brother, index) {

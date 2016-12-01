@@ -271,8 +271,6 @@ var gedcomFromModel = function (model, fileName) {
 
 	function individualTpl(id, ind, fam, image, fileName) {
 
-		i++;
-		id2i[id] = i;
 
 		var line = function (level, prop, value) {
 			if (value === undefined) {
@@ -280,6 +278,12 @@ var gedcomFromModel = function (model, fileName) {
 			}
 			return [level, prop, value].join(' ').trim();
 		};
+
+		if  (ind.firstName  === undefined)
+			return ''
+
+		i++;
+		id2i[id] = i;
 
 		return [
 			[0, '@I' + i + '@', 'INDI'],
@@ -318,21 +322,24 @@ var gedcomFromModel = function (model, fileName) {
 			'1 WIFE @I'+id2i['momsMom']+'@',
 			'1 CHIL @I'+id2i['mom']+'@',
 			model.momsBrothers && model.momsBrothers.map(function (b, i) {
-				return '1 CHIL @I'+id2i['momsBrothers' + (i * 1 + 1)] + '@';
+				var id = id2i['momsBrothers' + (i * 1 + 1)];
+				return id?'1 CHIL @I'+id + '@':'';
 			}),
 			'0 @F'+fam2i['dadsFam']+'@ FAM',
 			'1 HUSB @I'+id2i['dadsDad']+'@',
 			'1 WIFE @I'+id2i['dadsMom']+'@',
 			'1 CHIL @I'+id2i['dad']+'@',
 			model.dadsBrothers && model.dadsBrothers.map(function (b, i) {
-				return '1 CHIL @I'+id2i['dadsBrothers' + (i * 1 + 1)] + '@';
+				var id = id2i['dadsBrothers' + (i * 1 + 1)];
+				return id?'1 CHIL @I'+id + '@':'';
 			}),
 			'0 @F'+fam2i['fam']+'@ FAM',
 			'1 HUSB @I'+id2i['dad']+'@',
 			'1 WIFE @I'+id2i['mom']+'@',
 			'1 CHIL @I'+id2i['me']+'@',
 			model.brothers && model.brothers.map(function (b, i) {
-				return '1 CHIL @I'+id2i['brothers' + (i * 1 + 1)] + '@';
+				var id = id2i['brothers' + (i * 1 + 1)];
+				return id?'1 CHIL @I'+id + '@':'';
 			})
 		]);
 

@@ -7,7 +7,7 @@ import smtplib
 import calendar
 from datetime import datetime
 from argparse import ArgumentParser
-from subprocess import call
+import subprocess
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
@@ -29,15 +29,14 @@ if __name__ == '__main__':
         logging.error( 'Missing  database name')
         sys.exit(1)
 
-    out_basename = datetime.now().strftime("%Y%m%d%H%M")
-    out_dir = '/tmp/{}'.format(out_basename)
+    out_dir = '/home/ftapp/trees'
     # get the email conf
-    with open('/etc/bhs/config.yml') as f:
+    with open('/etc/bhs/app_server.yaml') as f:
         conf = yaml.load(f)
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
 
-    ret = call(['nodejs', 'export/export.js', '--db_name', args.dbname,
+    ret = subprocess.call(['node', 'export/export.js', '--db_name', args.dbname,
                 '--output', out_dir,
                 '--from_date', args.since, '--to_date', args.until])
     if False:
@@ -45,16 +44,20 @@ if __name__ == '__main__':
         logging.error(ret)
         exit(-1)
 
-    os.chdir('/tmp')
-    if os.path.exists('idf-trees.zip'):
-        os.remove('idf-trees.zip')
-    call(['zip', '-r', 'idf-trees.zip', out_basename])
+    os.chdir(out_dir)
+    if os.path.exists('/tmp/idf-trees.zip'):
+        os.remove('/tmp/idf-trees.zip')
+    find = subprocess.Popen(['find', ".", '-name', 'summary_report.csv'],
+                            stdout = subprocess.PIPE)
+    zip = subprocess.Popen(['zip', '-r', '/tmp/idf-trees.zip', '-@'],
+                            stdin = find.stdout)
+    zip.communicate()
     msg = MIMEMultipart()
-    msg['Subject'] = 'Weekly trees from the IDF app'
+    msg['Subject'] = 'Summary from the IDF app'
     msg['From'] = conf['email_from']
     msg['To'] = args.email
     # attach the file
-    with open('idf-trees.zip', "rb") as fil:
+    with open('/tmp/idf-trees.zip', "rb") as fil:
         part = MIMEApplication(
             fil.read(),
             Name="idf-trees.zip"

@@ -18,7 +18,7 @@ args = process.argv,
     userNames = getUserNames(),
     dateStart = getParam("--from_date") || "0",
     dateEnd = getParam("--to_date") || new Date().getTime(),
-    outputPath = getParam("--output") || "./gedcom/",
+	outputPath = getParam("--output") || "/home/ftapp/trees/",
     queryFile = getParam("--query_file"),
     dateNow = Date.now();
 
@@ -190,7 +190,8 @@ function createFileStream(fileName, dir) {
 
 function setCalculatedDataProperty(value, nation) {
     value.queryData.numOfNewPersons = calculateNumOfNewPersons(value);
-    value.queryData.gedcomLink = 'file://' + path.join(path.join(outputPath, nation), value._id + '.ged');
+	value.queryData.gedcomLink = 'https://idftrees.bh.org.il/trees/' + 
+	   path.join(nation, value._id + '.ged');
     value.queryData.isNewFolder = value.queryData.dateAdded == value.queryData.dateUpdate ? ' 1' : ' 0';
 }
 

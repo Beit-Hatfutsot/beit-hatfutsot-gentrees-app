@@ -396,9 +396,9 @@ function saveFile(fileName, dir, data) {
     }
 
     // stream.write(UTF8_BOM);
-    fs.writeFile(path.join(filePath, fileName), UTF8_BOM+data, function () {
-        console.log('Saving Succeed', fileName);
-    });
+    // when using the async version of this function there was a bug of too many open files
+    fs.writeFileSync(path.join(filePath, fileName), UTF8_BOM+data);
+    console.log('Saving Succeed', fileName);
 }
 
 

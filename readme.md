@@ -32,20 +32,7 @@ Two variables are available for embedding `${code}` and `${baseUrl}`
 Deployment and build
 ====================
 
-Deploy the code using git clone/pull/fetch and then install client and server dependencies
-
-```
-git clone https://danikenan.unfuddle.com/git/danikenan_beithatfutsot code 
-cd code
-npm install
-bower install
-```
-
-To start local server for dev purposes, run `gulp` and open your browser at `http://localhost:3000`.
-
-To compile and deploy client code into server public dir run run `gulp rebuild-client`.
-
-The server main file is `server.js`.
+see [/devops/README.md](/devops/README.md)
 
 Weekly Emails
 -------------

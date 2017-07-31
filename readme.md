@@ -1,3 +1,10 @@
+High Level Overview
+===================
+
+A web-app that allows to generate a simple family tree.
+
+The data is stored in MondoDB and GEDCOM files are generated and saved in a directory on the server.
+
 Pre-requisites
 ==============
 + mongodb server

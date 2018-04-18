@@ -9,3 +9,6 @@ data
 /*.ged
 env
 *.pyc
+vendor
+secret*
+docker-compose.override.yaml

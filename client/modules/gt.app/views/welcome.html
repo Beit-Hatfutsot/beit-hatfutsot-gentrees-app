@@ -3,7 +3,7 @@
     <header>
         <div class="logo"></div>
         <div class="brand-logo">
-            <img src="modules/gt.app/style/assets/{{configOption.logo}}">
+            <img ng-src="{{configOption.externalLogo ? configOption.externalLogo : 'modules/gt.app/style/assets/' + configOption.logo}}">
         </div>
     </header>
 

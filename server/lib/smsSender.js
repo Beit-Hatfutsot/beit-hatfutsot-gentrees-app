@@ -1,43 +1,32 @@
-var savedFilesDir = process.env.SAVED_FILES_DIR || (__dirname + '/../../'),
-    path = require('path'),
-    fs = require('fs'),
+var smsApiKey = process.env.SMS_API_KEY,
+    smsApiSecret = process.env.SMS_API_SECRET,
     request = require("request"),
-    Q = require('q');
-
-var smsServerUrl = 'https://rest.nexmo.com/sms/json',
-      from = 'Beit Hatfutsot',
-      filePath = path.join(savedFilesDir, 'SmsApiKey.txt');
+    Q = require('q'),
+    smsServerUrl = 'https://rest.nexmo.com/sms/json',
+    from = 'Beit Hatfutsot';
 
 exports = module.exports = {
 
     send: function (code, phoneNum) {
+        console.log('smsSenderSend');
 
-        return Q.nfcall(fs.readFile, filePath, "utf-8").then(function (data) {
-            var to = '972' + phoneNum.substr(1),
-                text = code,
-                fileData = JSON.parse(data);
+        var deferred = Q.defer();
 
-            var deferred = Q.defer();
-
-            request({
-                uri: smsServerUrl,
-                method: "POST",
-                form: {
-                    api_key: fileData.apiKey ,
-                    api_secret :fileData.apiSecret ,
-                    from:from,
-                    to:to,
-                    text:text
-                }
-            }, function(error, response, body) {
-                deferred.resolve(JSON.parse(body));
-            });
-
-            return deferred.promise;
-
-        }).fail(function (err) {
-            console.error('Error received:', err);
+        request({
+            uri: smsServerUrl,
+            method: "POST",
+            form: {
+                api_key: smsApiKey ,
+                api_secret :smsApiSecret ,
+                from:from,
+                to:'972' + phoneNum.substr(1),
+                text: code
+            }
+        }, function(error, response, body) {
+            deferred.resolve(JSON.parse(body));
         });
+
+        return deferred.promise;
 
     }
 };

@@ -25,7 +25,7 @@ var concatFiles = process.env.NODE_ENV === 'production'; //todo: determine/chang
 var paths = {
     dist : 'server/public/',
     src: {
-        client: 'client/',
+        client: './',
         server: 'server/app/'
     }
 };
@@ -42,7 +42,7 @@ var sources = {
 
 Object.defineProperty(sources, 'vendor.js', {
     get: function() {
-        var vendorSources = JSON.parse(fs.readFileSync('./client/vendor.json', 'utf-8'));
+        var vendorSources = JSON.parse(fs.readFileSync(paths.src.client + 'vendor.json', 'utf-8'));
         return vendorSources.js.map(function (f) {
             return paths.src.client + f;
         });
@@ -51,7 +51,7 @@ Object.defineProperty(sources, 'vendor.js', {
 
 Object.defineProperty(sources, 'vendor.css', {
     get: function() {
-        var vendorSources = JSON.parse(fs.readFileSync('./client/vendor.json', 'utf-8'));
+        var vendorSources = JSON.parse(fs.readFileSync(paths.src.client + 'vendor.json', 'utf-8'));
         return vendorSources.css.map(function (f) {
             return paths.src.client + f;
         });
@@ -137,7 +137,7 @@ gulp.task('vendor.css', function() {
     if(concatFiles){
         return gulp.src(sources['vendor.css'])
             .pipe(sourcemaps.init())
-            .pipe(minifyCSS({keepBreaks:true, root: 'client/'}))
+            .pipe(minifyCSS({keepBreaks:true, root: paths.src.client}))
             .pipe(sourcemaps.write())
             .pipe(sourcemaps.init({loadMaps: true}))
             .pipe(concat('vendor.css'))

@@ -24,9 +24,8 @@ angular.module('gt.app').config(['$stateProvider', '$urlRouterProvider', '$locat
                 controller: 'gt' + stateName.substr(0, 1).toUpperCase() + stateName.substr(1) + 'Ctrl',
                 data: {
                     allowedStatuses: statuses
-                },
-                params: { publishStartDate: null}
-
+                }/*,
+                params: { publishStartDate: null}*/
             });
         });
     }

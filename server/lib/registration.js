@@ -1,6 +1,7 @@
 var savedFilesDir = process.env.SAVED_FILES_DIR || (__dirname + '/../../'),
     mongoURL = process.env.MONGO_URL || 'mongodb://localhost:27017/gentreeDb',
-    emailTplPath = process.env.EMAIL_BODY_TPL_PATH || (__dirname + '/email/emailTpl.html');
+    emailTplPath = process.env.EMAIL_BODY_TPL_PATH || (__dirname + '/email/emailTpl.html'),
+    appConfigFile = process.env.APP_CONFIG || 'appConfig.json';
 
 var emailSender = require('./emailSender'),
     smsSender = require('./smsSender'),
@@ -13,8 +14,8 @@ var emailSender = require('./emailSender'),
 
 
 var collPromise = (function () {
-        return Q.ninvoke(MongoClient, 'connect', mongoURL).then(function (db) {
-            return db.collection('registrations');
+        return Q.ninvoke(MongoClient, 'connect', mongoURL).then(function (client) {
+            return client.db().collection('registrations');
         }).catch(function (err) {
             console.error(err.message, err.stack);
             process.exit(1);
@@ -109,7 +110,7 @@ exports.sendSMS = function (deviceId, phoneNum) {
 
 
 exports.config = function () {
-    var data = fs.readFileSync('appConfig.json', 'utf-8');
+    var data = fs.readFileSync(appConfigFile, 'utf-8');
     return JSON.parse(data);
 };
 

@@ -12,14 +12,17 @@ const UTF8_BOM = '\uFEFF';
 //  node export.js 
 //  node export.js --db_name gentreeDb  --users ofer
 
-var mongoURL;
-args = process.argv,
+var mongoURL,
+    args = process.argv,
     dbName = getParam("--db_name"),
+    dbUrl = getParam("--db_url"),
     userNames = getUserNames(),
+    fromDays = getParam('--from_days'),
     dateStart = getParam("--from_date") || "0",
     dateEnd = getParam("--to_date") || new Date().getTime(),
 	outputPath = getParam("--output") || "/home/ftapp/trees/",
     queryFile = getParam("--query_file"),
+    debug = getParam('--debug'),
     dateNow = Date.now();
 
 function getParam(str) {
@@ -43,7 +46,10 @@ function getUserNames() {
 
 function initDb() {
 
-    if (dbName) {
+    if (dbUrl) {
+        mongoURL = dbUrl;
+        start();
+    } else if (dbName) {
         mongoURL = 'mongodb://localhost:27017/' + dbName;
         start();
     } else {
@@ -73,6 +79,9 @@ function getQueryFromFile() {
 
 function getQueryFromParam() {
     var userQuery;
+    if (fromDays) {
+        dateStart = (new Date()).getTime() - (fromDays * 1000 * 60 * 60 * 24);
+    }
     if (userNames) {
         userQuery = [
             //{"queryData.me.firstName": userNames},
@@ -100,24 +109,25 @@ function getQueryFromParam() {
 }
 
 function convertDateFromTimestamp(date) {
-    return new Date(date * 1000)
+    return new Date(date)
 }
 
 function getDataFromDB(query) {
+    if (debug) console.log(query);
 
-    MongoClient.connect(mongoURL, function (err, db) {
+    MongoClient.connect(mongoURL, function (err, client) {
 
 
-        var collection = db.collection('registrations');
+        var collection = client.db().collection('registrations');
 
         collection.find(query).toArray(function (err, docs) {
 
             if (docs.length > 0) {
-                createReport(docs, db);
-                createGedcom(docs, db);
+                createReport(docs, client);
+                createGedcom(docs, client);
             } else {
                 console.log('No match found');
-                db.close();
+                client.close();
             }
 
         });
@@ -144,7 +154,7 @@ _.each(headerList, function (v, k) {
     header.push(v);
 });
 
-function createReport(docs, db) {
+function createReport(docs, client) {
 
     var data = _.groupBy(docs, function (v) {
         return v.queryData.savingLocation
@@ -164,13 +174,14 @@ function createReport(docs, db) {
             _.each(headerList, function (v, k) {
                 dataToWrite[v] = value.queryData[k] || value.queryData.me[k];
             });
-            writerCsv.write(dataToWrite)
+            writerCsv.write(dataToWrite);
+            if (debug) console.log(dataToWrite);
         });
         writerCsv.end();
         console.log('Saving Succeed', dateNow + fileName);
     });
 
-    db.close();
+    client.close();
 }
 
 
@@ -371,7 +382,7 @@ var gedcomFromModel = function (model, fileName) {
 };
 
 
-function createGedcom(docs, db) {
+function createGedcom(docs, client) {
 
     _.each(docs, function (v) {
         if (v.familyTrees) {
@@ -384,7 +395,7 @@ function createGedcom(docs, db) {
         }
     });
 
-    db.close();
+    client.close();
 }
 
 function saveFile(fileName, dir, data) {

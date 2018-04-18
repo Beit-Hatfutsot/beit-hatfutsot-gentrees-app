@@ -7,39 +7,26 @@ The data is stored in MondoDB and GEDCOM files are generated and saved in a dire
 
 Pre-requisites
 ==============
-+ mongodb server
-
-+ node and npm
- 
-+ gulp and bower install globally
-
-Server env variables
-====================
-
-+ `PORT`
-Default `3000`.
-
-+ `SAVED_FILES_DIR`
-Default `'../../'`.
-
-+ `MONGO_URL`
-Default `'mongodb://localhost:27017/gentreeDb'`.
-
-+ `EMAIL_SETTINGS_JSON_PATH`
-Default `server/lib/email/emailSenderSettings.json'`.
-Example for the file contents can be found in the default path. 
-For transport and settings options see http://www.nodemailer.com/ and the config for smtp transport and well-known services.
-
-+ `EMAIL_BODY_TPL_PATH`
-Default `server/lib/email/emailTpl.html'`
-Example for the file contents can be found in the default path.
-Two variables are available for embedding `${code}` and `${baseUrl}`
++ [Docker](https://docs.docker.com/install/)
++ [Docker Compose](https://docs.docker.com/compose/install/)
 
 
-Deployment and build
-====================
+Development
+===========
 
-see [/devops/README.md](/devops/README.md)
+```
+cd beit-hatfutsot-gentrees-app
+docker-compose up -d --build
+```
+
+client is available at http://localhost:8080/index.html
+
+
+Deployment
+==========
+
+Deployment is managed in [mojp-k8s](https://github.com/beit-hatfutsot/mojp-k8s) under `gentrees` chart.
+
 
 Weekly Emails
 -------------

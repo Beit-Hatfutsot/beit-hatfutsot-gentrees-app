@@ -5,7 +5,7 @@ services:
   nginx:
     depends_on:
     - server
-    image: orihoch/beit-hatfutsot-gentrees-app-nginx
+    image: orihoch/beit-hatfutsot-gentrees-app-nginx:latest
     build: nginx
     volumes:
     - ftapp:/home/ftapp
@@ -18,21 +18,21 @@ services:
   server:
     depends_on:
     - mongo
-    image: orihoch/beit-hatfutsot-gentrees-app-server
+    image: orihoch/beit-hatfutsot-gentrees-app-server:latest
     build: server
     environment:
       MONGO_URL: mongodb://mongo:27017/gentreeDb
       APP_CONFIG: appConfig.cthulu.json
 
   client:
-    image: orihoch/beit-hatfutsot-gentrees-app-client
+    image: orihoch/beit-hatfutsot-gentrees-app-client:latest
     build: client
     command: "copy /home/ftapp/current/server"
     volumes:
     - ftapp:/home/ftapp
 
   export:
-    image: orihoch/beit-hatfutsot-gentrees-app-export
+    image: orihoch/beit-hatfutsot-gentrees-app-export:latest
     build: export
     environment:
       FREQUENCY_SECONDS: 86400

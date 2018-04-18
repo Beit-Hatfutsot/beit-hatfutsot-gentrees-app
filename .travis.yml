@@ -1,0 +1,28 @@
+sudo: required
+language: bash
+services:
+- docker
+env:
+  matrix:
+  - IMAGE_SUFFIX=nginx DOCKER_BUILD_ARGS="nginx"
+  - IMAGE_SUFFIX=server DOCKER_BUILD_ARGS="server"
+  - IMAGE_SUFFIX=client DOCKER_BUILD_ARGS="client"
+  - IMAGE_SUFFIX=export DOCKER_BUILD_ARGS="export"
+  global:
+  - IMAGE_PREFIX="orihoch/beit-hatfutsot-gentrees-app-"
+script:
+- |
+  docker pull "${IMAGE_PREFIX}${IMAGE_SUFFIX}:latest"
+  docker build --cache-from "${IMAGE_PREFIX}${IMAGE_SUFFIX}:latest" \
+               -t "${IMAGE_PREFIX}${IMAGE_SUFFIX}:latest" \
+               $DOCKER_BUILD_ARGS
+deploy:
+  provider: script
+  script: |
+    tag="${TRAVIS_COMMIT}"
+    docker login -u "$DOCKER_USER" -p "$DOCKER_PASS" &&\
+    docker push "${IMAGE_PREFIX}${IMAGE_SUFFIX}:latest" &&\
+    docker tag "${IMAGE_PREFIX}${IMAGE_SUFFIX}:latest" "${IMAGE_PREFIX}${IMAGE_SUFFIX}:${tag}" &&\
+    docker push "${IMAGE_PREFIX}${IMAGE_SUFFIX}:${tag}"
+  on:
+    branch: dockerize

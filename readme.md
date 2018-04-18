@@ -25,6 +25,8 @@ client is available at http://localhost:8080/index.html
 Deployment
 ==========
 
+Travis builds and pushes docker image to Docker Hub.
+
 Deployment is managed in [mojp-k8s](https://github.com/beit-hatfutsot/mojp-k8s) under `gentrees` chart.
 
 

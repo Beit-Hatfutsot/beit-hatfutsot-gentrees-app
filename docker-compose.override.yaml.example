@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+
+  server:
+    environment:
+      SMS_API_KEY:
+      SMS_API_SECRET:
+
+  export:
+    volumes:
+    - /secret-service-account-key-file:/secret_service_key

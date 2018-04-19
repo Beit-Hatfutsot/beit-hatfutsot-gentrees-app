@@ -1,0 +1,29 @@
+dist: trusty
+sudo: required
+language: bash
+services:
+- docker
+env:
+  matrix:
+  - IMAGE_SUFFIX=nginx DOCKER_BUILD_ARGS="nginx"
+  - IMAGE_SUFFIX=server DOCKER_BUILD_ARGS="server"
+  - IMAGE_SUFFIX=client DOCKER_BUILD_ARGS="client"
+  - IMAGE_SUFFIX=export DOCKER_BUILD_ARGS="export"
+  - >
+    K8S_REPO_BRANCH=master
+    K8S_REPO_SLUG=Beit-Hatfutsot/mojp-k8s
+    IMAGE_SUFFIXES="nginx server client export"
+    UPDATE_MAP_JSON='{"gentrees":{"clientImage":"<<client>>","serverImage":"<<server>>","nginxImage":"<<nginx>>","exportImage":"<<export>>"}}'
+    YAML_UPDATE_FILE=environments/production/values.auto-updated.yaml
+    GIT_USER_EMAIL=deployer@dbs.bh.org.il
+    GIT_USER_NAME=deployer
+    GIT_COMMIT_MESSAGE="gentrees images update"
+  global:
+  - IMAGE_PREFIX="orihoch/beit-hatfutsot-gentrees-app-"
+script:
+- bash .travis.sh script
+deploy:
+  provider: script
+  script: bash .travis.sh deploy
+  on:
+    branch: master

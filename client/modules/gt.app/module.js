@@ -27,7 +27,9 @@
     angular.module('gt.app', ['uuid','ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils', 'pascalprecht.translate','angular-google-analytics']);
 
     angular.element(document).ready(function () {
-        angular.bootstrap(document, ['gt.app']);
+        setTimeout(function() {
+            angular.bootstrap(document, ['gt.app']);
+        }, 200);
     });
 
     angular.module('gt.app').config(function (AnalyticsProvider) {

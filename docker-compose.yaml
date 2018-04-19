@@ -1,0 +1,48 @@
+version: "2"
+
+services:
+
+  nginx:
+    depends_on:
+    - server
+    image: orihoch/beit-hatfutsot-gentrees-app-nginx:latest
+    build: nginx
+    volumes:
+    - ftapp:/home/ftapp
+    ports:
+    - 8080:80
+
+  mongo:
+    image: mongo
+
+  server:
+    depends_on:
+    - mongo
+    image: orihoch/beit-hatfutsot-gentrees-app-server:latest
+    build: server
+    environment:
+      MONGO_URL: mongodb://mongo:27017/gentreeDb
+      APP_CONFIG: appConfig.cthulu.json
+
+  client:
+    image: orihoch/beit-hatfutsot-gentrees-app-client:latest
+    build: client
+    command: "copy /home/ftapp/current/server"
+    volumes:
+    - ftapp:/home/ftapp
+
+  export:
+    image: orihoch/beit-hatfutsot-gentrees-app-export:latest
+    build: export
+    environment:
+      FREQUENCY_SECONDS: 86400
+      MONGO_URL: mongodb://mongo:27017/gentreeDb
+      BACKUP_MONGO_HOST: mongo
+      BACKUP_PREFIX: cthulu
+      BACKUP_DESTINATION: gs://bhs-bhp-backup/mongo/
+    command: "backup-sync"
+    volumes:
+    - ftapp:/home/ftapp
+
+volumes:
+  ftapp:

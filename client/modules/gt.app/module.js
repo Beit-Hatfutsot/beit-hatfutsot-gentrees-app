@@ -29,7 +29,7 @@
     angular.element(document).ready(function () {
         setTimeout(function() {
             angular.bootstrap(document, ['gt.app']);
-        }, 200);
+        }, 50);
     });
 
     angular.module('gt.app').config(function (AnalyticsProvider) {
@@ -57,10 +57,11 @@
               $state.go('welcome');
             };
 
-            regSvc.getConfigData().then(function(res){
-                $rootScope.configOption = res;
-            });
-
+            $rootScope.configOption = {
+              "color":"#888888",
+              "externalLogo":"https://pre00.deviantart.net/fd16/th/pre/i/2016/224/4/7/cthulhu_logo_by_gr33nd3v1l-d30ozsr.png",
+              "message": "ברוכים הבאים לפרויקט עצי המשפחה של קהילת חברי קתולוהו ישראל. כאן תוכלו ליצור את עץ המשפחה שלכם ב-4 צעדים פשוטים. "
+            };
 
             $rootScope.$on('$stateChangeStart', function (event, toState) {
 

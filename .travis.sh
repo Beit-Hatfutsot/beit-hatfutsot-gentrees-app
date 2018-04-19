@@ -27,7 +27,7 @@ elif [ "${1}" == "deploy" ]; then
                    -e GIT_USER_EMAIL="${GIT_USER_EMAIL}" \
                    -e GIT_USER_NAME="${GIT_USER_NAME}" \
                    -e GIT_COMMIT_MESSAGE="${GIT_COMMIT_MESSAGE}" \
-                   -e PUSH_PARAMS="https://${GITHUB_TOKEN}@${K8S_REPO_SLUG}.git ${K8S_REPO_BRANCH}" \
+                   -e PUSH_PARAMS="https://${GITHUB_TOKEN}@github.com/${K8S_REPO_SLUG}.git ${K8S_REPO_BRANCH}" \
                    orihoch/github_yaml_updater
         [ "$?" != "0" ] && echo failed github yaml update && exit 1
    fi

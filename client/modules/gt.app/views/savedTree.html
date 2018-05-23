@@ -28,7 +28,9 @@
             <div ><img src="images/triangle.png"/></div>
         </div>
         <div class="logo"></div>
-        <div class="idf-logo"></div>
+        <div>
+            <img style="height:100px;float:left;margin-left:5px;" ng-src="{{configOption.externalLogo ? configOption.externalLogo : 'modules/gt.app/style/assets/' + configOption.logo}}">
+        </div>
         </div>
 
     </section>

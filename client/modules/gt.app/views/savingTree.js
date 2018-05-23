@@ -59,8 +59,11 @@ angular.module('gt.app').controller('gtSavingTreeCtrl', [
             //successMessage += $scope.model.savingLocation == 'beitHatfutsot' ? 'Beit Hatfutsot' : 'Other';
             regSvc.saveTree($scope.model).then(function () {
                 var endTime = new Date().getTime();
-                var timeSpentInSecond = (endTime - $stateParams.publishStartDate.getTime()) / 1000;
-
+                if ($stateParams.publishStartDate) {
+                    var timeSpentInSecond = (endTime - $stateParams.publishStartDate.getTime()) / 1000;
+                } else {
+                    var timeSpentInSecond = 0;
+                }
                 $timeout(function () {
                     Analytics.trackEvent('IDFtrees', 'Publish ', $scope.model.savingLocation, timeSpentInSecond);
                     $state.go('savedTree');

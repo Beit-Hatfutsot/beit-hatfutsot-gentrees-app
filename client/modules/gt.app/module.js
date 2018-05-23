@@ -37,8 +37,8 @@
         //AnalyticsProvider.enterDebugMode(true);
     });
 
-    angular.module('gt.app').run(['$templateCache', '$state', '$rootScope', 'gtRegistrationSvc',
-        function ($templateCache, $state, $rootScope, regSvc) {
+    angular.module('gt.app').run(['$templateCache', '$state', '$rootScope', 'gtRegistrationSvc', '$translate',
+        function ($templateCache, $state, $rootScope, regSvc, $translate) {
             $templateCache.put('shell.html', '<div ng-include="\'/modules/gt.app/views/shell.html\'"></div>');
 
 
@@ -60,8 +60,11 @@
             $rootScope.configOption = {
               "color":"#888888",
               "externalLogo":"https://pre00.deviantart.net/fd16/th/pre/i/2016/224/4/7/cthulhu_logo_by_gr33nd3v1l-d30ozsr.png",
-              "message": "ברוכים הבאים לפרויקט עצי המשפחה של קהילת חברי קתולוהו ישראל. כאן תוכלו ליצור את עץ המשפחה שלכם ב-4 צעדים פשוטים. "
+              "message": "Welcome to the Cthulu Israel Family Trees Project. You are invited to use this site to create your family tree in 4 simple steps ",
+              "preferredLanguage": "en"
             };
+
+            $translate.use($rootScope.configOption.preferredLanguage);
 
             $rootScope.$on('$stateChangeStart', function (event, toState) {
 

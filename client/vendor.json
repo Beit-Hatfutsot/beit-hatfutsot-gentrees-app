@@ -25,11 +25,14 @@
     
     "css" : [
         "lib/bootstrap-rtl/dist/css/bootstrap.css",
-        "lib/bootstrap-rtl/dist/css/bootstrap-rtl.css",
         "lib/font-awesome/css/font-awesome.css",
         "locallib/mobiscroll/css/mobiscroll-core.css",
         "locallib/fonts/aharoni/stylesheet.css",
         "locallib/fonts/open-sans/stylesheet.css",
         "locallib/fonts/le-patin-helvete/stylesheet.css"
+    ],
+
+    "//comments": [
+        "lib/bootstrap-rtl/dist/css/bootstrap-rtl.css"
     ]
 }

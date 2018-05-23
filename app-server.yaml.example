@@ -1,0 +1,5 @@
+mail_server: ''
+mail_port: 2525
+mail_username: ''
+mail_password: ''
+email_from: ''

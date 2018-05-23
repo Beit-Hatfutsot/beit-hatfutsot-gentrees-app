@@ -9,4 +9,7 @@ services:
 
   export:
     volumes:
+    # google compute cloud service account key file with minimal permissions for the backup to google storage
     - /secret-service-account-key-file:/secret_service_key
+    # see ./app-server.yaml.example
+    - /secret-app-server.yaml:/etc/bhs/app_server.yaml

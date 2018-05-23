@@ -18,7 +18,7 @@ class SendTreesCommand(object):
         parser.add_argument('-t', '--to')
         parser.add_argument('-s', '--since', default="0")
         parser.add_argument('-u', '--until', default=str(calendar.timegm(time.gmtime()) * 1000))
-        parser.add_argument('-d', '--dbname')
+        parser.add_argument('-d', '--dburl')
         parser.add_argument('-e', '--email')
         return parser.parse_args()
 
@@ -31,26 +31,26 @@ class SendTreesCommand(object):
 
     def _get_msg(self, args, conf):
         msg = MIMEMultipart()
-        msg['Subject'] = 'Summary from the IDF app'
+        msg['Subject'] = 'Summary from the gentrees app'
         msg['From'] = conf['email_from']
         msg['To'] = args.email
         # attach the file
-        with open('/tmp/idf-trees.zip', "rb") as fil:
+        with open('/tmp/gen-trees.zip', "rb") as fil:
             part = MIMEApplication(
                 fil.read(),
-                Name="idf-trees.zip"
+                Name="gen-trees.zip"
             )
-            part['Content-Disposition'] = 'attachment; filename="idf-trees.zip"'
+            part['Content-Disposition'] = 'attachment; filename="gen-trees.zip"'
             msg.attach(part)
         return msg
 
     def _create_zip(self, out_dir):
         os.chdir(out_dir)
-        if os.path.exists('/tmp/idf-trees.zip'):
-            os.remove('/tmp/idf-trees.zip')
+        if os.path.exists('/tmp/gen-trees.zip'):
+            os.remove('/tmp/gen-trees.zip')
         find = subprocess.Popen(['find', ".", '-name', 'summary_report.csv'],
                                 stdout=subprocess.PIPE)
-        zip = subprocess.Popen(['zip', '-r', '/tmp/idf-trees.zip', '-@'],
+        zip = subprocess.Popen(['zip', '-r', '/tmp/gen-trees.zip', '-@'],
                                stdin=find.stdout)
         zip.communicate()
 
@@ -58,7 +58,7 @@ class SendTreesCommand(object):
         return subprocess.call(args)
 
     def _run_export(self, args, out_dir):
-        export_args = ['node', 'export/export.js', '--db_name', args.dbname, '--output', out_dir]
+        export_args = ['node', 'export.js', '--db_url', args.dburl, '--output', out_dir]
         if args.since and args.since != "0":
             export_args += ["--from_date", args.since]
         if args.until and args.until != "0":
@@ -70,7 +70,7 @@ class SendTreesCommand(object):
             exit(-1)
 
     def _get_out_dir(self):
-        out_dir = '/home/ftapp/trees'
+        out_dir = '/home/ftapp/trees/{collection}'.format(collection='beitHatfutsot')
         if not os.path.exists(out_dir):
             os.mkdir(out_dir)
         return out_dir
@@ -87,8 +87,8 @@ class SendTreesCommand(object):
         return conf
 
     def _validate_args(self, args):
-        if not args.dbname:
-            logging.error('Missing  database name')
+        if not args.dburl:
+            logging.error('Missing  database url')
             sys.exit(1)
 
     def main(self):

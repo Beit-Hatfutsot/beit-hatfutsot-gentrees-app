@@ -14,6 +14,8 @@ services:
 
   mongo:
     image: mongo
+    volumes:
+    - mongo:/data/db
 
   server:
     depends_on:
@@ -39,10 +41,11 @@ services:
       MONGO_URL: mongodb://mongo:27017/gentreeDb
       BACKUP_MONGO_HOST: mongo
       BACKUP_PREFIX: cthulu
-      BACKUP_DESTINATION: gs://bhs-bhp-backup/mongo/
+      BACKUP_DESTINATION: gs://bhs-bhp-backup/mongo/dev/
     command: "backup-sync"
     volumes:
     - ftapp:/home/ftapp
 
 volumes:
   ftapp:
+  mongo:

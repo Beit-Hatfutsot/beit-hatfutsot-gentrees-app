@@ -20,6 +20,8 @@ elif [ "${1}" == "sync" ]; then
     done
 elif [ "${1}" == "backup" ]; then
     /export/mongo_backup.sh "${BACKUP_PREFIX}" "${BACKUP_DESTINATION}" "${BACKUP_MONGO_HOST}"
+elif [ "${1}" == "send-trees" ]; then
+    python2 send-trees.py --dburl "${MONGO_URL}" ${@:2}
 else
     node export.js --db_url "${MONGO_URL}" $@
 fi
